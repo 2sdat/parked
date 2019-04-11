@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Parked</string>
+
+    <string name="editTextUsernameHint">Username</string>
+    <string name="editTextPasswordHint">Password</string>
+    <string name="buttonLoginText">Login</string>
 </resources>

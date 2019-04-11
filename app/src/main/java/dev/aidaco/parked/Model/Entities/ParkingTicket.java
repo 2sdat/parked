@@ -11,6 +11,8 @@ import dev.aidaco.parked.Model.Enums;
 
 @Entity(tableName = "tickets", indices = {@Index(value = {"id"}, unique = true)})
 public class ParkingTicket {
+    public static final long END_TIME_NULL = 0;
+
     @PrimaryKey
     private long id;
 
@@ -33,17 +35,21 @@ public class ParkingTicket {
     @Embedded
     private LicensePlate licensePlate;
 
-    @ColumnInfo(name = "park_time")
-    private long parkTime;
+    @ColumnInfo(name = "start_time")
+    private long startTime;
 
-    public ParkingTicket(long id, @NonNull Enums.VehicleType vehicleType, int spotId, @NonNull LicensePlate licensePlate, int attendentId, @NonNull Enums.BillingType billingType, long parkTime) {
+    @ColumnInfo(name = "end_time")
+    private long endTime;
+
+    public ParkingTicket(long id, @NonNull Enums.VehicleType vehicleType, int spotId, @NonNull LicensePlate licensePlate, int attendentId, @NonNull Enums.BillingType billingType, long startTime) {
         this.id = id;
         this.vehicleType = vehicleType;
         this.spotId = spotId;
         this.licensePlate = licensePlate;
         this.attendentId = attendentId;
         this.billingType = billingType;
-        this.parkTime = parkTime;
+        this.startTime = startTime;
+        this.endTime = END_TIME_NULL;
     }
 
     public long getId() {
@@ -73,8 +79,16 @@ public class ParkingTicket {
         return billingType;
     }
 
-    public long getParkTime() {
-        return parkTime;
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 
     public boolean compare(ParkingTicket ticket) {
@@ -89,7 +103,7 @@ public class ParkingTicket {
         res = res && (this.licensePlate.getState() == ticket.getLicensePlate().getState());
         res = res && (this.attendentId == ticket.getAttendentId());
         res = res && (this.billingType == ticket.getBillingType());
-        res = res && (this.parkTime == ticket.getParkTime());
+        res = res && (this.startTime == ticket.getStartTime());
         return res;
     }
 }

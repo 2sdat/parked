@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashSet;
 import java.util.List;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
@@ -101,7 +102,7 @@ public class ParkedDatabaseTest {
         try {
             User u1 = LiveDataTestUtil.getValue(mUserDao.getUserById(user.getId()));
             User u2 = LiveDataTestUtil.getValue(mUserDao.getByUserName(user.getUsername()));
-            Assert.assertEquals(u1, u2);
+            Assert.assertTrue(u1.compare(u2));
 
             User user1 = new User(user.getId(), user.getUsername(), user.getPassword(), "Johnny", user.getLastName(), user.getUserType(), user.getIsActive());
             mUserDao.updateUser(user1);
@@ -151,17 +152,26 @@ public class ParkedDatabaseTest {
         }
 
         try {
+            List<Spot> allSpots = LiveDataTestUtil.getValue(mSpotDao.getAllSpots());
+            HashSet<Integer> takenIds = new HashSet();
+            for (Spot s : allSpots) {
+                takenIds.add(s.getId());
+            }
+            int id = 0;
+            while (takenIds.contains(id)) {
+                id++;
+            }
 
-            Spot spot = new Spot(301, Enums.VehicleType.CAR, true, Spot.NULL_TICKET_ID);
+            Spot spot = new Spot(id, Enums.VehicleType.CAR, true, Spot.NULL_TICKET_ID);
             mSpotDao.addSpot(spot);
 
             Spot spot1 = LiveDataTestUtil.getValue(mSpotDao.getByID(spot.getId()));
-            Assert.assertEquals(spot1, spot);
+            Assert.assertTrue(spot1.compare(spot));
             spot.toggleIsEmpty();
             mSpotDao.updateSpot(spot);
             spot1 = LiveDataTestUtil.getValue(mSpotDao.getByID(spot.getId()));
             Assert.assertTrue(!spot1.getIsEmpty());
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
             Assert.fail();
         }

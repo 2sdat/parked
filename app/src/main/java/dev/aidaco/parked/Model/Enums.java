@@ -33,18 +33,24 @@ public class Enums {
     }
 
     public enum VehicleType {
-        CAR(0),
-        TRUCK(1),
-        MOTORCYCLE(2);
+        CAR(0, "Car"),
+        TRUCK(1, "Truck"),
+        MOTORCYCLE(2, "Motorcycle");
 
         private final int typeCode;
+        private final String name;
 
-        VehicleType(int typeCode) {
+        VehicleType(int typeCode, String name) {
             this.typeCode = typeCode;
+            this.name = name;
         }
 
         public int getTypeCode() {
             return this.typeCode;
+        }
+
+        public String getName() {
+            return this.name;
         }
 
         public static VehicleType fromTypeCode(int typeCode) {

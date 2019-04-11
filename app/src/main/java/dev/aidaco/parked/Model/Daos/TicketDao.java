@@ -21,6 +21,9 @@ public interface TicketDao {
     @Query("SELECT * FROM tickets")
     LiveData<List<ParkingTicket>> getAllTickets();
 
+    @Query("SELECT * FROM tickets WHERE end_time = 0")
+    LiveData<List<ParkingTicket>> getAllActiveTickets();
+
     @Query("SELECT * FROM tickets WHERE id LIKE :id")
     LiveData<ParkingTicket> getTicketByID(long id);
 

@@ -17,15 +17,15 @@ public interface SpotDao {
     @Update
     void updateSpot(Spot spot);
 
-    @Query("SELECT * FROM spots WHERE id = :id")
-    LiveData<Spot> getByID(int id);
-
-    @Query("SELECT * FROM spots")
-    LiveData<List<Spot>> getAllSpots();
-
     @Query("SELECT * FROM spots WHERE NOT is_empty")
     LiveData<List<Spot>> getOccupiedSpots();
 
     @Query("SELECT * FROM spots WHERE is_empty")
     LiveData<List<Spot>> getEmptySpots();
+
+    @Query("SELECT * FROM spots")
+    LiveData<List<Spot>> getAllSpots();
+
+    @Query("SELECT * FROM spots WHERE id = :id")
+    LiveData<Spot> getByID(int id);
 }
