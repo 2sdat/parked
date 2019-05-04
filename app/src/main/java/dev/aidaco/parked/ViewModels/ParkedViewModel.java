@@ -1,4 +1,4 @@
-package dev.aidaco.parked;
+package dev.aidaco.parked.ViewModels;
 
 import android.app.Application;
 
@@ -12,6 +12,7 @@ import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Entities.User;
+import dev.aidaco.parked.ParkedRepository;
 
 public class ParkedViewModel extends AndroidViewModel {
     private static final String TAG = "ParkedViewModel";
@@ -43,20 +44,12 @@ public class ParkedViewModel extends AndroidViewModel {
         return activeTickets;
     }
 
-    public void addUser(User user) {
-        parkedRepo.addUser(user);
-    }
-
     public void addSpot(Spot spot) {
         parkedRepo.addSpot(spot);
     }
 
     public void addTicket(ParkingTicket ticket) {
         parkedRepo.addTicket(ticket);
-    }
-
-    public void updateUser(User user) {
-        parkedRepo.updateUser(user);
     }
 
     public void updateSpot(Spot spot) {

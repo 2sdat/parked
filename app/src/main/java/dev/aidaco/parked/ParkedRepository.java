@@ -10,17 +10,14 @@ import dev.aidaco.parked.Model.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Model.Daos.SpotDao;
 import dev.aidaco.parked.Model.Daos.SpotDataDao;
 import dev.aidaco.parked.Model.Daos.TicketDao;
-import dev.aidaco.parked.Model.Daos.UserDao;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.SpotData;
-import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.ParkedDatabase;
 
 public class ParkedRepository {
     private static final String TAG = "ParkedRepository";
-    private UserDao userDao;
     private SpotDao spotDao;
     private SpotDataDao spotDataDao;
     private TicketDao ticketDao;
@@ -33,7 +30,6 @@ public class ParkedRepository {
 
     public ParkedRepository(Context context) {
         parkedDb = ParkedDatabase.getInstance(context);
-        userDao = parkedDb.userDao();
         spotDao = parkedDb.spotDao();
         ticketDao = parkedDb.ticketDao();
         spotDataDao = parkedDb.spotDataDao();
@@ -56,10 +52,6 @@ public class ParkedRepository {
         return activeTickets;
     }
 
-    public void addUser(User user) {
-        new AddUserAsyncTask(userDao).execute(user);
-    }
-
     public void addSpot(Spot spot) {
         new AddSpotAsyncTask(spotDao).execute(spot);
     }
@@ -68,30 +60,12 @@ public class ParkedRepository {
         new AddTicketAsyncTask(ticketDao).execute(ticket);
     }
 
-    public void updateUser(User user) {
-        new UpdateUserAsyncTask(userDao).execute(user);
-    }
-
     public void updateSpot(Spot spot) {
         new UpdateSpotAsyncTask(spotDao).execute(spot);
     }
 
     public void updateTicket(ParkingTicket ticket) {
         new UpdateTicketAsyncTask(ticketDao).execute(ticket);
-    }
-
-    private static class AddUserAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
-
-        AddUserAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
-        }
-
-        @Override
-        protected Void doInBackground(User... users) {
-            userDao.addUser(users[0]);
-            return null;
-        }
     }
 
     private static class AddSpotAsyncTask extends AsyncTask<Spot, Void, Void> {
@@ -133,20 +107,6 @@ public class ParkedRepository {
         @Override
         protected Void doInBackground(Spot... spots) {
             spotDao.updateSpot(spots[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateUserAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
-
-        UpdateUserAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
-        }
-
-        @Override
-        protected Void doInBackground(User... users) {
-            userDao.updateUser(users[0]);
             return null;
         }
     }

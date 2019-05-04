@@ -4,4 +4,6 @@
     <string name="editTextUsernameHint">Username</string>
     <string name="editTextPasswordHint">Password</string>
     <string name="buttonLoginText">Login</string>
+    <string name="login_fail_username">No account associated with that username.</string>
+    <string name="login_fail_password">Incorrect password.</string>
 </resources>

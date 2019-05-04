@@ -10,6 +10,6 @@ public class SpotData {
     @Embedded
     public Spot spot;
 
-    @Relation(parentColumn = "ticket_id", entityColumn = "id", entity = ParkingTicketData.class)
+    @Relation(parentColumn = "ticket_id", entityColumn = "id", entity = ParkingTicket.class)
     public List<ParkingTicketData> ticket;
 }

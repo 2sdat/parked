@@ -17,8 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import dev.aidaco.parked.Fragments.Accessories.SpotAdapter;
 import dev.aidaco.parked.Model.Entities.SpotData;
-import dev.aidaco.parked.ParkedViewModel;
 import dev.aidaco.parked.R;
+import dev.aidaco.parked.ViewModels.ParkedViewModel;
 
 public class UserHomeFragment extends Fragment {
     private static final String TAG = "UserHomeFragment";
