@@ -8,13 +8,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import dev.aidaco.parked.Interfaces.ClickListener;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
-import dev.aidaco.parked.ViewModels.SpotListClickListener;
 
 public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
     private List<SpotData> occupiedSpots;
-    private SpotListClickListener listener;
+    private ClickListener listener;
 
     public void updateSpotData(List<SpotData> spotData) {
         this.occupiedSpots = spotData;
@@ -38,7 +38,7 @@ public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
         return occupiedSpots == null ? 0 : occupiedSpots.size();
     }
 
-    public void setClickListener(SpotListClickListener listener) {
+    public void setClickListener(ClickListener listener) {
         this.listener = listener;
     }
 }

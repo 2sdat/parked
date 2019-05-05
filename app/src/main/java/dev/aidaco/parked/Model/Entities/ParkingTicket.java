@@ -52,6 +52,10 @@ public class ParkingTicket {
         this.endTime = END_TIME_NULL;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

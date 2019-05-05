@@ -32,14 +32,6 @@ public class UserHomeViewModel extends AndroidViewModel {
         activeTickets = parkedRepo.getActiveTickets();
     }
 
-    public void navigateToAddNewVehicle() {
-        // TODO implement navigate to AddNewVehicleFragment
-    }
-
-    public void navigateToSpotDetail() {
-        // TODO implement navigate to SpotDetailFragment
-    }
-
     public LiveData<List<SpotData>> getOccupiedSpots() {
         return occupiedSpots;
     }

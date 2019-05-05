@@ -1,9 +1,6 @@
 package dev.aidaco.parked.Fragments;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,18 +8,16 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import dev.aidaco.parked.Interfaces.ResultListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.AddNewVehicleViewModel;
-import dev.aidaco.parked.ViewModels.ResultListener;
 
-public class AddNewVehicleFragment extends Fragment {
+public class AddNewVehicleFragment extends BaseFragment {
     private AddNewVehicleViewModel addNewVehicleViewModel;
 
     private ArrayAdapter<Enums.State> arrayAdapterState;
@@ -37,13 +32,9 @@ public class AddNewVehicleFragment extends Fragment {
     private Spinner spinnerBillingType;
     private Button buttonParkVehicle;
     private TextView textViewCancel;
-    private TextView textViewMessage;
-
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_new_vehicle, container, false);
+    public void initViews(View view) {
         addNewVehicleViewModel = ViewModelProviders.of(getActivity()).get(AddNewVehicleViewModel.class);
 
         toolbarAddNewVehicle = view.findViewById(R.id.toolbarAddNewVehicle);
@@ -55,7 +46,6 @@ public class AddNewVehicleFragment extends Fragment {
         spinnerBillingType = view.findViewById(R.id.spinnerBillingType);
         buttonParkVehicle = view.findViewById(R.id.buttonParkVehicle);
         textViewCancel = view.findViewById(R.id.textViewAddNewVehicleCancel);
-        textViewMessage = view.findViewById((R.id.textViewAddNewVehicleMessage));
 
         arrayAdapterState = new ArrayAdapter<Enums.State>(getActivity(), android.R.layout.simple_list_item_1, Enums.State.values());
         arrayAdapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,11 +58,14 @@ public class AddNewVehicleFragment extends Fragment {
         arrayAdapterBillingType = new ArrayAdapter<Enums.BillingType>(getActivity(), android.R.layout.simple_list_item_1, Enums.BillingType.values());
         arrayAdapterBillingType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBillingType.setAdapter(arrayAdapterBillingType);
+    }
 
+    @Override
+    public void createCallbacks() {
         imageButtonToolbarUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewVehicleViewModel.navigateUp();
+                navigateUp();
             }
         });
 
@@ -88,11 +81,11 @@ public class AddNewVehicleFragment extends Fragment {
                     @Override
                     public void onResult(SpotData spotData) {
                         if (spotData == null) {
-                            textViewMessage.setText("There are no available spots.");
+                            showSnackbar("There are no available spots.");
                             return;
                         }
 
-                        addNewVehicleViewModel.navigateToParkVehicle();
+                        navigateToParkVehicle();
                     }
                 };
 
@@ -103,12 +96,21 @@ public class AddNewVehicleFragment extends Fragment {
         textViewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewVehicleViewModel.navigateUp();
+                navigateUp();
             }
         });
+    }
 
-        textViewMessage.setVisibility(View.GONE);
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_add_new_vehicle;
+    }
 
-        return view;
+    private void navigateToParkVehicle() {
+
+    }
+
+    private void navigateUp() {
+        navigateActionAndPopUpTo(R.id.action_addNewVehicleFragment_to_userHomeFragment, R.id.addNewVehicleFragment);
     }
 }

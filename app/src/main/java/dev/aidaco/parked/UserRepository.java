@@ -3,10 +3,10 @@ package dev.aidaco.parked;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import dev.aidaco.parked.Interfaces.ResultListener;
 import dev.aidaco.parked.Model.Daos.UserDao;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.ParkedDatabase;
-import dev.aidaco.parked.ViewModels.DatabaseLookupListener;
 
 public class UserRepository {
     private static final String TAG = "UserRepository";
@@ -26,11 +26,11 @@ public class UserRepository {
         new UpdateUserAsyncTask(userDao).execute(user);
     }
 
-    public void getUserById(int id, DatabaseLookupListener<User> listener) {
+    public void getUserById(int id, ResultListener<User> listener) {
         new GetUserByIdAsyncTask(userDao, listener).execute(id);
     }
 
-    public void getUserByUsername(String username, DatabaseLookupListener<User> listener) {
+    public void getUserByUsername(String username, ResultListener<User> listener) {
         new GetUserByUsernameAsyncTask(userDao, listener).execute(username);
     }
 
@@ -64,10 +64,10 @@ public class UserRepository {
 
     private static class GetUserByIdAsyncTask extends AsyncTask<Integer, Void, User> {
         private UserDao userDao;
-        private DatabaseLookupListener<User> listener;
+        private ResultListener<User> listener;
 
 
-        GetUserByIdAsyncTask(UserDao userDao, DatabaseLookupListener<User> listener) {
+        GetUserByIdAsyncTask(UserDao userDao, ResultListener<User> listener) {
             this.userDao = userDao;
             this.listener = listener;
         }
@@ -79,16 +79,16 @@ public class UserRepository {
 
         @Override
         protected void onPostExecute(User result) {
-            listener.onLookupReturned(result);
+            listener.onResult(result);
         }
     }
 
     private static class GetUserByUsernameAsyncTask extends AsyncTask<String, Void, User> {
         private UserDao userDao;
-        private DatabaseLookupListener<User> listener;
+        private ResultListener<User> listener;
 
 
-        GetUserByUsernameAsyncTask(UserDao userDao, DatabaseLookupListener<User> listener) {
+        GetUserByUsernameAsyncTask(UserDao userDao, ResultListener<User> listener) {
             this.userDao = userDao;
             this.listener = listener;
         }
@@ -100,7 +100,7 @@ public class UserRepository {
 
         @Override
         protected void onPostExecute(User result) {
-            listener.onLookupReturned(result);
+            listener.onResult(result);
         }
     }
 

@@ -31,15 +31,8 @@ public class AddNewVehicleViewModel extends AndroidViewModel {
         // TODO handle park button clicked and navigate to parkvehicle
     }
 
-    public void navigateUp() {
-        // TODO implement navigate to userhome
-    }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
-    public void navigateToParkVehicle() {
-        // TODO navigate to park vehicle
-    }
 }

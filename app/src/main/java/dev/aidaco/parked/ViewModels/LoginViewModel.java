@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import dev.aidaco.parked.Interfaces.LoginAttemptListener;
+import dev.aidaco.parked.Interfaces.ResultListener;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.UserRepository;
 
@@ -21,9 +23,9 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void attemptLogin(final LoginAttemptListener listener) {
-        userRepository.getUserByUsername(enteredUsername, new DatabaseLookupListener<User>() {
+        userRepository.getUserByUsername(enteredUsername, new ResultListener<User>() {
             @Override
-            public void onLookupReturned(User user) {
+            public void onResult(User user) {
                 if (user == null) {
                     listener.onResult(LoginAttemptListener.INC_USERNAME);
                     return;
@@ -32,17 +34,12 @@ public class LoginViewModel extends AndroidViewModel {
                 if (user.getPassword().equals(enteredPassword)) {
                     currentUser = user;
                     listener.onResult(LoginAttemptListener.SUCCESS);
-                    navigateToUserHome();
                 } else {
                     currentUser = null;
                     listener.onResult(LoginAttemptListener.INC_PASSWORD);
                 }
             }
         });
-    }
-
-    private void navigateToUserHome() {
-        // TODO navigate to user home screen or to manager homescreen
     }
 
     public void provideUsername(String username) {

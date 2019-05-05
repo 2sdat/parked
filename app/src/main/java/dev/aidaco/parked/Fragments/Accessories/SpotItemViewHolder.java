@@ -4,20 +4,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import dev.aidaco.parked.Interfaces.ClickListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
-import dev.aidaco.parked.ViewModels.SpotListClickListener;
 
 class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private TextView textViewSpotNumber;
     private TextView textViewSpotType;
     private TextView textViewLicensePlate;
     private TextView textViewAttendent;
-    private SpotListClickListener listener;
+    private ClickListener<SpotData> listener;
     private SpotData spotData;
 
     public SpotItemViewHolder(View itemView) {
@@ -31,12 +31,12 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        listener.onSpotClick(spotData);
+        listener.onClick(spotData);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        listener.onSpotLongClick(spotData);
+        listener.onLongClick(spotData);
         return false;
     }
 
@@ -58,7 +58,7 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         textViewAttendent.setText(textAttendant);
     }
 
-    public void setListener(SpotListClickListener listener) {
+    public void setListener(ClickListener listener) {
         this.listener = listener;
     }
 }

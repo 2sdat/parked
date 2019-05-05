@@ -9,7 +9,6 @@
         android:id="@+id/toolbarAddNewVehicle"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:layout_alignParentTop="true"
         android:background="#2196F3"
         android:gravity="top">
 
@@ -22,6 +21,7 @@
             android:background="#2196F3"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:contentDescription="@string/back_button_description"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:gravity="center"
-            android:text="Parked"
+            android:text="@string/app_name"
             android:textColor="#FFFFFF"
             android:textSize="30dp" />
 
@@ -44,9 +44,9 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Enter Vehicle Information"
+        android:text="@string/enter_vehicle_information"
         android:textColor="#FFFFFF"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/editTextLicensePlate"
@@ -110,14 +110,5 @@
         android:layout_marginBottom="10dp"
         android:text="@string/addVehicleCancel"
         android:textColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/textViewAddNewVehicleMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="#FF0000" />
 
 </LinearLayout>

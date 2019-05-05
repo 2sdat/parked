@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:saveEnabled="false"
+        android:contentDescription="@string/logo_descriptor_text"
         android:src="@drawable/ic_logo_temp" />
 
     <EditText
@@ -47,18 +48,11 @@
         android:layout_marginTop="10dp"
         android:text="@string/buttonLoginText" />
 
-    <TextView
-        android:id="@+id/textViewLoginMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textColor="#FF0000" />
-
     <ProgressBar
         android:id="@+id/progressBarLoginLoading"
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:progressDrawable="@drawable/login_loading_spinner" />
 </LinearLayout>

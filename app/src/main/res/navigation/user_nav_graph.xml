@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_nav_graph"
+    app:startDestination="@id/userHomeFragment">
+
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="dev.aidaco.parked.Fragments.UserHomeFragment"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home">
+        <action
+            android:id="@+id/action_userHomeFragment_to_addNewVehicleFragment"
+            app:destination="@id/addNewVehicleFragment" />
+        <action
+            android:id="@+id/action_userHomeFragment_to_spotDetailFragment"
+            app:destination="@id/spotDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewVehicleFragment"
+        android:name="dev.aidaco.parked.Fragments.AddNewVehicleFragment"
+        android:label="fragment_add_new_vehicle"
+        tools:layout="@layout/fragment_add_new_vehicle">
+        <action
+            android:id="@+id/action_addNewVehicleFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spotDetailFragment"
+        android:name="dev.aidaco.parked.Fragments.SpotDetailFragment"
+        android:label="SpotDetailFragment"
+        tools:layout="@layout/fragment_spot_detail">
+        <action
+            android:id="@+id/action_spotDetailFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
+    </fragment>
+
+</navigation>

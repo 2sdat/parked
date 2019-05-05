@@ -1,21 +1,19 @@
 package dev.aidaco.parked.Fragments;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.format.DateUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.SpotDetailViewModel;
 
-public class SpotDetailFragment extends Fragment {
+public class SpotDetailFragment extends BaseFragment {
     private SpotDetailViewModel spotDetailViewModel;
     private Toolbar toolbar;
     private ImageButton imageButtonNavigateUp;
@@ -31,9 +29,12 @@ public class SpotDetailFragment extends Fragment {
     private boolean isStopped = false;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+    public int getLayoutId() {
+        return R.layout.fragment_spot_detail;
+    }
+
+    @Override
+    public void initViews(View view) {
         spotDetailViewModel = ViewModelProviders.of(getActivity()).get(SpotDetailViewModel.class);
         toolbar = view.findViewById(R.id.toolbarSpotDetail);
         imageButtonNavigateUp = view.findViewById(R.id.imageButtonSpotDetailToolbarUp);
@@ -45,11 +46,27 @@ public class SpotDetailFragment extends Fragment {
         textViewParkTime = view.findViewById(R.id.textViewSpotDetailParkTime);
         textViewElapsedTime = view.findViewById(R.id.textViewSpotDetailElapsedTime);
         buttonReleaseVehicle = view.findViewById(R.id.buttonSpotDetailReleaseVehicle);
+    }
+
+    @Override
+    public void createCallbacks() {
+        spotDetailViewModel.getSpotData().observe(this, new Observer<SpotData>() {
+            @Override
+            public void onChanged(SpotData spotData) {
+                textViewSpotNumber.setText(spotData.spot.getId());
+                textViewLicensePlate.setText(spotData.ticket.get(0).parkingTicket.getLicensePlate().toString());
+                textViewVehicleType.setText(spotData.ticket.get(0).parkingTicket.getVehicleType().getName());
+                textViewSpotType.setText(spotData.spot.getSpotType().getName());
+                textViewAttendant.setText(spotData.ticket.get(0).attendent.get(0).getFullName());
+                textViewParkTime.setText(DateUtils.formatDateTime(getContext(), spotData.ticket.get(0).parkingTicket.getStartTime(),
+                        DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME));
+            }
+        });
 
         imageButtonNavigateUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spotDetailViewModel.navigateUp();
+                navigateUp();
             }
         });
 
@@ -57,6 +74,7 @@ public class SpotDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 spotDetailViewModel.releaseVehicle();
+                navigateToDisplayTicket();
             }
         });
 
@@ -81,8 +99,6 @@ public class SpotDetailFragment extends Fragment {
         });
 
         timeElapsedThread.start();
-
-        return view;
     }
 
     @Override
@@ -93,6 +109,14 @@ public class SpotDetailFragment extends Fragment {
 
     private void updateElapsedTime(String newElapsed) {
         textViewElapsedTime.setText(newElapsed);
+    }
+
+    private void navigateUp() {
+        navigateActionAndPopUpTo(R.id.action_spotDetailFragment_to_userHomeFragment, R.id.spotDetailFragment);
+    }
+
+    private void navigateToDisplayTicket() {
+        // TODO implement displayticket and naviagte to it here
     }
 
 }

@@ -16,4 +16,7 @@
     <string name="park_time_descriptor">Park Time:</string>
     <string name="elapsed_time_descriptor">Elapsed Time:</string>
     <string name="spot_type_descriptor">Spot Type:</string>
+    <string name="logo_descriptor_text">Parked Logo</string>
+    <string name="back_button_description">Back</string>
+    <string name="enter_vehicle_information">Enter Vehicle Information</string>
 </resources>

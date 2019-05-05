@@ -23,4 +23,9 @@ public class LicensePlate {
     public Enums.State getState() {
         return state;
     }
+
+    @Override
+    public String toString() {
+        return getState().name() + " " + getLicensePlateNumber();
+    }
 }

@@ -61,6 +61,10 @@ public class User {
         return lastName;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public Enums.UserType getUserType() {
         return userType;
     }
