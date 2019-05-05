@@ -6,4 +6,14 @@
     <string name="buttonLoginText">Login</string>
     <string name="login_fail_username">No account associated with that username.</string>
     <string name="login_fail_password">Incorrect password.</string>
+    <string name="addVehicleParkButton">Park</string>
+    <string name="addVehicleCancel"><u>Cancel</u></string>
+    <string name="license_plate_number">License Plate Number</string>
+    <string name="release_vehicle_to_owner">Release Vehicle to owner</string>
+    <string name="license_plate_descriptor">License Plate:</string>
+    <string name="vehicle_type_descriptor">Vehicle Type:</string>
+    <string name="attendant_descriptor">Attendant:</string>
+    <string name="park_time_descriptor">Park Time:</string>
+    <string name="elapsed_time_descriptor">Elapsed Time:</string>
+    <string name="spot_type_descriptor">Spot Type:</string>
 </resources>

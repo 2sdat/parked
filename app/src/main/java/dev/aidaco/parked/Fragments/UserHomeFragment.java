@@ -18,11 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import dev.aidaco.parked.Fragments.Accessories.SpotAdapter;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
-import dev.aidaco.parked.ViewModels.ParkedViewModel;
+import dev.aidaco.parked.ViewModels.AddNewVehicleViewModel;
+import dev.aidaco.parked.ViewModels.SpotDetailViewModel;
+import dev.aidaco.parked.ViewModels.SpotListClickListener;
+import dev.aidaco.parked.ViewModels.UserHomeViewModel;
 
 public class UserHomeFragment extends Fragment {
     private static final String TAG = "UserHomeFragment";
-    private ParkedViewModel parkedViewModel;
+    private UserHomeViewModel userHomeViewModel;
     private SpotAdapter spotAdapter;
     private FloatingActionButton fabAddVehicle;
     private RecyclerView recyclerViewSpots;
@@ -35,15 +38,37 @@ public class UserHomeFragment extends Fragment {
         recyclerViewSpots = view.findViewById(R.id.recyclerViewSpots);
 
         spotAdapter = new SpotAdapter();
+        spotAdapter.setClickListener(new SpotListClickListener() {
+            @Override
+            public void onSpotClick(SpotData spotData) {
+                ViewModelProviders.of(getActivity()).get(SpotDetailViewModel.class).setSpotData(spotData);
+                userHomeViewModel.navigateToSpotDetail();
+            }
+
+            @Override
+            public void onSpotLongClick(SpotData spotData) {
+                onSpotClick(spotData);
+            }
+        });
+
         recyclerViewSpots.setAdapter(spotAdapter);
 
-        parkedViewModel = ViewModelProviders.of(getActivity()).get(ParkedViewModel.class);
-        parkedViewModel.getOccupiedSpots().observe(this, new Observer<List<SpotData>>() {
+        userHomeViewModel = ViewModelProviders.of(getActivity()).get(UserHomeViewModel.class);
+        userHomeViewModel.getOccupiedSpots().observe(this, new Observer<List<SpotData>>() {
             @Override
             public void onChanged(List<SpotData> spots) {
                 spotAdapter.updateSpotData(spots);
             }
         });
+
+        fabAddVehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewModelProviders.of(getActivity()).get(AddNewVehicleViewModel.class).setCurrentUser(userHomeViewModel.getCurrentUser());
+                userHomeViewModel.navigateToAddNewVehicle();
+            }
+        });
+
         return view;
     }
 }

@@ -17,13 +17,16 @@ public interface SpotDao {
     @Update
     void updateSpot(Spot spot);
 
-    @Query("SELECT * FROM spots WHERE NOT is_empty")
+    @Query("SELECT * FROM spots WHERE NOT is_empty ORDER BY id ASC")
     LiveData<List<Spot>> getOccupiedSpots();
 
-    @Query("SELECT * FROM spots WHERE is_empty")
-    LiveData<List<Spot>> getEmptySpots();
+    @Query("SELECT * FROM spots WHERE is_empty ORDER BY id ASC")
+    List<Spot> getEmptySpots();
 
-    @Query("SELECT * FROM spots")
+    @Query("SELECT * FROM spots WHERE is_empty AND spot_type == :vehicleTypeCode ORDER BY id ASC LIMIT 1")
+    List<Spot> getEmptySpotOfType(int vehicleTypeCode);
+
+    @Query("SELECT * FROM spots ORDER BY id ASC")
     LiveData<List<Spot>> getAllSpots();
 
     @Query("SELECT * FROM spots WHERE id = :id")

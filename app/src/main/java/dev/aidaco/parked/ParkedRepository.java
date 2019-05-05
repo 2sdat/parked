@@ -10,10 +10,13 @@ import dev.aidaco.parked.Model.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Model.Daos.SpotDao;
 import dev.aidaco.parked.Model.Daos.SpotDataDao;
 import dev.aidaco.parked.Model.Daos.TicketDao;
+import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.SpotData;
+import dev.aidaco.parked.Model.Entities.User;
+import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.Model.ParkedDatabase;
 
 public class ParkedRepository {
@@ -40,6 +43,15 @@ public class ParkedRepository {
         activeTickets = ticketDataDao.getAllActiveTickets();
     }
 
+    public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, ParkResultListener listener) {
+        ParkNewVehicleAsyncTask parkAsync = new ParkNewVehicleAsyncTask(spotDao, spotDataDao, ticketDao, listener);
+        parkAsync.setVehicleType(vehicleType);
+        parkAsync.setLicensePlate(licensePlate);
+        parkAsync.setAttendant(attendant);
+        parkAsync.setBillingType(billingType);
+        parkAsync.execute();
+    }
+
     public LiveData<List<SpotData>> getAllSpots() {
         return allSpots;
     }
@@ -50,6 +62,10 @@ public class ParkedRepository {
 
     public LiveData<List<ParkingTicketData>> getActiveTickets() {
         return activeTickets;
+    }
+
+    public List<Spot> getEmptySpots() {
+        return spotDao.getEmptySpots();
     }
 
     public void addSpot(Spot spot) {
@@ -122,6 +138,75 @@ public class ParkedRepository {
         protected Void doInBackground(ParkingTicket... parkingTickets) {
             ticketDao.updateTicket(parkingTickets[0]);
             return null;
+        }
+    }
+
+    public interface ParkResultListener {
+        void onResult(SpotData spotData);
+    }
+
+    private static class ParkNewVehicleAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ParkResultListener listener;
+        private SpotDao spotDao;
+        private SpotDataDao spotDataDao;
+        private TicketDao ticketDao;
+        private LicensePlate licensePlate;
+        private Enums.VehicleType vehicleType;
+        private Enums.BillingType billingType;
+        private User attendant;
+        private SpotData spotData;
+
+        ParkNewVehicleAsyncTask(SpotDao spotDao, SpotDataDao spotDataDao, TicketDao ticketDao, ParkResultListener listener) {
+            this.spotDao = spotDao;
+            this.spotDataDao = spotDataDao;
+            this.ticketDao = ticketDao;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            List<Spot> emptySpot = spotDao.getEmptySpotOfType(vehicleType.getTypeCode());
+            if (emptySpot.size() == 0) {
+                emptySpot = spotDao.getEmptySpots();
+                if (emptySpot.size() == 0) {
+                    spotData = null;
+                    return null;
+                }
+            }
+
+            Spot reservedSpot = emptySpot.get(0);
+
+            ParkingTicket ticket = new ParkingTicket(vehicleType, reservedSpot.getId(), licensePlate, attendant.getId(), billingType, System.currentTimeMillis());
+            ticketDao.addTicket(ticket);
+            ticket = ticketDao.getByFullPlate(licensePlate.getLicensePlateNumber(), licensePlate.getState()).get(0);
+            reservedSpot.setTicketId(ticket.getId());
+            reservedSpot.toggleIsEmpty();
+            spotDao.updateSpot(reservedSpot);
+            spotData = spotDataDao.getByID(reservedSpot.getId()).get(0);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onResult(spotData);
+        }
+
+
+        public void setLicensePlate(LicensePlate licensePlate) {
+            this.licensePlate = licensePlate;
+        }
+
+        public void setVehicleType(Enums.VehicleType vehicleType) {
+            this.vehicleType = vehicleType;
+        }
+
+        public void setBillingType(Enums.BillingType billingType) {
+            this.billingType = billingType;
+        }
+
+        public void setAttendant(User attendant) {
+            this.attendant = attendant;
         }
     }
 }

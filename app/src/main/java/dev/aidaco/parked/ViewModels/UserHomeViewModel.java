@@ -14,8 +14,8 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.ParkedRepository;
 
-public class ParkedViewModel extends AndroidViewModel {
-    private static final String TAG = "ParkedViewModel";
+public class UserHomeViewModel extends AndroidViewModel {
+    private static final String TAG = "UserHomeViewModel";
 
     private ParkedRepository parkedRepo;
 
@@ -24,12 +24,20 @@ public class ParkedViewModel extends AndroidViewModel {
     private LiveData<List<ParkingTicketData>> activeTickets;
     private User currentUser = null;
 
-    public ParkedViewModel(@NonNull Application application) {
+    public UserHomeViewModel(@NonNull Application application) {
         super(application);
         parkedRepo = new ParkedRepository(application);
         occupiedSpots = parkedRepo.getOccupiedSpots();
         allSpots = parkedRepo.getAllSpots();
         activeTickets = parkedRepo.getActiveTickets();
+    }
+
+    public void navigateToAddNewVehicle() {
+        // TODO implement navigate to AddNewVehicleFragment
+    }
+
+    public void navigateToSpotDetail() {
+        // TODO implement navigate to SpotDetailFragment
     }
 
     public LiveData<List<SpotData>> getOccupiedSpots() {
@@ -58,5 +66,13 @@ public class ParkedViewModel extends AndroidViewModel {
 
     public void updateTicket(ParkingTicket ticket) {
         parkedRepo.updateTicket(ticket);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 }

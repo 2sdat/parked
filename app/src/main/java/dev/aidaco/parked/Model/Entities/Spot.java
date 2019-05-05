@@ -56,6 +56,10 @@ public class Spot {
         isEmpty = !isEmpty;
     }
 
+    public void setTicketId(long ticketId) {
+        this.ticketId = ticketId;
+    }
+
     public boolean compare(Spot spot) {
         if (spot == this) {
             return true;

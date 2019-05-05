@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
+import dev.aidaco.parked.ViewModels.SpotListClickListener;
 
 public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
     private List<SpotData> occupiedSpots;
+    private SpotListClickListener listener;
 
     public void updateSpotData(List<SpotData> spotData) {
         this.occupiedSpots = spotData;
@@ -27,14 +29,16 @@ public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SpotItemViewHolder holder, int position) {
-        SpotData spot = occupiedSpots.get(position);
-        holder.setSpot(spot.spot);
-        holder.setTicket(spot.ticket.get(0).parkingTicket);
-        holder.setAttendent(spot.ticket.get(0).attendent.get(0));
+        holder.setListener(listener);
+        holder.setData(occupiedSpots.get(position));
     }
 
     @Override
     public int getItemCount() {
         return occupiedSpots == null ? 0 : occupiedSpots.size();
+    }
+
+    public void setClickListener(SpotListClickListener listener) {
+        this.listener = listener;
     }
 }

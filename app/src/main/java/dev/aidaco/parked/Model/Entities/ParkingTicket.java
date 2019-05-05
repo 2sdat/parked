@@ -13,7 +13,7 @@ import dev.aidaco.parked.Model.Enums;
 public class ParkingTicket {
     public static final long END_TIME_NULL = 0;
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @NonNull
@@ -41,8 +41,8 @@ public class ParkingTicket {
     @ColumnInfo(name = "end_time")
     private long endTime;
 
-    public ParkingTicket(long id, @NonNull Enums.VehicleType vehicleType, int spotId, @NonNull LicensePlate licensePlate, int attendentId, @NonNull Enums.BillingType billingType, long startTime) {
-        this.id = id;
+    public ParkingTicket(@NonNull Enums.VehicleType vehicleType, int spotId, @NonNull LicensePlate licensePlate, int attendentId, @NonNull Enums.BillingType billingType, long startTime) {
+        this.id = 0;
         this.vehicleType = vehicleType;
         this.spotId = spotId;
         this.licensePlate = licensePlate;

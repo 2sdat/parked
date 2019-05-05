@@ -33,8 +33,8 @@ public interface TicketDao {
     @Query("SELECT * FROM tickets WHERE license_plate_state LIKE :state")
     LiveData<List<ParkingTicket>> getByPlateState(Enums.State state);
 
-    @Query("SELECT * FROM tickets WHERE license_plate_state LIKE :licensePlateState AND license_plate_number LIKE :licensePlateNumber")
-    LiveData<ParkingTicket> getByFullPlate(String licensePlateNumber, Enums.State licensePlateState);
+    @Query("SELECT * FROM tickets WHERE license_plate_state LIKE :licensePlateState AND license_plate_number LIKE :licensePlateNumber LIMIT 1")
+    List<ParkingTicket> getByFullPlate(String licensePlateNumber, Enums.State licensePlateState);
 
     @Query("SELECT * FROM tickets WHERE attendent_id LIKE :attendentID")
     LiveData<List<ParkingTicket>> getByAttendentID(int attendentID);

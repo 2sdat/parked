@@ -4,13 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#29315A"
     tools:context=".Fragments.UserHomeFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarUserHome"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="#2196F3"
+        android:gravity="top">
+
+        <TextView
+            android:id="@+id/textViewToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:text="Parked"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSpots"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:orientation="vertical"
+        tools:itemCount="15"
+        tools:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/spot_list_item"
+        tools:spanCount="2">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -32,7 +32,7 @@ public class LoginViewModel extends AndroidViewModel {
                 if (user.getPassword().equals(enteredPassword)) {
                     currentUser = user;
                     listener.onResult(LoginAttemptListener.SUCCESS);
-                    onLoginSucceeded();
+                    navigateToUserHome();
                 } else {
                     currentUser = null;
                     listener.onResult(LoginAttemptListener.INC_PASSWORD);
@@ -41,8 +41,8 @@ public class LoginViewModel extends AndroidViewModel {
         });
     }
 
-    private void onLoginSucceeded() {
-        // TODO navigate to user home screen
+    private void navigateToUserHome() {
+        // TODO navigate to user home screen or to manager homescreen
     }
 
     public void provideUsername(String username) {
@@ -51,5 +51,9 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void providePassword(String password) {
         enteredPassword = password;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }

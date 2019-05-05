@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.LoginAttemptListener;
 import dev.aidaco.parked.ViewModels.LoginViewModel;
+import dev.aidaco.parked.ViewModels.UserHomeViewModel;
 
 public class LoginFragment extends Fragment {
     private static final String TAG = "LoginFragment";
@@ -72,6 +73,7 @@ public class LoginFragment extends Fragment {
             case LoginAttemptListener.SUCCESS:
                 textViewLoginMessage.setText("");
                 loadingSpinner.setVisibility(View.VISIBLE);
+                ViewModelProviders.of(getActivity()).get(UserHomeViewModel.class).setCurrentUser(loginViewModel.getCurrentUser());
                 break;
         }
 
