@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="dev.aidaco.parked.Fragments.LoginFragment"
     android:gravity="center"
-    android:background="#2196F3">
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -25,8 +25,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -38,8 +38,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -47,6 +47,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/buttonLoginText" />
+
+    <Button
+        android:id="@+id/buttonLoginTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Create Test User" />
 
     <ProgressBar
         android:id="@+id/progressBarLoginLoading"

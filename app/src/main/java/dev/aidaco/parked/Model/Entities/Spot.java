@@ -28,11 +28,15 @@ public class Spot {
     @ForeignKey(entity = ParkingTicket.class, parentColumns = {"id"}, childColumns = {"ticket_id"})
     private long ticketId;
 
-    public Spot(int id, @NonNull Enums.VehicleType spotType, boolean isEmpty, long ticketId) {
+    @ColumnInfo(name = "isreserved")
+    private boolean isReserved;
+
+    public Spot(int id, @NonNull Enums.VehicleType spotType, boolean isEmpty, long ticketId, boolean isReserved) {
         this.id = id;
         this.spotType = spotType;
         this.isEmpty = isEmpty;
         this.ticketId = ticketId;
+        this.isReserved = isReserved;
     }
 
     public int getId() {
@@ -48,16 +52,24 @@ public class Spot {
         return ticketId;
     }
 
-    public boolean getIsEmpty() {
+    public boolean isEmpty() {
         return isEmpty;
     }
 
-    public void toggleIsEmpty() {
-        isEmpty = !isEmpty;
+    public void setEmpty(boolean isEmpty) {
+        this.isEmpty = isEmpty;
     }
 
     public void setTicketId(long ticketId) {
         this.ticketId = ticketId;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean isReserved) {
+        this.isReserved = isReserved;
     }
 
     public boolean compare(Spot spot) {
@@ -67,8 +79,9 @@ public class Spot {
 
         boolean res = this.id == spot.getId();
         res = res && (this.spotType == spot.getSpotType());
-        res = res && (this.isEmpty == spot.getIsEmpty());
+        res = res && (this.isEmpty == spot.isEmpty());
         res = res && (this.ticketId == spot.getTicketId());
+        res = res && (this.isReserved == spot.isReserved());
         return res;
     }
 }

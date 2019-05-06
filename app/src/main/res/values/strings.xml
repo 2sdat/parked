@@ -19,4 +19,8 @@
     <string name="logo_descriptor_text">Parked Logo</string>
     <string name="back_button_description">Back</string>
     <string name="enter_vehicle_information">Enter Vehicle Information</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="time_starts_in">Time starts in:</string>
+    <string name="spot">Spot:</string>
 </resources>

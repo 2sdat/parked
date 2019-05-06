@@ -7,7 +7,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import dev.aidaco.parked.Interfaces.ResultListener;
+import dev.aidaco.parked.Interfaces.AttemptListener;
+import dev.aidaco.parked.Interfaces.DoubleResultListener;
+import dev.aidaco.parked.Interfaces.SingleResultListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.ParkingTicketData;
@@ -48,8 +50,16 @@ public class MasterViewModel extends AndroidViewModel {
         return accessPrivilege;
     }
 
-    public void parkNewVehicle(Enums.VehicleType vehicleType, LicensePlate licensePlate, Enums.BillingType billingType, ResultListener<SpotData> listener) {
+    public void parkNewVehicle(Enums.VehicleType vehicleType, LicensePlate licensePlate, Enums.BillingType billingType, DoubleResultListener<Long, Integer> listener) {
         parkedRepo.parkNewVehicle(vehicleType, licensePlate, currentUser, billingType, listener);
+    }
+
+    public void finalizePark(long ticketId, AttemptListener listener) {
+        parkedRepo.finalizePark(ticketId, listener);
+    }
+
+    public void cancelPark(long ticketId, AttemptListener listener) {
+        parkedRepo.cancelPark(ticketId, listener);
     }
 
     public LiveData<List<SpotData>> getAllSpots() {
@@ -92,11 +102,11 @@ public class MasterViewModel extends AndroidViewModel {
         userRepo.updateUser(user);
     }
 
-    public void getUserById(int id, ResultListener<User> listener) {
+    public void getUserById(int id, SingleResultListener<User> listener) {
         userRepo.getUserById(id, listener);
     }
 
-    public void getUserByUsername(String username, ResultListener<User> listener) {
+    public void getUserByUsername(String username, SingleResultListener<User> listener) {
         userRepo.getUserByUsername(username, listener);
     }
 }

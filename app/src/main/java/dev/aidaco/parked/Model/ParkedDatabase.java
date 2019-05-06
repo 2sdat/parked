@@ -23,7 +23,7 @@ public abstract class ParkedDatabase extends RoomDatabase {
 
     public static synchronized ParkedDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ParkedDatabase.class, "parked_database").build();
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ParkedDatabase.class, "parked_database").fallbackToDestructiveMigration().build();
         }
 
         return INSTANCE;

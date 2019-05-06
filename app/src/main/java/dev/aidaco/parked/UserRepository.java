@@ -3,7 +3,7 @@ package dev.aidaco.parked;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import dev.aidaco.parked.Interfaces.ResultListener;
+import dev.aidaco.parked.Interfaces.SingleResultListener;
 import dev.aidaco.parked.Model.Daos.UserDao;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.ParkedDatabase;
@@ -26,11 +26,11 @@ public class UserRepository {
         new UpdateUserAsyncTask(userDao).execute(user);
     }
 
-    public void getUserById(int id, ResultListener<User> listener) {
+    public void getUserById(int id, SingleResultListener<User> listener) {
         new GetUserByIdAsyncTask(userDao, listener).execute(id);
     }
 
-    public void getUserByUsername(String username, ResultListener<User> listener) {
+    public void getUserByUsername(String username, SingleResultListener<User> listener) {
         new GetUserByUsernameAsyncTask(userDao, listener).execute(username);
     }
 
@@ -64,10 +64,10 @@ public class UserRepository {
 
     private static class GetUserByIdAsyncTask extends AsyncTask<Integer, Void, User> {
         private UserDao userDao;
-        private ResultListener<User> listener;
+        private SingleResultListener<User> listener;
 
 
-        GetUserByIdAsyncTask(UserDao userDao, ResultListener<User> listener) {
+        GetUserByIdAsyncTask(UserDao userDao, SingleResultListener<User> listener) {
             this.userDao = userDao;
             this.listener = listener;
         }
@@ -85,10 +85,10 @@ public class UserRepository {
 
     private static class GetUserByUsernameAsyncTask extends AsyncTask<String, Void, User> {
         private UserDao userDao;
-        private ResultListener<User> listener;
+        private SingleResultListener<User> listener;
 
 
-        GetUserByUsernameAsyncTask(UserDao userDao, ResultListener<User> listener) {
+        GetUserByUsernameAsyncTask(UserDao userDao, SingleResultListener<User> listener) {
             this.userDao = userDao;
             this.listener = listener;
         }

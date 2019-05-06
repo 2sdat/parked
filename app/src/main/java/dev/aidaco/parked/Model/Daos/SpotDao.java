@@ -5,16 +5,17 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import dev.aidaco.parked.Model.Entities.Spot;
 
 @Dao
 public interface SpotDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addSpot(Spot spot);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateSpot(Spot spot);
 
     @Query("SELECT * FROM spots WHERE NOT is_empty ORDER BY id ASC")
@@ -30,5 +31,5 @@ public interface SpotDao {
     LiveData<List<Spot>> getAllSpots();
 
     @Query("SELECT * FROM spots WHERE id = :id")
-    LiveData<Spot> getByID(int id);
+    List<Spot> getSpotById(int id);
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#29315A"
+    android:background="@color/colorPrimary"
     tools:context=".Fragments.UserHomeFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="#2196F3"
+        android:background="@color/colorPrimaryDark"
         android:gravity="top">
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_gravity="start"
             android:gravity="center"
             android:text="Parked"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorText"
             android:textSize="30dp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?actionBarSize"
         android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="15"
         tools:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/spot_list_item"
@@ -51,7 +52,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add_vehicle"
-        app:backgroundTint="@color/design_default_color_primary_dark"
+        app:backgroundTint="@color/colorPrimaryDark"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -18,6 +19,9 @@ public interface TicketDao {
     @Update
     void updateTicket(ParkingTicket ticket);
 
+    @Delete
+    void deleteTicket(ParkingTicket ticket);
+
     @Query("SELECT * FROM tickets")
     LiveData<List<ParkingTicket>> getAllTickets();
 
@@ -25,7 +29,7 @@ public interface TicketDao {
     LiveData<List<ParkingTicket>> getAllActiveTickets();
 
     @Query("SELECT * FROM tickets WHERE id LIKE :id")
-    LiveData<ParkingTicket> getTicketByID(long id);
+    List<ParkingTicket> getTicketByID(long id);
 
     @Query("SELECT * FROM tickets WHERE license_plate_number LIKE :licensePlateNumber")
     LiveData<List<ParkingTicket>> getByPlateNumber(String licensePlateNumber);

@@ -1,5 +1,6 @@
 package dev.aidaco.parked.Interfaces;
 
-public interface ResultListener<T> {
+public interface SingleResultListener<T> {
     void onResult(T t);
 }
+

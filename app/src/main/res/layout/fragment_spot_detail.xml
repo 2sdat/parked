@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSpotDetail"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="#2196F3"
+        android:background="@color/colorPrimaryDark"
         android:gravity="top">
 
         <ImageButton
@@ -20,9 +19,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginEnd="20dp"
-            android:background="#2196F3"
+            android:background="@color/colorPrimaryDark"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:contentDescription="@string/back_button_description"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_gravity="start"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorText"
             android:textSize="30sp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -43,14 +43,16 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
 
-        android:textColor="#FFFFFF"
+        android:text=""
         android:textSize="70sp"
+        android:textColor="@color/colorText"
         tools:text="87" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -69,7 +71,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="@string/license_plate_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -80,7 +82,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="@string/vehicle_type_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -91,7 +93,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="@string/spot_type_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -102,7 +104,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="@string/attendant_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -113,7 +115,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="@string/park_time_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -125,7 +127,7 @@
                 android:layout_marginBottom="8dp"
 
                 android:text="@string/elapsed_time_descriptor"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -144,7 +146,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="NY JEN3375" />
 
@@ -155,7 +157,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="Car" />
 
@@ -166,7 +168,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="Truck" />
 
@@ -177,7 +179,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="Aidan Courtney" />
 
@@ -188,7 +190,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="3:17:03 PM" />
 
@@ -200,7 +202,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
 
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="4:06:54" />
 

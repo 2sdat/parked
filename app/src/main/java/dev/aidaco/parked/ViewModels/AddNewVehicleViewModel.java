@@ -3,20 +3,19 @@ package dev.aidaco.parked.ViewModels;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import dev.aidaco.parked.Interfaces.ResultListener;
+import dev.aidaco.parked.Interfaces.DoubleResultListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
-import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Enums;
+import dev.aidaco.parked.ViewModels.Util.BaseViewModel;
 
 public class AddNewVehicleViewModel extends BaseViewModel {
     private static final String TAG = "AddNewVehicleViewModel";
 
-    AddNewVehicleViewModel(@NonNull Application application) {
-        super(application);
+    public AddNewVehicleViewModel(@NonNull Application application, MasterViewModel masterVM) {
+        super(application, masterVM);
     }
 
-    public void onButtonParkVehicleClicked(LicensePlate licensePlate, Enums.VehicleType vehicletype, Enums.BillingType billingType, final ResultListener<SpotData> listener) {
+    public void onButtonParkVehicleClicked(LicensePlate licensePlate, Enums.VehicleType vehicletype, Enums.BillingType billingType, final DoubleResultListener<Long, Integer> listener) {
         masterVM.parkNewVehicle(vehicletype, licensePlate, billingType, listener);
-        // TODO handle park button clicked and navigate to parkvehicle
     }
 }

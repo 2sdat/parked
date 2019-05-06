@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_addNewVehicleFragment_to_userHomeFragment"
             app:destination="@id/userHomeFragment" />
+        <action
+            android:id="@+id/action_addNewVehicleFragment_to_parkVehicleFragment"
+            app:destination="@id/parkVehicleFragment" />
     </fragment>
     <fragment
         android:id="@+id/spotDetailFragment"
@@ -38,6 +41,15 @@
             android:name="spotId"
             android:defaultValue="0"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkVehicleFragment"
+        android:name="dev.aidaco.parked.Fragments.ParkVehicleFragment"
+        android:label="ParkVehicleFragment"
+        tools:layout="@layout/fragment_park_vehicle">
+        <action
+            android:id="@+id/action_parkVehicleFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
     </fragment>
 
 </navigation>

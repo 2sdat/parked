@@ -8,17 +8,18 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
+import dev.aidaco.parked.ViewModels.Util.BaseViewModel;
 
 public class SpotDetailViewModel extends BaseViewModel {
     private LiveData<SpotData> spotData;
     private long parkTime = 0;
 
-    public SpotDetailViewModel(@NonNull Application application) {
-        super(application);
+    public SpotDetailViewModel(@NonNull Application application, MasterViewModel masterVM) {
+        super(application, masterVM);
     }
 
     public String calculateElapsedTime() {
-        long elapsed = parkTime - System.currentTimeMillis();
+        long elapsed = System.currentTimeMillis() - parkTime;
         return formatElapsedTime(elapsed);
     }
 

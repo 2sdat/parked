@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import dev.aidaco.parked.Interfaces.ResultListener;
+import dev.aidaco.parked.Interfaces.AttemptListener;
+import dev.aidaco.parked.Interfaces.DoubleResultListener;
+import dev.aidaco.parked.Interfaces.SingleResultListener;
 import dev.aidaco.parked.Model.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Model.Daos.SpotDao;
 import dev.aidaco.parked.Model.Daos.SpotDataDao;
@@ -28,24 +30,16 @@ public class ParkedRepository {
     private ParkingTicketDataDao ticketDataDao;
     private ParkedDatabase parkedDb;
 
-    private LiveData<List<SpotData>> allSpots;
-    private LiveData<List<SpotData>> occupiedSpots;
-    private LiveData<List<ParkingTicketData>> activeTickets;
-
     public ParkedRepository(Context context) {
         parkedDb = ParkedDatabase.getInstance(context);
         spotDao = parkedDb.spotDao();
         ticketDao = parkedDb.ticketDao();
         spotDataDao = parkedDb.spotDataDao();
         ticketDataDao = parkedDb.ticketDataDao();
-
-        allSpots = spotDataDao.getAllSpotsWithData();
-        occupiedSpots = spotDataDao.getOccupiedSpotswithData();
-        activeTickets = ticketDataDao.getAllActiveTickets();
     }
 
-    public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, ResultListener<SpotData> listener) {
-        ParkNewVehicleAsyncTask parkAsync = new ParkNewVehicleAsyncTask(spotDao, spotDataDao, ticketDao, listener);
+    public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, DoubleResultListener<Long, Integer> listener) {
+        ParkNewVehicleAsyncTask parkAsync = new ParkNewVehicleAsyncTask(spotDao, ticketDao, listener);
         parkAsync.setVehicleType(vehicleType);
         parkAsync.setLicensePlate(licensePlate);
         parkAsync.setAttendant(attendant);
@@ -53,12 +47,20 @@ public class ParkedRepository {
         parkAsync.execute();
     }
 
+    public void finalizePark(long ticketId, AttemptListener listener) {
+        new FinalizeParkAsyncTask(ticketDao, spotDao, ticketId, listener).execute();
+    }
+
+    public void cancelPark(long ticketId, AttemptListener listener) {
+        new CancelParkAsyncTask(ticketDao, spotDao, ticketId, listener).execute();
+    }
+
     public LiveData<List<SpotData>> getAllSpots() {
-        return allSpots;
+        return spotDataDao.getAllSpotsWithData();
     }
 
     public LiveData<List<SpotData>> getOccupiedSpots() {
-        return occupiedSpots;
+        return spotDataDao.getOccupiedSpotswithData();
     }
 
     public LiveData<SpotData> getSpotDataById(int id) {
@@ -66,7 +68,7 @@ public class ParkedRepository {
     }
 
     public LiveData<List<ParkingTicketData>> getActiveTickets() {
-        return activeTickets;
+        return ticketDataDao.getAllActiveTickets();
     }
 
     public List<Spot> getEmptySpots() {
@@ -79,6 +81,10 @@ public class ParkedRepository {
 
     public void addTicket(ParkingTicket ticket) {
         new AddTicketAsyncTask(ticketDao).execute(ticket);
+    }
+
+    public void getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
+        ticketDao.getTicketByID(ticketId);
     }
 
     public void updateSpot(Spot spot) {
@@ -147,19 +153,18 @@ public class ParkedRepository {
     }
 
     private static class ParkNewVehicleAsyncTask extends AsyncTask<Void, Void, Void> {
-        private ResultListener<SpotData> listener;
+        private DoubleResultListener<Long, Integer> listener;
         private SpotDao spotDao;
-        private SpotDataDao spotDataDao;
         private TicketDao ticketDao;
         private LicensePlate licensePlate;
         private Enums.VehicleType vehicleType;
         private Enums.BillingType billingType;
         private User attendant;
-        private SpotData spotData;
+        private long ticketId;
+        private int spotId;
 
-        ParkNewVehicleAsyncTask(SpotDao spotDao, SpotDataDao spotDataDao, TicketDao ticketDao, ResultListener<SpotData> listener) {
+        ParkNewVehicleAsyncTask(SpotDao spotDao, TicketDao ticketDao, DoubleResultListener<Long, Integer> listener) {
             this.spotDao = spotDao;
-            this.spotDataDao = spotDataDao;
             this.ticketDao = ticketDao;
             this.listener = listener;
         }
@@ -171,7 +176,6 @@ public class ParkedRepository {
             if (emptySpot.size() == 0) {
                 emptySpot = spotDao.getEmptySpots();
                 if (emptySpot.size() == 0) {
-                    spotData = null;
                     return null;
                 }
             }
@@ -180,17 +184,17 @@ public class ParkedRepository {
 
             ParkingTicket ticket = new ParkingTicket(vehicleType, reservedSpot.getId(), licensePlate, attendant.getId(), billingType, System.currentTimeMillis());
             ticketDao.addTicket(ticket);
-            ticket = ticketDao.getByFullPlate(licensePlate.getLicensePlateNumber(), licensePlate.getState()).get(0);
-            reservedSpot.setTicketId(ticket.getId());
-            reservedSpot.toggleIsEmpty();
+            spotId = reservedSpot.getId();
+            ticketId = ticketDao.getByFullPlate(licensePlate.getLicensePlateNumber(), licensePlate.getState()).get(0).getId();
+            reservedSpot.setEmpty(true);
+            reservedSpot.setReserved(true);
             spotDao.updateSpot(reservedSpot);
-            spotData = spotDataDao.getById(reservedSpot.getId()).get(0);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            listener.onResult(spotData);
+            listener.onResult(ticketId, spotId);
         }
 
 
@@ -208,6 +212,67 @@ public class ParkedRepository {
 
         public void setAttendant(User attendant) {
             this.attendant = attendant;
+        }
+    }
+
+    private static class FinalizeParkAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TicketDao ticketDao;
+        private SpotDao spotDao;
+        private AttemptListener listener;
+        private long ticketId;
+
+        public FinalizeParkAsyncTask(TicketDao ticketDao, SpotDao spotDao, long ticketId, AttemptListener listener) {
+            this.ticketDao = ticketDao;
+            this.spotDao = spotDao;
+            this.ticketId = ticketId;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            ticket.setStartTime(System.currentTimeMillis());
+            Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
+            spot.setTicketId(ticketId);
+            spot.setEmpty(false);
+            ticketDao.updateTicket(ticket);
+            spotDao.updateSpot(spot);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onReturnCode(AttemptListener.POS_SUCCESS);
+        }
+    }
+
+    private static class CancelParkAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TicketDao ticketDao;
+        private SpotDao spotDao;
+        private AttemptListener listener;
+        private long ticketId;
+
+        public CancelParkAsyncTask(TicketDao ticketDao, SpotDao spotDao, long ticketId, AttemptListener listener) {
+            this.ticketDao = ticketDao;
+            this.spotDao = spotDao;
+            this.ticketId = ticketId;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
+            spot.setEmpty(true);
+            spot.setReserved(false);
+            ticketDao.deleteTicket(ticket);
+            spotDao.updateSpot(spot);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onReturnCode(AttemptListener.NEG_SUCCESS);
         }
     }
 }

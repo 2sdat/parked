@@ -1,5 +1,7 @@
 package dev.aidaco.parked.Fragments;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -9,15 +11,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import dev.aidaco.parked.Interfaces.ResultListener;
+import dev.aidaco.parked.Interfaces.DoubleResultListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
-import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.AddNewVehicleViewModel;
 
 public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> {
-
+    private static final String TAG = "AddNewVehicleFragment";
     private ArrayAdapter<Enums.State> arrayAdapterState;
     private ArrayAdapter<Enums.VehicleType> arrayAdapterVehicleType;
     private ArrayAdapter<Enums.BillingType> arrayAdapterBillingType;
@@ -44,17 +45,19 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         buttonParkVehicle = view.findViewById(R.id.buttonParkVehicle);
         textViewCancel = view.findViewById(R.id.textViewAddNewVehicleCancel);
 
-        arrayAdapterState = new ArrayAdapter<Enums.State>(getActivity(), android.R.layout.simple_list_item_1, Enums.State.values());
-        arrayAdapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterState = new ArrayAdapter<Enums.State>(getActivity(), R.layout.spinner_item, Enums.State.values());
+        arrayAdapterState.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerLicensePlateState.setAdapter(arrayAdapterState);
 
-        arrayAdapterVehicleType = new ArrayAdapter<Enums.VehicleType>(getActivity(), android.R.layout.simple_list_item_1, Enums.VehicleType.values());
-        arrayAdapterVehicleType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterVehicleType = new ArrayAdapter<Enums.VehicleType>(getActivity(), R.layout.spinner_item, Enums.VehicleType.values());
+        arrayAdapterVehicleType.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerVehicleType.setAdapter(arrayAdapterVehicleType);
 
-        arrayAdapterBillingType = new ArrayAdapter<Enums.BillingType>(getActivity(), android.R.layout.simple_list_item_1, Enums.BillingType.values());
-        arrayAdapterBillingType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterBillingType = new ArrayAdapter<Enums.BillingType>(getActivity(), R.layout.spinner_item, Enums.BillingType.values());
+        arrayAdapterBillingType.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerBillingType.setAdapter(arrayAdapterBillingType);
+
+        Log.d(TAG, "initViews: views init'd");
     }
 
     @Override
@@ -62,6 +65,7 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         imageButtonToolbarUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: back button clicked");
                 navigateUp();
             }
         });
@@ -69,20 +73,26 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         buttonParkVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: park vehicle clicked");
                 String licensePlateNum = editTextLicensePlate.getText().toString();
                 Enums.State licensePlateState = (Enums.State) spinnerLicensePlateState.getSelectedItem();
                 Enums.VehicleType vehicletype = (Enums.VehicleType) spinnerVehicleType.getSelectedItem();
                 Enums.BillingType billingType = (Enums.BillingType) spinnerBillingType.getSelectedItem();
                 LicensePlate licensePlate = new LicensePlate(licensePlateNum, licensePlateState);
-                ResultListener<SpotData> resListener = new ResultListener<SpotData>() {
+                Log.d(TAG, "onClick: vehicle info: " + licensePlate.toString() + " " + billingType.name() + " " + vehicletype.getName());
+                DoubleResultListener<Long, Integer> resListener = new DoubleResultListener<Long, Integer>() {
                     @Override
-                    public void onResult(SpotData spotData) {
-                        if (spotData == null) {
+                    public void onResult(Long ticketId, Integer spotId) {
+                        Log.d(TAG, "onResult: parkvehicle result recieved");
+                        if (ticketId == null) {
+                            Log.d(TAG, "onResult: ticketId null");
                             showSnackbar("There are no available spots.");
                             return;
                         }
 
-                        navigateToParkVehicle();
+                        Log.d(TAG, "onResult: ticketId: " + ticketId.toString() + " spotId: " + spotId.toString());
+
+                        navigateToParkVehicle(ticketId, spotId);
                     }
                 };
 
@@ -93,6 +103,7 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         textViewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: cancel clicked");
                 navigateUp();
             }
         });
@@ -108,11 +119,16 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         return R.layout.fragment_add_new_vehicle;
     }
 
-    private void navigateToParkVehicle() {
-
+    private void navigateToParkVehicle(long ticketId, int spotId) {
+        Bundle argsBundle = new Bundle();
+        argsBundle.putLong("ticketId", ticketId);
+        argsBundle.putInt("spotId", spotId);
+        Log.d(TAG, "navigateToParkVehicle: navigate to parkvehicle with ticketId: " + Long.toString(ticketId) + " spotId: " + Integer.toString(spotId));
+        navigateActionWithArgs(R.id.action_addNewVehicleFragment_to_parkVehicleFragment, argsBundle);
     }
 
     private void navigateUp() {
+        Log.d(TAG, "navigateUp: navigate to userhome");
         navigateActionAndPopUpTo(R.id.action_addNewVehicleFragment_to_userHomeFragment, R.id.addNewVehicleFragment);
     }
 }

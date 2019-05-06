@@ -1,11 +1,14 @@
 package dev.aidaco.parked.Fragments;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import dev.aidaco.parked.Interfaces.LoginAttemptListener;
+import dev.aidaco.parked.Model.Entities.User;
+import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.LoginViewModel;
 
@@ -17,6 +20,8 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     private Button buttonLogin;
     private ProgressBar loadingSpinner;
 
+    private Button buttonLoginTest;
+
     @Override
     public void initViews(View view) {
         editTextUsername = view.findViewById(R.id.editTextUsername);
@@ -25,6 +30,10 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         loadingSpinner = view.findViewById(R.id.progressBarLoginLoading);
 
         loadingSpinner.setVisibility(View.GONE);
+
+        buttonLoginTest = view.findViewById(R.id.buttonLoginTest);
+
+        Log.d(TAG, "initViews: views init'd");
     }
 
     @Override
@@ -38,24 +47,41 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
                 viewModel.attemptLogin(new LoginAttemptListener() {
                     @Override
                     public void onResult(int resultCode) {
+                        Log.d(TAG, "onResult: recieved login attempt callback");
                         onLoginAttemptReturn(resultCode);
                     }
                 });
             }
         });
+
+        buttonLoginTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: logintest clicked");
+                loadingSpinner.setVisibility(View.VISIBLE);
+                User testUser = new User(1, "username", "password", "Aidan", "Courtney", Enums.UserType.BASIC, true);
+
+                viewModel.populateDbWithTestData();
+                loadingSpinner.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void onLoginAttemptReturn(int resultCode) {
+        Log.d(TAG, "onLoginAttemptReturn: ");
         loadingSpinner.setVisibility(View.GONE);
         switch (resultCode) {
             case LoginAttemptListener.INC_USERNAME:
+                Log.d(TAG, "onLoginAttemptReturn: incorrect username");
                 showSnackbar(getString(R.string.login_fail_username));
                 break;
 
             case LoginAttemptListener.INC_PASSWORD:
+                Log.d(TAG, "onLoginAttemptReturn: incorrect password");
                 showSnackbar(getString(R.string.login_fail_password));
                 break;
             case LoginAttemptListener.SUCCESS:
+                Log.d(TAG, "onLoginAttemptReturn: login success");
                 loadingSpinner.setVisibility(View.VISIBLE);
                 navigateToUserHome();
                 break;
@@ -63,6 +89,7 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     }
 
     private void navigateToUserHome() {
+        Log.d(TAG, "navigateToUserHome: navigate to userhome");
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_user_nav_graph, R.id.loginFragment);
     }
 

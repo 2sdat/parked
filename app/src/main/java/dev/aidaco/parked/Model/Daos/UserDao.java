@@ -2,13 +2,14 @@ package dev.aidaco.parked.Model.Daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import dev.aidaco.parked.Model.Entities.User;
 
 @Dao
 public interface UserDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addUser(User user);
 
     @Update

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarAddNewVehicle"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="#2196F3"
+        android:background="@color/colorPrimaryDark"
         android:gravity="top">
 
         <ImageButton
@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginEnd="20dp"
-            android:background="#2196F3"
+            android:background="@color/colorPrimaryDark"
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:contentDescription="@string/back_button_description"
@@ -30,7 +30,7 @@
             android:layout_gravity="start"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorText"
             android:textSize="30dp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -45,7 +45,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="@string/enter_vehicle_information"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorText"
         android:textSize="30sp" />
 
     <EditText
@@ -59,8 +59,8 @@
         android:gravity="center"
         android:hint="@string/license_plate_number"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText" />
 
     <Spinner
         android:id="@+id/spinnerLicensePlateState"
@@ -69,7 +69,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorText"
         android:popupBackground="#2196F3" />
 
     <Spinner
@@ -79,7 +79,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorText"
         android:popupBackground="#2196F3" />
 
     <Spinner
@@ -89,7 +89,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorText"
         android:popupBackground="#2196F3" />
 
     <Button
@@ -109,6 +109,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/addVehicleCancel"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/colorText" />
 
 </LinearLayout>

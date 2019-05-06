@@ -2,6 +2,7 @@ package dev.aidaco.parked.Fragments;
 
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +15,8 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.SpotDetailViewModel;
 
 public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
+    private static final String TAG = "SpotDetailFragment";
+
     private Toolbar toolbar;
     private ImageButton imageButtonNavigateUp;
     private TextView textViewSpotNumber;
@@ -51,7 +54,8 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         viewModel.getSpotData().observe(this, new Observer<SpotData>() {
             @Override
             public void onChanged(SpotData spotData) {
-                textViewSpotNumber.setText(spotData.spot.getId());
+                viewModel.setParkTime(spotData.ticket.get(0).parkingTicket.getStartTime());
+                textViewSpotNumber.setText(Integer.toString(spotData.spot.getId()));
                 textViewLicensePlate.setText(spotData.ticket.get(0).parkingTicket.getLicensePlate().toString());
                 textViewVehicleType.setText(spotData.ticket.get(0).parkingTicket.getVehicleType().getName());
                 textViewSpotType.setText(spotData.spot.getSpotType().getName());
@@ -90,7 +94,9 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
                             }
                         });
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Log.d(TAG, "run: timeElapsedThread interrupted during sleep" + e.getMessage());
+                    } catch (NullPointerException e) {
+                        Log.d(TAG, "run: timeElapsedThread threw NullPointerException" + e.getMessage());
                     }
                 }
             }
@@ -124,7 +130,8 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     }
 
     private void navigateToDisplayTicket() {
-        // TODO implement displayticket and naviagte to it here
+        // TODO implement displayticket and navigate to it here
+        navigateUp();
     }
 
 }

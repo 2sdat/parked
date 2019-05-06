@@ -1,5 +1,6 @@
 package dev.aidaco.parked.Fragments.Accessories;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
 
 public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
+    private static final String TAG = "SpotAdapter";
     private List<SpotData> occupiedSpots;
     private ClickListener<Integer> listener;
 
     public void updateSpotData(List<SpotData> spotData) {
+        Log.d(TAG, "updateSpotData: recieved spotdata size: " + Integer.toString(spotData.size()));
         this.occupiedSpots = spotData;
     }
 
