@@ -62,6 +62,14 @@ public class MasterViewModel extends AndroidViewModel {
         parkedRepo.cancelPark(ticketId, listener);
     }
 
+    public void finalizeTicket(long ticketId) {
+        parkedRepo.finalizeTicket(ticketId);
+    }
+
+    public void getTicketsByUserId(int userId, SingleResultListener<List<ParkingTicket>> listener) {
+        parkedRepo.getTicketsByUserId(userId, listener);
+    }
+
     public LiveData<List<SpotData>> getAllSpots() {
         return parkedRepo.getAllSpots();
     }
@@ -90,6 +98,10 @@ public class MasterViewModel extends AndroidViewModel {
         parkedRepo.updateSpot(spot);
     }
 
+    public LiveData<ParkingTicketData> getTicketDataById(long ticketId) {
+        return parkedRepo.getTicketDataByIdLive(ticketId);
+    }
+
     public void updateTicket(ParkingTicket ticket) {
         parkedRepo.updateTicket(ticket);
     }
@@ -100,6 +112,10 @@ public class MasterViewModel extends AndroidViewModel {
 
     public void updateUser(User user) {
         userRepo.updateUser(user);
+    }
+
+    public LiveData<List<User>> getAllUsers() {
+        return userRepo.getAllUsers();
     }
 
     public void getUserById(int id, SingleResultListener<User> listener) {

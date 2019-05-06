@@ -1,7 +1,6 @@
 package dev.aidaco.parked.Fragments;
 
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,14 +53,14 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         viewModel.getSpotData().observe(this, new Observer<SpotData>() {
             @Override
             public void onChanged(SpotData spotData) {
+                viewModel.setTicketId(spotData.ticket.get(0).parkingTicket.getId());
                 viewModel.setParkTime(spotData.ticket.get(0).parkingTicket.getStartTime());
                 textViewSpotNumber.setText(Integer.toString(spotData.spot.getId()));
                 textViewLicensePlate.setText(spotData.ticket.get(0).parkingTicket.getLicensePlate().toString());
                 textViewVehicleType.setText(spotData.ticket.get(0).parkingTicket.getVehicleType().getName());
                 textViewSpotType.setText(spotData.spot.getSpotType().getName());
                 textViewAttendant.setText(spotData.ticket.get(0).attendent.get(0).getFullName());
-                textViewParkTime.setText(DateUtils.formatDateTime(getContext(), viewModel.getParkTime(),
-                        DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME));
+                textViewParkTime.setText(viewModel.formatTime(getContext(), viewModel.getParkTime()));
             }
         });
 
@@ -76,7 +75,7 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
             @Override
             public void onClick(View v) {
                 viewModel.releaseVehicle();
-                navigateToDisplayTicket();
+                navigateToDisplayTicket(viewModel.getTicketId());
             }
         });
 
@@ -129,9 +128,10 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         navigateActionAndPopUpTo(R.id.action_spotDetailFragment_to_userHomeFragment, R.id.spotDetailFragment);
     }
 
-    private void navigateToDisplayTicket() {
-        // TODO implement displayticket and navigate to it here
-        navigateUp();
+    private void navigateToDisplayTicket(long ticketId) {
+        Bundle argsBundle = new Bundle();
+        argsBundle.putLong("ticketId", ticketId);
+        navigateActionWithArgs(R.id.action_spotDetailFragment_to_displayTicketFragment, argsBundle);
     }
 
 }

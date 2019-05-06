@@ -12,7 +12,7 @@ import dev.aidaco.parked.Model.Enums;
                 @Index(value = {"username"}, unique = true)
         })
 public class User {
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String username;
@@ -43,6 +43,10 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

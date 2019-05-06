@@ -1,5 +1,8 @@
 package dev.aidaco.parked.Model.Daos;
 
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -14,6 +17,9 @@ public interface UserDao {
 
     @Update
     void updateUser(User user);
+
+    @Query("SELECT * FROM users")
+    LiveData<List<User>> getAllUsers();
 
     @Query("SELECT * FROM users WHERE id = :id")
     User getUserById(int id);

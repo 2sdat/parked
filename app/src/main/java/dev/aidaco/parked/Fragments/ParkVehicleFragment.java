@@ -84,7 +84,7 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
                         Log.d(TAG, "run: timerThread countDown = " + Integer.toString(countDown));
                         if (!viewModel.isPaused()) {
 
-                            final String text = Integer.toString(countDown) + "s";
+                            final String text = Integer.toString(countDown);
                             final boolean isDone = countDown == 0;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override

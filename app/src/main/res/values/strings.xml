@@ -23,4 +23,7 @@
     <string name="cancel">Cancel</string>
     <string name="time_starts_in">Time starts in:</string>
     <string name="spot">Spot:</string>
+    <string name="end_time_descriptor">End Time:</string>
+    <string name="total_descriptor">Total:</string>
+    <string name="billing_type_descriptor">Billing Type:</string>
 </resources>

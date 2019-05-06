@@ -2,6 +2,8 @@ package dev.aidaco.parked.ViewModels;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
+import android.text.format.DateUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +14,7 @@ import dev.aidaco.parked.ViewModels.Util.BaseViewModel;
 
 public class SpotDetailViewModel extends BaseViewModel {
     private LiveData<SpotData> spotData;
+    private long ticketId;
     private long parkTime = 0;
 
     public SpotDetailViewModel(@NonNull Application application, MasterViewModel masterVM) {
@@ -37,12 +40,25 @@ public class SpotDetailViewModel extends BaseViewModel {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    public String formatTime(Context context, long time) {
+        return DateUtils.formatDateTime(context, time,
+                DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
+    }
+
     public LiveData<SpotData> getSpotData() {
         return spotData;
     }
 
     public void setSpotData(int spotId) {
         this.spotData = masterVM.getSpotDataById(spotId);
+    }
+
+    public long getTicketId() {
+        return this.ticketId;
+    }
+
+    public void setTicketId(long ticketId) {
+        this.ticketId = ticketId;
     }
 
     public long getParkTime() {

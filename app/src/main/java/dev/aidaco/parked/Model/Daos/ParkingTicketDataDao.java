@@ -22,7 +22,7 @@ public interface ParkingTicketDataDao {
 
     @Transaction
     @Query("SELECT * FROM tickets WHERE id LIKE :id")
-    LiveData<ParkingTicketData> getTicketByID(long id);
+    LiveData<ParkingTicketData> getTicketById(long id);
 
     @Transaction
     @Query("SELECT * FROM tickets WHERE license_plate_number LIKE :licensePlateNumber")

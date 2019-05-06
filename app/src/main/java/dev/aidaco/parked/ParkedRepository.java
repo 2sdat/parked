@@ -55,6 +55,14 @@ public class ParkedRepository {
         new CancelParkAsyncTask(ticketDao, spotDao, ticketId, listener).execute();
     }
 
+    public void finalizeTicket(long ticketId) {
+        new FinalizeTicketAsyncTask(spotDao, ticketDao, ticketId).execute();
+    }
+
+    public void getTicketsByUserId(int userId, SingleResultListener<List<ParkingTicket>> listener) {
+        new GetTicketsByUserIdAsyncTask(ticketDao, userId, listener).execute();
+    }
+
     public LiveData<List<SpotData>> getAllSpots() {
         return spotDataDao.getAllSpotsWithData();
     }
@@ -83,8 +91,12 @@ public class ParkedRepository {
         new AddTicketAsyncTask(ticketDao).execute(ticket);
     }
 
-    public void getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
-        ticketDao.getTicketByID(ticketId);
+    public List<ParkingTicket> getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
+        return ticketDao.getTicketByID(ticketId);
+    }
+
+    public LiveData<ParkingTicketData> getTicketDataByIdLive(long ticketId) {
+        return ticketDataDao.getTicketById(ticketId);
     }
 
     public void updateSpot(Spot spot) {
@@ -275,4 +287,57 @@ public class ParkedRepository {
             listener.onReturnCode(AttemptListener.NEG_SUCCESS);
         }
     }
+
+    private static class FinalizeTicketAsyncTask extends AsyncTask<Void, Void, Void> {
+        private SpotDao spotDao;
+        private TicketDao ticketDao;
+        private long ticketId;
+
+
+        public FinalizeTicketAsyncTask(SpotDao spotDao, TicketDao ticketDao, long ticketId) {
+            this.spotDao = spotDao;
+            this.ticketDao = ticketDao;
+            this.ticketId = ticketId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
+
+            ticket.setEndTime(System.currentTimeMillis());
+            spot.setReserved(false);
+            spot.setEmpty(true);
+            spot.setTicketId(Spot.NULL_TICKET_ID);
+
+            spotDao.updateSpot(spot);
+            ticketDao.updateTicket(ticket);
+            return null;
+        }
+    }
+
+    private static class GetTicketsByUserIdAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TicketDao ticketDao;
+        private SingleResultListener<List<ParkingTicket>> listener;
+        private List<ParkingTicket> result;
+        private int userId;
+
+        public GetTicketsByUserIdAsyncTask(TicketDao ticketDao, int userId, SingleResultListener<List<ParkingTicket>> listener) {
+            this.ticketDao = ticketDao;
+            this.listener = listener;
+            this.userId = userId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            result = ticketDao.getByAttendentID(userId);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onResult(result);
+        }
+    }
+
 }

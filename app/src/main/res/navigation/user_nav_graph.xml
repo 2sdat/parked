@@ -41,6 +41,9 @@
             android:name="spotId"
             android:defaultValue="0"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_spotDetailFragment_to_displayTicketFragment"
+            app:destination="@id/displayTicketFragment" />
     </fragment>
     <fragment
         android:id="@+id/parkVehicleFragment"
@@ -50,6 +53,17 @@
         <action
             android:id="@+id/action_parkVehicleFragment_to_userHomeFragment"
             app:destination="@id/userHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayTicketFragment"
+        android:name="dev.aidaco.parked.Fragments.DisplayTicketFragment"
+        android:label="DisplayTicketFragment">
+        <action
+            android:id="@+id/action_displayTicketFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
+        <argument
+            android:name="ticketId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

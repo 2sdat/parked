@@ -3,6 +3,9 @@ package dev.aidaco.parked;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Interfaces.SingleResultListener;
 import dev.aidaco.parked.Model.Daos.UserDao;
 import dev.aidaco.parked.Model.Entities.User;
@@ -24,6 +27,10 @@ public class UserRepository {
 
     public void updateUser(User user) {
         new UpdateUserAsyncTask(userDao).execute(user);
+    }
+
+    public LiveData<List<User>> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
     public void getUserById(int id, SingleResultListener<User> listener) {
