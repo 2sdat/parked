@@ -5,16 +5,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import androidx.lifecycle.ViewModelProviders;
 import dev.aidaco.parked.Interfaces.LoginAttemptListener;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.LoginViewModel;
-import dev.aidaco.parked.ViewModels.UserHomeViewModel;
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment<LoginViewModel> {
     private static final String TAG = "LoginFragment";
-
-    private LoginViewModel loginViewModel;
 
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -23,7 +19,6 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-        loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         editTextUsername = view.findViewById(R.id.editTextUsername);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonLogin = view.findViewById(R.id.buttonLogin);
@@ -38,9 +33,9 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 loadingSpinner.setVisibility(View.VISIBLE);
-                loginViewModel.provideUsername(editTextUsername.getText().toString());
-                loginViewModel.providePassword(editTextPassword.getText().toString());
-                loginViewModel.attemptLogin(new LoginAttemptListener() {
+                viewModel.provideUsername(editTextUsername.getText().toString());
+                viewModel.providePassword(editTextPassword.getText().toString());
+                viewModel.attemptLogin(new LoginAttemptListener() {
                     @Override
                     public void onResult(int resultCode) {
                         onLoginAttemptReturn(resultCode);
@@ -62,7 +57,6 @@ public class LoginFragment extends BaseFragment {
                 break;
             case LoginAttemptListener.SUCCESS:
                 loadingSpinner.setVisibility(View.VISIBLE);
-                ViewModelProviders.of(getActivity()).get(UserHomeViewModel.class).setCurrentUser(loginViewModel.getCurrentUser());
                 navigateToUserHome();
                 break;
         }
@@ -75,5 +69,10 @@ public class LoginFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_login;
+    }
+
+    @Override
+    public Class<LoginViewModel> getViewModelClass() {
+        return LoginViewModel.class;
     }
 }

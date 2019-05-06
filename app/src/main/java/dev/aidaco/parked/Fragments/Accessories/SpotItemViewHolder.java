@@ -17,8 +17,8 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
     private TextView textViewSpotType;
     private TextView textViewLicensePlate;
     private TextView textViewAttendent;
-    private ClickListener<SpotData> listener;
-    private SpotData spotData;
+    private ClickListener<Integer> listener;
+    private int spotId;
 
     public SpotItemViewHolder(View itemView) {
         super(itemView);
@@ -31,17 +31,17 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        listener.onClick(spotData);
+        listener.onClick(spotId);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        listener.onLongClick(spotData);
+        listener.onLongClick(spotId);
         return false;
     }
 
     public void setData(SpotData spotData) {
-        this.spotData = spotData;
+        this.spotId = spotData.spot.getId();
         Spot spot = spotData.spot;
         ParkingTicket ticket = spotData.ticket.get(0).parkingTicket;
         User attendant = spotData.ticket.get(0).attendent.get(0);
@@ -49,8 +49,8 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
         String textSpotNumber = Integer.toString(spot.getId());
         String textSpotType = spot.getSpotType().getName();
-        String textLicensePlate = licensePlate.getState().toString() + " " + licensePlate.getLicensePlateNumber();
-        String textAttendant = attendant.getFirstName() + " " + attendant.getLastName();
+        String textLicensePlate = licensePlate.toString();
+        String textAttendant = attendant.getFullName();
 
         textViewSpotNumber.setText(textSpotNumber);
         textViewSpotType.setText(textSpotType);
@@ -58,7 +58,7 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         textViewAttendent.setText(textAttendant);
     }
 
-    public void setListener(ClickListener listener) {
+    public void setListener(ClickListener<Integer> listener) {
         this.listener = listener;
     }
 }

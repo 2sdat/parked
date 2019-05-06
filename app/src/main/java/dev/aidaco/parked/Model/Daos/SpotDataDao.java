@@ -20,5 +20,9 @@ public interface SpotDataDao {
 
     @Transaction
     @Query("SELECT * FROM spots WHERE id = :id")
-    List<SpotData> getByID(int id);
+    LiveData<SpotData> getLiveDataById(int id);
+
+    @Transaction
+    @Query("SELECT * FROM spots WHERE id = :id")
+    List<SpotData> getById(int id);
 }

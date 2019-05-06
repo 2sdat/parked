@@ -9,7 +9,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 import dev.aidaco.parked.Interfaces.ResultListener;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.SpotData;
@@ -17,8 +16,7 @@ import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.AddNewVehicleViewModel;
 
-public class AddNewVehicleFragment extends BaseFragment {
-    private AddNewVehicleViewModel addNewVehicleViewModel;
+public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> {
 
     private ArrayAdapter<Enums.State> arrayAdapterState;
     private ArrayAdapter<Enums.VehicleType> arrayAdapterVehicleType;
@@ -35,7 +33,6 @@ public class AddNewVehicleFragment extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-        addNewVehicleViewModel = ViewModelProviders.of(getActivity()).get(AddNewVehicleViewModel.class);
 
         toolbarAddNewVehicle = view.findViewById(R.id.toolbarAddNewVehicle);
         imageButtonToolbarUp = view.findViewById(R.id.imageButtonToolbarUp);
@@ -89,7 +86,7 @@ public class AddNewVehicleFragment extends BaseFragment {
                     }
                 };
 
-                addNewVehicleViewModel.onButtonParkVehicleClicked(licensePlate, vehicletype, billingType);
+                viewModel.onButtonParkVehicleClicked(licensePlate, vehicletype, billingType, resListener);
             }
         });
 
@@ -99,6 +96,11 @@ public class AddNewVehicleFragment extends BaseFragment {
                 navigateUp();
             }
         });
+    }
+
+    @Override
+    public Class<AddNewVehicleViewModel> getViewModelClass() {
+        return AddNewVehicleViewModel.class;
     }
 
     @Override

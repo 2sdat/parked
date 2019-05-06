@@ -1,5 +1,6 @@
 package dev.aidaco.parked.Fragments;
 
+import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
@@ -8,13 +9,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.SpotDetailViewModel;
 
-public class SpotDetailFragment extends BaseFragment {
-    private SpotDetailViewModel spotDetailViewModel;
+public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     private Toolbar toolbar;
     private ImageButton imageButtonNavigateUp;
     private TextView textViewSpotNumber;
@@ -35,7 +34,6 @@ public class SpotDetailFragment extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-        spotDetailViewModel = ViewModelProviders.of(getActivity()).get(SpotDetailViewModel.class);
         toolbar = view.findViewById(R.id.toolbarSpotDetail);
         imageButtonNavigateUp = view.findViewById(R.id.imageButtonSpotDetailToolbarUp);
         textViewSpotNumber = view.findViewById(R.id.textViewSpotDetailSpotNumber);
@@ -50,7 +48,7 @@ public class SpotDetailFragment extends BaseFragment {
 
     @Override
     public void createCallbacks() {
-        spotDetailViewModel.getSpotData().observe(this, new Observer<SpotData>() {
+        viewModel.getSpotData().observe(this, new Observer<SpotData>() {
             @Override
             public void onChanged(SpotData spotData) {
                 textViewSpotNumber.setText(spotData.spot.getId());
@@ -58,7 +56,7 @@ public class SpotDetailFragment extends BaseFragment {
                 textViewVehicleType.setText(spotData.ticket.get(0).parkingTicket.getVehicleType().getName());
                 textViewSpotType.setText(spotData.spot.getSpotType().getName());
                 textViewAttendant.setText(spotData.ticket.get(0).attendent.get(0).getFullName());
-                textViewParkTime.setText(DateUtils.formatDateTime(getContext(), spotData.ticket.get(0).parkingTicket.getStartTime(),
+                textViewParkTime.setText(DateUtils.formatDateTime(getContext(), viewModel.getParkTime(),
                         DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME));
             }
         });
@@ -73,7 +71,7 @@ public class SpotDetailFragment extends BaseFragment {
         buttonReleaseVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spotDetailViewModel.releaseVehicle();
+                viewModel.releaseVehicle();
                 navigateToDisplayTicket();
             }
         });
@@ -84,7 +82,7 @@ public class SpotDetailFragment extends BaseFragment {
                 while (!isStopped) {
                     try {
                         Thread.sleep(1000);
-                        final String newElapsed = spotDetailViewModel.calculateElapsedTime();
+                        final String newElapsed = viewModel.calculateElapsedTime();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -99,6 +97,16 @@ public class SpotDetailFragment extends BaseFragment {
         });
 
         timeElapsedThread.start();
+    }
+
+    @Override
+    public void handleArguments(Bundle argBundle) {
+        viewModel.setSpotData(argBundle.getInt("spotId"));
+    }
+
+    @Override
+    public Class<SpotDetailViewModel> getViewModelClass() {
+        return SpotDetailViewModel.class;
     }
 
     @Override

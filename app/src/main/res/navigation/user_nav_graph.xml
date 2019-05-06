@@ -34,6 +34,10 @@
         <action
             android:id="@+id/action_spotDetailFragment_to_userHomeFragment"
             app:destination="@id/userHomeFragment" />
+        <argument
+            android:name="spotId"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

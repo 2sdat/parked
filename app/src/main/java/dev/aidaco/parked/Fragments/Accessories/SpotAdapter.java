@@ -14,7 +14,7 @@ import dev.aidaco.parked.R;
 
 public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
     private List<SpotData> occupiedSpots;
-    private ClickListener listener;
+    private ClickListener<Integer> listener;
 
     public void updateSpotData(List<SpotData> spotData) {
         this.occupiedSpots = spotData;
@@ -38,7 +38,7 @@ public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
         return occupiedSpots == null ? 0 : occupiedSpots.size();
     }
 
-    public void setClickListener(ClickListener listener) {
+    public void setClickListener(ClickListener<Integer> listener) {
         this.listener = listener;
     }
 }

@@ -1,6 +1,7 @@
 package dev.aidaco.parked.Fragments;
 
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -8,19 +9,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import dev.aidaco.parked.Fragments.Accessories.SpotAdapter;
 import dev.aidaco.parked.Interfaces.ClickListener;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
-import dev.aidaco.parked.ViewModels.AddNewVehicleViewModel;
-import dev.aidaco.parked.ViewModels.SpotDetailViewModel;
 import dev.aidaco.parked.ViewModels.UserHomeViewModel;
 
-public class UserHomeFragment extends BaseFragment {
+public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     private static final String TAG = "UserHomeFragment";
-    private UserHomeViewModel userHomeViewModel;
     private SpotAdapter spotAdapter;
     private FloatingActionButton fabAddVehicle;
     private RecyclerView recyclerViewSpots;
@@ -38,25 +35,23 @@ public class UserHomeFragment extends BaseFragment {
         spotAdapter = new SpotAdapter();
 
         recyclerViewSpots.setAdapter(spotAdapter);
-
-        userHomeViewModel = ViewModelProviders.of(getActivity()).get(UserHomeViewModel.class);
     }
 
     @Override
     public void createCallbacks() {
-        spotAdapter.setClickListener(new ClickListener<SpotData>() {
+        spotAdapter.setClickListener(new ClickListener<Integer>() {
             @Override
-            public void onClick(SpotData spotData) {
-                navigateToSpotDetail(spotData);
+            public void onClick(Integer spotId) {
+                navigateToSpotDetail(spotId);
             }
 
             @Override
-            public void onLongClick(SpotData spotData) {
-                onClick(spotData);
+            public void onLongClick(Integer spotId) {
+                navigateToSpotDetail(spotId);
             }
         });
 
-        userHomeViewModel.getOccupiedSpots().observe(this, new Observer<List<SpotData>>() {
+        viewModel.getOccupiedSpots().observe(this, new Observer<List<SpotData>>() {
             @Override
             public void onChanged(List<SpotData> spots) {
                 spotAdapter.updateSpotData(spots);
@@ -71,13 +66,18 @@ public class UserHomeFragment extends BaseFragment {
         });
     }
 
-    private void navigateToSpotDetail(SpotData spotData) {
-        ViewModelProviders.of(getActivity()).get(SpotDetailViewModel.class).setSpotData(spotData);
-        navigateAction(R.id.action_userHomeFragment_to_spotDetailFragment);
+    @Override
+    public Class<UserHomeViewModel> getViewModelClass() {
+        return UserHomeViewModel.class;
+    }
+
+    private void navigateToSpotDetail(int spotId) {
+        Bundle argsBundle = new Bundle();
+        argsBundle.putInt("spotId", spotId);
+        navigateActionWithArgs(R.id.action_userHomeFragment_to_spotDetailFragment, argsBundle);
     }
 
     private void navigateToAddNewVehicle() {
-        ViewModelProviders.of(getActivity()).get(AddNewVehicleViewModel.class).setCurrentUser(userHomeViewModel.getCurrentUser());
         navigateAction(R.id.action_userHomeFragment_to_addNewVehicleFragment);
     }
 }

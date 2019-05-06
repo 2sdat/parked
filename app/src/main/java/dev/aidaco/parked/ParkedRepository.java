@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import dev.aidaco.parked.Interfaces.ResultListener;
 import dev.aidaco.parked.Model.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Model.Daos.SpotDao;
 import dev.aidaco.parked.Model.Daos.SpotDataDao;
@@ -43,7 +44,7 @@ public class ParkedRepository {
         activeTickets = ticketDataDao.getAllActiveTickets();
     }
 
-    public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, ParkResultListener listener) {
+    public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, ResultListener<SpotData> listener) {
         ParkNewVehicleAsyncTask parkAsync = new ParkNewVehicleAsyncTask(spotDao, spotDataDao, ticketDao, listener);
         parkAsync.setVehicleType(vehicleType);
         parkAsync.setLicensePlate(licensePlate);
@@ -58,6 +59,10 @@ public class ParkedRepository {
 
     public LiveData<List<SpotData>> getOccupiedSpots() {
         return occupiedSpots;
+    }
+
+    public LiveData<SpotData> getSpotDataById(int id) {
+        return spotDataDao.getLiveDataById(id);
     }
 
     public LiveData<List<ParkingTicketData>> getActiveTickets() {
@@ -141,12 +146,8 @@ public class ParkedRepository {
         }
     }
 
-    public interface ParkResultListener {
-        void onResult(SpotData spotData);
-    }
-
     private static class ParkNewVehicleAsyncTask extends AsyncTask<Void, Void, Void> {
-        private ParkResultListener listener;
+        private ResultListener<SpotData> listener;
         private SpotDao spotDao;
         private SpotDataDao spotDataDao;
         private TicketDao ticketDao;
@@ -156,7 +157,7 @@ public class ParkedRepository {
         private User attendant;
         private SpotData spotData;
 
-        ParkNewVehicleAsyncTask(SpotDao spotDao, SpotDataDao spotDataDao, TicketDao ticketDao, ParkResultListener listener) {
+        ParkNewVehicleAsyncTask(SpotDao spotDao, SpotDataDao spotDataDao, TicketDao ticketDao, ResultListener<SpotData> listener) {
             this.spotDao = spotDao;
             this.spotDataDao = spotDataDao;
             this.ticketDao = ticketDao;
@@ -183,7 +184,7 @@ public class ParkedRepository {
             reservedSpot.setTicketId(ticket.getId());
             reservedSpot.toggleIsEmpty();
             spotDao.updateSpot(reservedSpot);
-            spotData = spotDataDao.getByID(reservedSpot.getId()).get(0);
+            spotData = spotDataDao.getById(reservedSpot.getId()).get(0);
             return null;
         }
 

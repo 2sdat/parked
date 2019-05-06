@@ -6,21 +6,19 @@ import android.app.Application;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 
-public class SpotDetailViewModel extends AndroidViewModel {
-    private SpotData spotData;
-    private MutableLiveData<SpotData> spotDataLive;
+public class SpotDetailViewModel extends BaseViewModel {
+    private LiveData<SpotData> spotData;
+    private long parkTime = 0;
 
     public SpotDetailViewModel(@NonNull Application application) {
         super(application);
     }
 
     public String calculateElapsedTime() {
-        long elapsed = spotData.ticket.get(0).parkingTicket.getStartTime() - System.currentTimeMillis();
+        long elapsed = parkTime - System.currentTimeMillis();
         return formatElapsedTime(elapsed);
     }
 
@@ -39,11 +37,18 @@ public class SpotDetailViewModel extends AndroidViewModel {
     }
 
     public LiveData<SpotData> getSpotData() {
-        return spotDataLive;
+        return spotData;
     }
 
-    public void setSpotData(SpotData spotData) {
-        this.spotData = spotData;
-        this.spotDataLive.postValue(this.spotData);
+    public void setSpotData(int spotId) {
+        this.spotData = masterVM.getSpotDataById(spotId);
+    }
+
+    public long getParkTime() {
+        return parkTime;
+    }
+
+    public void setParkTime(long parkTime) {
+        this.parkTime = parkTime;
     }
 }
