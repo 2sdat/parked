@@ -11,7 +11,8 @@ import dev.aidaco.parked.Model.Enums;
 
 @Entity(tableName = "tickets", indices = {@Index(value = {"id"}, unique = true)})
 public class ParkingTicket {
-    public static final long END_TIME_NULL = 0;
+    public static final long NULL_END_TIME = Long.MAX_VALUE;
+    public static final long NULL_ID = Long.MAX_VALUE;
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -49,7 +50,7 @@ public class ParkingTicket {
         this.attendentId = attendentId;
         this.billingType = billingType;
         this.startTime = startTime;
-        this.endTime = END_TIME_NULL;
+        this.endTime = NULL_END_TIME;
     }
 
     public void setId(long id) {

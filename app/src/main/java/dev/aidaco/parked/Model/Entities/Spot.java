@@ -4,17 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
 @Entity(tableName = "spots", indices = {@Index(value = {"id"}, unique = true)})
 public class Spot {
-    @Ignore
-    public static final long NULL_TICKET_ID = Long.MAX_VALUE;
 
-    @PrimaryKey
+    // TODO implement non-auto spotId generation
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @NonNull

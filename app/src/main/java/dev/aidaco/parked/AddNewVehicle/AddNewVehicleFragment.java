@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import dev.aidaco.parked.Model.Entities.LicensePlate;
+import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
@@ -78,7 +79,7 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
                     @Override
                     public void onResult(Long ticketId, Integer spotId) {
                         Log.d(TAG, "onResult: parkvehicle result recieved");
-                        if (ticketId == null) {
+                        if (ticketId == ParkingTicket.NULL_ID) {
                             Log.d(TAG, "onResult: ticketId null");
                             showSnackbar("There are no available spots.");
                             return;

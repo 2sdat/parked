@@ -86,7 +86,7 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
         getAttendantThread.start();
 
-        if (endTime == ParkingTicket.END_TIME_NULL) {
+        if (endTime == ParkingTicket.NULL_END_TIME) {
             RUNNING = true;
             Thread timerThread = new Thread(new Runnable() {
                 @Override

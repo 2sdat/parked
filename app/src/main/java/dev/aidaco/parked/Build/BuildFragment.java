@@ -50,6 +50,9 @@ public class BuildFragment extends BaseFragment<BuildViewModel> {
                 int numCar = Integer.parseInt(carSpots.getText().toString());
                 int numTruck = Integer.parseInt(truckSpots.getText().toString());
                 int numMoto = Integer.parseInt(motoSpots.getText().toString());
+
+                // TODO implement input verification
+
                 viewModel.rebuild(numCar, numMoto, numTruck);
                 viewModel.resetData();
                 navigateToLogin();
@@ -58,7 +61,7 @@ public class BuildFragment extends BaseFragment<BuildViewModel> {
     }
 
     private void navigateToLogin() {
-        getActivity().finish();
+        navigateToDestAndPopUpTo(R.id.loginFragment, R.id.managerHomeFragment);
     }
 
     public void navigateUp() {

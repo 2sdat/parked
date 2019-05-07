@@ -60,4 +60,12 @@ public abstract class BaseFragment<T extends BaseViewModel> extends Fragment {
     public void navigateActionWithArgs(int actionResId, Bundle argsBundle) {
         NavHostFragment.findNavController(this).navigate(actionResId, argsBundle);
     }
+
+    public void navigateToDest(int destResId) {
+        NavHostFragment.findNavController(this).navigate(destResId);
+    }
+
+    public void navigateToDestAndPopUpTo(int destResId, int targetResId) {
+        NavHostFragment.findNavController(this).navigate(destResId, null, new NavOptions.Builder().setPopUpTo(targetResId, true).build());
+    }
 }

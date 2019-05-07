@@ -98,7 +98,7 @@ class UserItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         protected Void doInBackground(Void... voids) {
             numTotal = tickets.size();
             for (ParkingTicket ticket : tickets) {
-                if (ticket.getEndTime() == ParkingTicket.END_TIME_NULL) {
+                if (ticket.getEndTime() == ParkingTicket.NULL_END_TIME) {
                     numActive++;
                 }
             }

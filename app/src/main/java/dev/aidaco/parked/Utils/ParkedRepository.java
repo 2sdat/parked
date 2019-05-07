@@ -223,6 +223,7 @@ public class ParkedRepository {
             if (emptySpot.size() == 0) {
                 emptySpot = spotDao.getEmptySpots();
                 if (emptySpot.size() == 0) {
+                    ticketId = ParkingTicket.NULL_ID;
                     return null;
                 }
             }
@@ -343,7 +344,7 @@ public class ParkedRepository {
             ticket.setEndTime(System.currentTimeMillis());
             spot.setReserved(false);
             spot.setEmpty(true);
-            spot.setTicketId(Spot.NULL_TICKET_ID);
+            spot.setTicketId(ParkingTicket.NULL_ID);
 
             spotDao.updateSpot(spot);
             ticketDao.updateTicket(ticket);
@@ -393,7 +394,7 @@ public class ParkedRepository {
             List<ParkingTicket> tickets = ticketDao.getByAttendantId(userId);
             total = tickets.size();
             for (ParkingTicket ticket : tickets) {
-                if (ticket.getEndTime() == ParkingTicket.END_TIME_NULL) {
+                if (ticket.getEndTime() == ParkingTicket.NULL_END_TIME) {
                     active++;
                 }
             }
@@ -473,17 +474,17 @@ public class ParkedRepository {
             clearAllDao.wipeUsers();
 
             for (int i = 0; i < numCar; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.CAR, true, Spot.NULL_TICKET_ID, false);
+                Spot spot = new Spot(0, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 
             for (int i = 0; i < numMoto; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.MOTORCYCLE, true, Spot.NULL_TICKET_ID, false);
+                Spot spot = new Spot(0, Enums.VehicleType.MOTORCYCLE, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 
             for (int i = 0; i < numTruck; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.TRUCK, true, Spot.NULL_TICKET_ID, false);
+                Spot spot = new Spot(0, Enums.VehicleType.TRUCK, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 

@@ -60,7 +60,7 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
                 attendant.setText(parkingTicketData.attendent.get(0).getFullName());
                 startTime.setText(viewModel.formatTime(getContext(), parkingTicketData.parkingTicket.getStartTime()));
 
-                if (parkingTicketData.parkingTicket.getEndTime() == ParkingTicket.END_TIME_NULL) {
+                if (parkingTicketData.parkingTicket.getEndTime() == ParkingTicket.NULL_END_TIME) {
                     endTime.setText("--");
                     Thread timeElapsedThread = new Thread(new Runnable() {
                         @Override

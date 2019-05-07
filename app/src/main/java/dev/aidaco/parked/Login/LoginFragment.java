@@ -25,6 +25,8 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         buttonLogin = view.findViewById(R.id.login_Login);
 
         Log.d(TAG, "initViews: views init'd");
+
+        viewModel.ensureDefaultUser();
     }
 
     @Override

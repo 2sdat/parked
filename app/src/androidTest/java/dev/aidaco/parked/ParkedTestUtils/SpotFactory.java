@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
+import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Enums;
 
@@ -17,7 +18,7 @@ public class SpotFactory {
         for (int i = 0; i < numSpots; i++) {
             int id = curId;
             Enums.VehicleType vehicleType = Enums.VehicleType.fromTypeCode(new Random().nextInt(3));
-            Spot spot = new Spot(id, vehicleType, true, Spot.NULL_TICKET_ID);
+            Spot spot = new Spot(id, vehicleType, true, ParkingTicket.NULL_ID);
             spots.put(id, spot);
             curId += 1;
         }

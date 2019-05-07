@@ -130,7 +130,7 @@ public class ParkedDatabaseTest {
             List<Spot> emptySpots = LiveDataTestUtil.getValue(mSpotDao.getEmptySpots());
             for (Spot spot : emptySpots) {
                 Assert.assertTrue(spot.getIsEmpty());
-                Assert.assertEquals(spot.getTicketId(), Spot.NULL_TICKET_ID);
+                Assert.assertEquals(spot.getTicketId(), ParkingTicket.NULL_ID);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public class ParkedDatabaseTest {
             List<Spot> fullSpots = LiveDataTestUtil.getValue(mSpotDao.getOccupiedSpots_LiveData());
             for (Spot spot : fullSpots) {
                 Assert.assertFalse(spot.getIsEmpty());
-                Assert.assertNotEquals(spot.getTicketId(), Spot.NULL_TICKET_ID);
+                Assert.assertNotEquals(spot.getTicketId(), ParkingTicket.NULL_ID);
                 Assert.assertTrue(TicketFactory.tickets.containsKey(spot.getTicketId()));
                 Assert.assertEquals(spot.getId(), TicketFactory.tickets.get(spot.getTicketId()).getSpotId());
             }
@@ -162,7 +162,7 @@ public class ParkedDatabaseTest {
                 id++;
             }
 
-            Spot spot = new Spot(id, Enums.VehicleType.CAR, true, Spot.NULL_TICKET_ID);
+            Spot spot = new Spot(id, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID);
             mSpotDao.addSpot(spot);
 
             Spot spot1 = LiveDataTestUtil.getValue(mSpotDao.getByID(spot.getId()));
