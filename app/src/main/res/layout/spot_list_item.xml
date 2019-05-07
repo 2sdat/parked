@@ -14,28 +14,25 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:id="@+id/textViewSpotNumber"
+            android:id="@+id/spotListItem_SpotNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="Spot Number"
             android:textColor="#0000FF"
-            android:textSize="20dp"
+            android:textSize="20sp"
             tools:text="87" />
 
         <TextView
-            android:id="@+id/textViewLicensePlate"
+            android:id="@+id/spotListItem_LicensePlate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="License Plate"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             tools:text="NY JEN3735" />
 
         <LinearLayout
@@ -44,22 +41,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewSpotType"
+                android:id="@+id/spotListItem_SpotType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="8dp"
-                android:text="Car" />
+                android:layout_marginEnd="8dp" />
 
             <TextView
-                android:id="@+id/textViewAttendent"
+                android:id="@+id/spotListItem_Attendant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Aidan Courtney" />
+                android:layout_marginBottom="8dp" />
 
         </LinearLayout>
 

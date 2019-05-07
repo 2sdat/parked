@@ -59,7 +59,8 @@
             android:gravity="center"
             android:text="@string/done"
             android:textColor="@color/colorText"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="NestedWeights" />
 
         <TextView
             android:id="@+id/parkVehicle_Cancel"

@@ -32,12 +32,13 @@
             android:paddingEnd="20dp"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:contentDescription="@string/back_button_description"
             android:src="@drawable/ic_ticket" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/managerHome_recyclerView"
+        android:id="@+id/managerHome_Recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?actionBarSize"
@@ -51,7 +52,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/managerHome_fabAdd"
+        android:id="@+id/managerHome_FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

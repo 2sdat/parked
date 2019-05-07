@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarAddNewVehicle"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimaryDark"
         android:gravity="top">
 
         <ImageButton
-            android:id="@+id/imageButtonToolbarUp"
+            android:id="@+id/addNewVehicle_ToolbarUp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -31,12 +31,11 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/colorText"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:id="@+id/textViewAddVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -49,7 +48,7 @@
         android:textSize="30sp" />
 
     <EditText
-        android:id="@+id/editTextLicensePlate"
+        android:id="@+id/addNewVehicle_EditLicensePlate"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -60,10 +59,11 @@
         android:hint="@string/license_plate_number"
         android:inputType="textPersonName"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText" />
+        android:textColorHint="@color/colorText"
+        tools:ignore="Autofill" />
 
     <Spinner
-        android:id="@+id/spinnerLicensePlateState"
+        android:id="@+id/addNewVehicle_State"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -73,7 +73,7 @@
         android:popupBackground="#2196F3" />
 
     <Spinner
-        android:id="@+id/spinnerVehicleType"
+        android:id="@+id/addNewVehicle_Type"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -83,7 +83,7 @@
         android:popupBackground="#2196F3" />
 
     <Spinner
-        android:id="@+id/spinnerBillingType"
+        android:id="@+id/addNewVehicle_Billing"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -93,7 +93,7 @@
         android:popupBackground="#2196F3" />
 
     <Button
-        android:id="@+id/buttonParkVehicle"
+        android:id="@+id/addNewVehicle_Park"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -102,7 +102,7 @@
         android:text="@string/addVehicleParkButton" />
 
     <TextView
-        android:id="@+id/textViewAddNewVehicleCancel"
+        android:id="@+id/addNewVehicle_Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

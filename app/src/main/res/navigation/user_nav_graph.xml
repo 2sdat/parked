@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userHomeFragment"
-        android:name="dev.aidaco.parked.Fragments.UserHomeFragment"
+        android:name="dev.aidaco.parked.UserHome.UserHomeFragment"
         android:label="fragment_user_home"
         tools:layout="@layout/fragment_user_home">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewVehicleFragment"
-        android:name="dev.aidaco.parked.Fragments.AddNewVehicleFragment"
+        android:name="dev.aidaco.parked.AddNewVehicle.AddNewVehicleFragment"
         android:label="fragment_add_new_vehicle"
         tools:layout="@layout/fragment_add_new_vehicle">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/spotDetailFragment"
-        android:name="dev.aidaco.parked.Fragments.SpotDetailFragment"
+        android:name="dev.aidaco.parked.SpotDetail.SpotDetailFragment"
         android:label="SpotDetailFragment"
         tools:layout="@layout/fragment_spot_detail">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/parkVehicleFragment"
-        android:name="dev.aidaco.parked.Fragments.ParkVehicleFragment"
+        android:name="dev.aidaco.parked.ParkVehicle.ParkVehicleFragment"
         android:label="ParkVehicleFragment"
         tools:layout="@layout/fragment_park_vehicle">
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/displayTicketFragment"
-        android:name="dev.aidaco.parked.Fragments.DisplayTicketFragment"
+        android:name="dev.aidaco.parked.DisplayTicket.DisplayTicketFragment"
         android:label="DisplayTicketFragment">
         <action
             android:id="@+id/action_displayTicketFragment_to_userHomeFragment"

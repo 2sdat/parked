@@ -7,14 +7,13 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarSpotDetail"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimaryDark"
         android:gravity="top">
 
         <ImageButton
-            android:id="@+id/imageButtonSpotDetailToolbarUp"
+            android:id="@+id/spotDetail_ToolbarUp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -37,13 +36,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:id="@+id/textViewSpotDetailSpotNumber"
+        android:id="@+id/spotDetail_SpotNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-
-        android:text=""
         android:textSize="70sp"
         android:textColor="@color/colorText"
         tools:text="87" />
@@ -140,18 +137,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewSpotDetailLicensePlate"
+                android:id="@+id/spotDetail_LicensePlate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-
                 android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="NY JEN3375" />
 
             <TextView
-                android:id="@+id/textViewSpotDetailVehicleType"
+                android:id="@+id/spotDetail_VehicleType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -162,18 +158,17 @@
                 tools:text="Car" />
 
             <TextView
-                android:id="@+id/textViewSpotDetailSpotType"
+                android:id="@+id/spotDetail_Spottype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-
                 android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="Truck" />
 
             <TextView
-                android:id="@+id/textViewSpotDetailAttendant"
+                android:id="@+id/spotDetail_Attendant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -184,7 +179,7 @@
                 tools:text="Aidan Courtney" />
 
             <TextView
-                android:id="@+id/textViewSpotDetailParkTime"
+                android:id="@+id/spotDetail_ParkTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -195,13 +190,12 @@
                 tools:text="3:17:03 PM" />
 
             <TextView
-                android:id="@+id/textViewSpotDetailElapsedTime"
+                android:id="@+id/spotDetail_ElapsedTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-
                 android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="4:06:54" />
@@ -210,10 +204,9 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonSpotDetailReleaseVehicle"
+        android:id="@+id/spotDetail_Release"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:text="@string/release_vehicle_to_owner" />
 </LinearLayout>
