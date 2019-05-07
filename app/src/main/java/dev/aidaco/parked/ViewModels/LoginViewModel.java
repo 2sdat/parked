@@ -48,8 +48,12 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void populateDbWithTestData() {
-        User testUser = new User(0, "username", "password", "Aidan", "Courtney", Enums.UserType.BASIC, true);
+        User testUser = new User(0, "username", "password", "Basic", "Test", Enums.UserType.BASIC, true);
+        User testAdmin = new User(0, "admin", "password", "Admin", "Test", Enums.UserType.ADMIN, true);
+        User testManager = new User(0, "manager", "password", "Manager", "Test", Enums.UserType.MANAGER, true);
         masterVM.addUser(testUser);
+        masterVM.addUser(testManager);
+        masterVM.addUser(testAdmin);
 
         for (int i = 0; i < 100; i++) {
             Spot spot = new Spot(i, Enums.VehicleType.CAR, true, 0, false);

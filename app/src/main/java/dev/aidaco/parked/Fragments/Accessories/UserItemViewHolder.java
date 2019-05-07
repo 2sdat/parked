@@ -25,6 +25,7 @@ class UserItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     public UserItemViewHolder(View itemView, MasterViewModel masterVM) {
         super(itemView);
+        this.masterVM = masterVM;
         itemView.setOnClickListener(this);
         fullName = itemView.findViewById(R.id.userListItem_FullName);
         username = itemView.findViewById(R.id.userListItem_FullName);

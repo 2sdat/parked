@@ -78,6 +78,10 @@ public class ParkingTicket {
         return attendentId;
     }
 
+    public void setAttendentId(int attendentId) {
+        this.attendentId = attendentId;
+    }
+
     @NonNull
     public Enums.BillingType getBillingType() {
         return billingType;

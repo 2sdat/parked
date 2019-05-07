@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/manager_nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_nav_graph"
+    app:startDestination="@id/managerHomeFragment">
 
+    <fragment
+        android:id="@+id/managerHomeFragment"
+        android:name="dev.aidaco.parked.Fragments.ManagerHomeFragment"
+        android:label="ManagerHomeFragment"
+        tools:layout="@layout/fragment_manager_home" />
 </navigation>

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
@@ -13,10 +14,10 @@ import dev.aidaco.parked.Model.Enums;
 
 @Dao
 public interface TicketDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addTicket(ParkingTicket ticket);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateTicket(ParkingTicket ticket);
 
     @Delete

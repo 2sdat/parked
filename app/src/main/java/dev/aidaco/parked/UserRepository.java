@@ -34,11 +34,11 @@ public class UserRepository {
     }
 
     public void getUserById(int id, SingleResultListener<User> listener) {
-        new GetUserByIdAsyncTask(userDao, listener).execute(id);
+        new GetUserByIdAsyncTask(userDao, listener, id).execute();
     }
 
     public void getUserByUsername(String username, SingleResultListener<User> listener) {
-        new GetUserByUsernameAsyncTask(userDao, listener).execute(username);
+        new GetUserByUsernameAsyncTask(userDao, listener, username).execute();
     }
 
     private static class AddUserAsyncTask extends AsyncTask<User, Void, Void> {
@@ -69,45 +69,53 @@ public class UserRepository {
         }
     }
 
-    private static class GetUserByIdAsyncTask extends AsyncTask<Integer, Void, User> {
+    private static class GetUserByIdAsyncTask extends AsyncTask<Void, Void, Void> {
         private UserDao userDao;
         private SingleResultListener<User> listener;
+        private int userId;
+        private List<User> result;
 
 
-        GetUserByIdAsyncTask(UserDao userDao, SingleResultListener<User> listener) {
+        GetUserByIdAsyncTask(UserDao userDao, SingleResultListener<User> listener, int userId) {
             this.userDao = userDao;
             this.listener = listener;
+            this.userId = userId;
         }
 
         @Override
-        protected User doInBackground(Integer... integers) {
-            return userDao.getUserById(integers[0]);
+        protected Void doInBackground(Void... aVoids) {
+            result = userDao.getUserById(userId);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(User result) {
-            listener.onResult(result);
+        protected void onPostExecute(Void aVoid) {
+            listener.onResult(result.get(0));
         }
     }
 
-    private static class GetUserByUsernameAsyncTask extends AsyncTask<String, Void, User> {
+    private static class GetUserByUsernameAsyncTask extends AsyncTask<Void, Void, Void> {
         private UserDao userDao;
         private SingleResultListener<User> listener;
+        private String username;
+        private List<User> result;
 
 
-        GetUserByUsernameAsyncTask(UserDao userDao, SingleResultListener<User> listener) {
+        GetUserByUsernameAsyncTask(UserDao userDao, SingleResultListener<User> listener, String username) {
             this.userDao = userDao;
             this.listener = listener;
+            this.username = username;
         }
 
         @Override
-        protected User doInBackground(String... strings) {
-            return userDao.getUserByUsername(strings[0]);
+        protected Void doInBackground(Void... aVoids) {
+            this.result = userDao.getUserByUsername(username);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(User result) {
-            listener.onResult(result);
+        protected void onPostExecute(Void aVoid) {
+            listener.onResult(result.get(0));
         }
     }
 

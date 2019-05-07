@@ -7,8 +7,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import dev.aidaco.parked.Interfaces.LoginAttemptListener;
-import dev.aidaco.parked.Model.Entities.User;
-import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.ViewModels.LoginViewModel;
 
@@ -59,8 +57,6 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: logintest clicked");
                 loadingSpinner.setVisibility(View.VISIBLE);
-                User testUser = new User(1, "username", "password", "Aidan", "Courtney", Enums.UserType.BASIC, true);
-
                 viewModel.populateDbWithTestData();
                 loadingSpinner.setVisibility(View.GONE);
             }
@@ -83,7 +79,24 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
             case LoginAttemptListener.SUCCESS:
                 Log.d(TAG, "onLoginAttemptReturn: login success");
                 loadingSpinner.setVisibility(View.VISIBLE);
+                navigateToHome();
+                break;
+        }
+    }
+
+    private void navigateToHome() {
+        switch (masterVM.getAccessPrivilege()) {
+            case BASIC:
+                Log.d(TAG, "navigateToHome: basic user -> userhome");
                 navigateToUserHome();
+                break;
+            case MANAGER:
+                Log.d(TAG, "navigateToHome: manager user -> managerhome");
+                navigateToManagerHome();
+                break;
+            case ADMIN:
+                Log.d(TAG, "navigateToHome: admin user -> managerhome");
+                navigateToManagerHome();
                 break;
         }
     }
@@ -91,6 +104,11 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     private void navigateToUserHome() {
         Log.d(TAG, "navigateToUserHome: navigate to userhome");
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_user_nav_graph, R.id.loginFragment);
+    }
+
+    private void navigateToManagerHome() {
+        Log.d(TAG, "navigateToManagerHome: navigate to managerhome");
+        navigateActionAndPopUpTo(R.id.action_loginFragment_to_manager_nav_graph, R.id.loginFragment);
     }
 
     @Override

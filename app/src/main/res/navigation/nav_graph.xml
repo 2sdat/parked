@@ -13,8 +13,12 @@
         <action
             android:id="@+id/action_loginFragment_to_user_nav_graph"
             app:destination="@id/user_nav_graph" />
+        <action
+            android:id="@+id/action_loginFragment_to_manager_nav_graph"
+            app:destination="@id/manager_nav_graph" />
     </fragment>
 
     <include app:graph="@navigation/user_nav_graph" />
+    <include app:graph="@navigation/manager_nav_graph" />
 
 </navigation>

@@ -98,6 +98,10 @@ public class MasterViewModel extends AndroidViewModel {
         parkedRepo.updateSpot(spot);
     }
 
+    public LiveData<List<ParkingTicket>> getAllTickets() {
+        return parkedRepo.getAllTickets();
+    }
+
     public LiveData<ParkingTicketData> getTicketDataById(long ticketId) {
         return parkedRepo.getTicketDataByIdLive(ticketId);
     }

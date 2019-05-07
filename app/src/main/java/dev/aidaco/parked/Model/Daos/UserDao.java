@@ -15,15 +15,15 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addUser(User user);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateUser(User user);
 
     @Query("SELECT * FROM users")
     LiveData<List<User>> getAllUsers();
 
     @Query("SELECT * FROM users WHERE id = :id")
-    User getUserById(int id);
+    List<User> getUserById(int id);
 
     @Query("SELECT * FROM users WHERE username = :username")
-    User getUserByUsername(String username);
+    List<User> getUserByUsername(String username);
 }

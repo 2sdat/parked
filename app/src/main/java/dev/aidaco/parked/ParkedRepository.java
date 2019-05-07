@@ -91,6 +91,10 @@ public class ParkedRepository {
         new AddTicketAsyncTask(ticketDao).execute(ticket);
     }
 
+    public LiveData<List<ParkingTicket>> getAllTickets() {
+        return ticketDao.getAllTickets();
+    }
+
     public List<ParkingTicket> getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
         return ticketDao.getTicketByID(ticketId);
     }

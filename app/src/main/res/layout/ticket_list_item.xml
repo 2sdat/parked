@@ -22,7 +22,7 @@
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:textColor="#0000FF"
-            android:textSize="20dp"
+            android:textSize="20sp"
             tools:text="1487" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             tools:text="87" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginStart="56dp"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             tools:text="01:36:04" />
 
         <LinearLayout
@@ -61,7 +61,7 @@
                 tools:text="NY JEN3575" />
 
             <TextView
-                android:id="@+id/ticketListItem_Attendent"
+                android:id="@+id/ticketListItem_Attendant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
