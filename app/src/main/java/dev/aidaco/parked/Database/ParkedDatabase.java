@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import dev.aidaco.parked.Database.Daos.ClearAllDao;
 import dev.aidaco.parked.Database.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Database.Daos.SpotDao;
 import dev.aidaco.parked.Database.Daos.SpotDataDao;
@@ -39,4 +40,6 @@ public abstract class ParkedDatabase extends RoomDatabase {
     public abstract SpotDataDao spotDataDao();
 
     public abstract ParkingTicketDataDao ticketDataDao();
+
+    public abstract ClearAllDao clearAllDao();
 }

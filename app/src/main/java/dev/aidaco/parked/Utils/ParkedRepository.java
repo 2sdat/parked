@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import dev.aidaco.parked.Database.Daos.ClearAllDao;
 import dev.aidaco.parked.Database.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Database.Daos.SpotDao;
 import dev.aidaco.parked.Database.Daos.SpotDataDao;
@@ -25,6 +26,7 @@ public class ParkedRepository {
     private SpotDataDao spotDataDao;
     private TicketDao ticketDao;
     private ParkingTicketDataDao ticketDataDao;
+    private ClearAllDao clearAllDao;
     private ParkedDatabase parkedDb;
 
     private static ParkedRepository INSTANCE;
@@ -35,6 +37,7 @@ public class ParkedRepository {
         ticketDao = parkedDb.ticketDao();
         spotDataDao = parkedDb.spotDataDao();
         ticketDataDao = parkedDb.ticketDataDao();
+        clearAllDao = parkedDb.clearAllDao();
     }
 
     public static synchronized ParkedRepository getInstance(Context context) {
@@ -72,6 +75,18 @@ public class ParkedRepository {
 
     public void getTicketsByUserId(int userId, SingleResultListener<List<ParkingTicket>> listener) {
         new GetTicketsByUserIdAsyncTask(ticketDao, userId, listener).execute();
+    }
+
+    public void clearSpots() {
+        new ClearSpotsAsyncTask(clearAllDao).execute();
+    }
+
+    public void clearTickets() {
+        new ClearTicketsAsyncTask(clearAllDao).execute();
+    }
+
+    public void clearUsers() {
+        new ClearUsersAsyncTask(clearAllDao).execute();
     }
 
     public LiveData<List<SpotData>> getAllSpots() {
@@ -383,6 +398,48 @@ public class ParkedRepository {
         @Override
         protected void onPostExecute(Void aVoid) {
             listener.onResult(active, total);
+        }
+    }
+
+    private static class ClearSpotsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ClearAllDao clearAllDao;
+
+        public ClearSpotsAsyncTask(ClearAllDao clearAllDao) {
+            this.clearAllDao = clearAllDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            clearAllDao.wipeSpots();
+            return null;
+        }
+    }
+
+    private static class ClearTicketsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ClearAllDao clearAllDao;
+
+        public ClearTicketsAsyncTask(ClearAllDao clearAllDao) {
+            this.clearAllDao = clearAllDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            clearAllDao.wipeTickets();
+            return null;
+        }
+    }
+
+    private static class ClearUsersAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ClearAllDao clearAllDao;
+
+        public ClearUsersAsyncTask(ClearAllDao clearAllDao) {
+            this.clearAllDao = clearAllDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            clearAllDao.wipeUsers();
+            return null;
         }
     }
 }

@@ -67,6 +67,12 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
                 Log.d(TAG, "onLoginAttemptReturn: incorrect password");
                 showSnackbar(getString(R.string.login_fail_password));
                 break;
+
+            case LoginAttemptListener.INACTIVE:
+                Log.d(TAG, "onLoginAttemptReturn: user is inactive");
+                showSnackbar("Your account has been deactivated. Contact a manager for details.");
+                break;
+
             case LoginAttemptListener.SUCCESS:
                 Log.d(TAG, "onLoginAttemptReturn: login success");
                 navigateToHome();

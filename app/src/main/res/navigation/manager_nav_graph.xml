@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_managerHomeFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
+        <action
+            android:id="@+id/action_managerHomeFragment_to_addNewUserFragment"
+            app:destination="@id/addNewUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/userDetailFragment"
@@ -25,6 +28,9 @@
         <action
             android:id="@+id/action_userDetailFragment_to_managerHomeFragment"
             app:destination="@id/managerHomeFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailFragment"
@@ -33,6 +39,21 @@
         tools:layout="@layout/fragment_ticket_detail">
         <action
             android:id="@+id/action_ticketDetailFragment_to_managerHomeFragment"
+            app:destination="@id/managerHomeFragment" />
+        <argument
+            android:name="ticketId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewUserFragment"
+        android:name="dev.aidaco.parked.AddNewUser.AddNewUserFragment"
+        android:label="AddNewUserFragment"
+        tools:layout="@layout/fragment_add_new_user">
+        <action
+            android:id="@+id/action_addNewUserFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_addNewUserFragment_to_managerHomeFragment"
             app:destination="@id/managerHomeFragment" />
     </fragment>
 </navigation>

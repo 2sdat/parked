@@ -29,6 +29,11 @@ public class LoginViewModel extends BaseViewModel {
                     return;
                 }
 
+                if (!user.getIsActive()) {
+                    listener.onResult(LoginAttemptListener.INACTIVE);
+                    return;
+                }
+
                 if (user.getPassword().equals(enteredPassword)) {
                     userRepo.setCurrentUser(user);
                     listener.onResult(LoginAttemptListener.SUCCESS);

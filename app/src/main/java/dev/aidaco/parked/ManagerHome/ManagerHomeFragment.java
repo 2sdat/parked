@@ -46,7 +46,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fabCallHandler();
+                navigateToAddNewUser();
             }
         });
 
@@ -58,10 +58,6 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         });
     }
 
-    private void fabCallHandler() {
-        // TODO handle fab call
-    }
-
     private void toggleContent() {
         destoryUserAdapter();
         destroyTicketAdapter();
@@ -69,8 +65,10 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
 
         if (viewModel.getCurrentView() == ManagerHomeViewModel.TICKET_VIEW) {
             initTicketAdapter();
+            toggleContent.setImageResource(R.drawable.ic_user);
         } else if (viewModel.getCurrentView() == ManagerHomeViewModel.USER_VIEW) {
             initUserAdapter();
+            toggleContent.setImageResource(R.drawable.ic_ticket);
         } else {
             Log.d(TAG, "toggleContent: how did this happen");
             initUserAdapter();
@@ -103,15 +101,21 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         });
 
         recyclerView.setAdapter(userAdapter);
+
+        fabAdd.show();
     }
 
     private void destoryUserAdapter() {
+        fabAdd.hide();
+
         viewModel.getUsers().removeObserver(userObserver);
         userObserver = null;
         this.userAdapter = null;
     }
 
     private void initTicketAdapter() {
+        fabAdd.hide();
+
         ticketAdapter = new TicketAdapter(getActivity());
 
         ticketObserver = new Observer<List<ParkingTicket>>() {
@@ -171,5 +175,10 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         Bundle argsBundle = new Bundle();
         argsBundle.putLong("ticketId", ticketId);
         navigateActionWithArgs(R.id.action_managerHomeFragment_to_ticketDetailFragment, argsBundle);
+    }
+
+    public void navigateToAddNewUser() {
+        Log.d(TAG, "navigateToAddNewUser: managerhome -> addnewuser");
+        navigateAction(R.id.action_managerHomeFragment_to_addNewUserFragment);
     }
 }

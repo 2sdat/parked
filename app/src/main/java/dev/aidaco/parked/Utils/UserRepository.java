@@ -50,6 +50,10 @@ public class UserRepository {
         new AttemptToggleActiveAsynctask(userDao, getAccessPrivilege(), userId, listener).execute();
     }
 
+    public void attemptCreateUser(String firstName, String lastName, String username, String password, Enums.UserType userType, CreateUserResultListener listener) {
+        new CreateUserAsyncTask(userDao, firstName, lastName, username, password, userType, listener).execute();
+    }
+
     public void addUser(User user) {
         new AddUserAsyncTask(userDao).execute(user);
     }
@@ -149,7 +153,12 @@ public class UserRepository {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            listener.onResult(result.get(0));
+
+            if (result.size() > 0) {
+                listener.onResult(result.get(0));
+            } else {
+                listener.onResult(null);
+            }
         }
     }
 
@@ -198,6 +207,56 @@ public class UserRepository {
             }
 
             return null;
+        }
+    }
+
+    private static class CreateUserAsyncTask extends AsyncTask<Void, Void, Void> {
+        private UserDao userDao;
+        private String firstName;
+        private String lastName;
+        private String username;
+        private String password;
+        private Enums.UserType userType;
+        private CreateUserResultListener listener;
+        private int resultCode;
+        private int userId = 0;
+
+        public CreateUserAsyncTask(UserDao userDao, String firstName, String lastName, String username, String password, Enums.UserType userType, CreateUserResultListener listener) {
+            this.userDao = userDao;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.username = username;
+            this.password = password;
+            this.userType = userType;
+            this.listener = listener;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onAttemptReturn(resultCode, userId);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if (userDao.getUserByUsername(username).size() > 0) {
+                resultCode = CreateUserResultListener.INC_USERNAME;
+                return null;
+            }
+
+            User newUser = new User(0, username, password, firstName, lastName, userType, true);
+
+            userDao.addUser(newUser);
+
+            List<User> _newUser = userDao.getUserByUsername(username);
+
+            if (_newUser.size() > 0) {
+                userId = _newUser.get(0).getId();
+                resultCode = CreateUserResultListener.SUCCESS;
+                return null;
+            } else {
+                resultCode = CreateUserResultListener.FAIL;
+                return null;
+            }
         }
     }
 }
