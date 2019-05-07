@@ -77,6 +77,10 @@ public class User {
         return isActive;
     }
 
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public boolean compare(User user) {
         if (user == this) {
             return true;

@@ -1,11 +1,6 @@
 package dev.aidaco.parked.SpotDetail;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.Context;
-import android.text.format.DateUtils;
-
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -30,21 +25,6 @@ public class SpotDetailViewModel extends BaseViewModel {
 
     public void releaseVehicle() {
         // TODO implement finalise ticket and calculate payment total
-    }
-
-    @SuppressLint("DefaultLocale")
-    private String formatElapsedTime(long elapsed) {
-        long hours = TimeUnit.MILLISECONDS.toHours(elapsed);
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(elapsed) -
-                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(elapsed));
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(elapsed) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsed));
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    public String formatTime(Context context, long time) {
-        return DateUtils.formatDateTime(context, time,
-                DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
     }
 
     public LiveData<SpotData> getSpotData() {

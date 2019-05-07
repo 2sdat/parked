@@ -9,5 +9,18 @@
         android:id="@+id/managerHomeFragment"
         android:name="dev.aidaco.parked.ManagerHome.ManagerHomeFragment"
         android:label="ManagerHomeFragment"
-        tools:layout="@layout/fragment_manager_home" />
+        tools:layout="@layout/fragment_manager_home">
+        <action
+            android:id="@+id/action_managerHomeFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="dev.aidaco.parked.UserDetail.UserDetailFragment"
+        android:label="UserDetailFragment"
+        tools:layout="@layout/fragment_user_detail">
+        <action
+            android:id="@+id/action_userDetailFragment_to_managerHomeFragment"
+            app:destination="@id/managerHomeFragment" />
+    </fragment>
 </navigation>

@@ -19,7 +19,7 @@ public class ManagerHomeViewModel extends BaseViewModel {
 
     public ManagerHomeViewModel(@NonNull Application application) {
         super(application);
-        users = userRepo.getAllUsers();
+        users = userRepo.getAllUsers_LiveData();
         tickets = parkedRepo.getAllTickets();
     }
 

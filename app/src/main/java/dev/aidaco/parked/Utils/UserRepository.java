@@ -46,6 +46,9 @@ public class UserRepository {
         return accessPrivilege;
     }
 
+    public void attemptToggleActive(int userId, AttemptListener listener) {
+        new AttemptToggleActiveAsynctask(userDao, getAccessPrivilege(), userId, listener).execute();
+    }
 
     public void addUser(User user) {
         new AddUserAsyncTask(userDao).execute(user);
@@ -55,12 +58,17 @@ public class UserRepository {
         new UpdateUserAsyncTask(userDao).execute(user);
     }
 
-    public LiveData<List<User>> getAllUsers() {
+
+    public LiveData<List<User>> getAllUsers_LiveData() {
         return userDao.getAllUsers_LiveData();
     }
 
-    public void getUserById(int id, SingleResultListener<User> listener) {
-        new GetUserByIdAsyncTask(userDao, listener, id).execute();
+    public void getUserById(int userId, SingleResultListener<User> listener) {
+        new GetUserByIdAsyncTask(userDao, listener, userId).execute();
+    }
+
+    public LiveData<List<User>> getUserById_LiveData(int userId) {
+        return userDao.getUserById_LiveData(userId);
     }
 
     public void getUserByUsername(String username, SingleResultListener<User> listener) {
@@ -145,4 +153,51 @@ public class UserRepository {
         }
     }
 
+    private static class AttemptToggleActiveAsynctask extends AsyncTask<Void, Void, Void> {
+        private UserDao userDao;
+        private AttemptListener listener;
+        private int userId;
+        private Enums.UserType accessPrivelige;
+        private int resultCode;
+
+        public AttemptToggleActiveAsynctask(UserDao userDao, Enums.UserType accessPrivelige, int userId, AttemptListener listener) {
+            this.userDao = userDao;
+            this.accessPrivelige = accessPrivelige;
+            this.userId = userId;
+            this.listener = listener;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onReturnCode(resultCode);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            List<User> _user = userDao.getUserById(userId);
+
+            if (_user.size() == 0) {
+                resultCode = AttemptListener.FAIL;
+                return null;
+            }
+
+            User user = _user.get(0);
+
+            if (user.getUserType().getTypeCode() >= accessPrivelige.getTypeCode()) {
+                resultCode = AttemptListener.FAIL;
+                return null;
+            } else {
+                user.setActive(!user.getIsActive());
+                if (user.getIsActive()) {
+                    resultCode = AttemptListener.POS_SUCCESS;
+                } else {
+                    resultCode = AttemptListener.NEG_SUCCESS;
+                }
+
+                userDao.updateUser(user);
+            }
+
+            return null;
+        }
+    }
 }

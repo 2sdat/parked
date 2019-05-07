@@ -66,6 +66,10 @@ public class ParkedRepository {
         new FinalizeTicketAsyncTask(spotDao, ticketDao, ticketId).execute();
     }
 
+    public void getUserTicketCounts(int userId, DoubleResultListener<Integer, Integer> listener) {
+        new UserTicketCounterAsyncTask(ticketDao, userId, listener).execute();
+    }
+
     public void getTicketsByUserId(int userId, SingleResultListener<List<ParkingTicket>> listener) {
         new GetTicketsByUserIdAsyncTask(ticketDao, userId, listener).execute();
     }
@@ -351,4 +355,34 @@ public class ParkedRepository {
         }
     }
 
+    private static class UserTicketCounterAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TicketDao ticketDao;
+        private DoubleResultListener<Integer, Integer> listener;
+        private int active = 0;
+        private int total = 0;
+        private int userId;
+
+        public UserTicketCounterAsyncTask(TicketDao ticketDao, int userId, DoubleResultListener<Integer, Integer> listener) {
+            this.ticketDao = ticketDao;
+            this.listener = listener;
+            this.userId = userId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            List<ParkingTicket> tickets = ticketDao.getByAttendantId(userId);
+            total = tickets.size();
+            for (ParkingTicket ticket : tickets) {
+                if (ticket.getEndTime() == ParkingTicket.END_TIME_NULL) {
+                    active++;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            listener.onResult(active, total);
+        }
+    }
 }

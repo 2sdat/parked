@@ -48,7 +48,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -207,6 +209,8 @@
         android:id="@+id/spotDetail_Release"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="10dp"
         android:layout_gravity="center"
         android:text="@string/release_vehicle_to_owner" />
 </LinearLayout>

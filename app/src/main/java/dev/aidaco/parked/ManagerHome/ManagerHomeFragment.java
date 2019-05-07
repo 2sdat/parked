@@ -162,7 +162,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private void navigateToUserDetailView(int userId) {
         Bundle argsBundle = new Bundle();
         argsBundle.putInt("userId", userId);
-        // TODO implement UserDetailView and navigate
+        navigateActionWithArgs(R.id.action_managerHomeFragment_to_userDetailFragment, argsBundle);
     }
 
     private void navigateToTicketDetailView(long ticketId) {

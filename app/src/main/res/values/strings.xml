@@ -26,4 +26,11 @@
     <string name="end_time_descriptor">End Time:</string>
     <string name="total_descriptor">Total:</string>
     <string name="billing_type_descriptor">Billing Type:</string>
+    <string name="username">Username:</string>
+    <string name="user_id">User Id:</string>
+    <string name="user_type">User Type:</string>
+    <string name="active_tickets">Active Tickets:</string>
+    <string name="total_tickets">Total Tickets:</string>
+    <string name="active">Active:</string>
+    <string name="toggle_active">Toggle Active</string>
 </resources>
