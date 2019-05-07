@@ -75,7 +75,7 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     }
 
     private void navigateToHome() {
-        switch (masterVM.getAccessPrivilege()) {
+        switch (viewModel.getAccessPrivilege()) {
             case BASIC:
                 Log.d(TAG, "navigateToHome: basic user -> userhome");
                 navigateToUserHome();

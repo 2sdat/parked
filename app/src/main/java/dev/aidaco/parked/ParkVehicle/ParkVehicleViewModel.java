@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseViewModel;
-import dev.aidaco.parked.Utils.MasterViewModel;
 
 public class ParkVehicleViewModel extends BaseViewModel {
+    private static final String TAG = "ParkVehicleViewModel";
 
     private long ticketId;
     private int spotId;
@@ -15,13 +15,13 @@ public class ParkVehicleViewModel extends BaseViewModel {
     private boolean isPaused = false;
     private boolean isDone = false;
 
-    public ParkVehicleViewModel(@NonNull Application application, MasterViewModel masterVM) {
-        super(application, masterVM);
+    public ParkVehicleViewModel(@NonNull Application application) {
+        super(application);
     }
 
     public void onDone(AttemptListener listener) {
         isDone = true;
-        masterVM.finalizePark(ticketId, listener);
+        parkedRepo.finalizePark(ticketId, listener);
     }
 
     public void onPause() {
@@ -29,7 +29,7 @@ public class ParkVehicleViewModel extends BaseViewModel {
     }
 
     public void onCancel(AttemptListener listener) {
-        masterVM.cancelPark(ticketId, listener);
+        parkedRepo.cancelPark(ticketId, listener);
     }
 
     public int getSpotId() {

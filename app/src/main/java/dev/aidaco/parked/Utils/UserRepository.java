@@ -9,16 +9,43 @@ import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Database.Daos.UserDao;
 import dev.aidaco.parked.Database.ParkedDatabase;
 import dev.aidaco.parked.Model.Entities.User;
+import dev.aidaco.parked.Model.Enums;
 
 public class UserRepository {
     private static final String TAG = "UserRepository";
     private ParkedDatabase parkedDb;
     private UserDao userDao;
 
-    public UserRepository(Context context) {
+    private static UserRepository INSTANCE;
+    private User currentUser = null;
+    private Enums.UserType accessPrivilege = null;
+
+    private UserRepository(Context context) {
         parkedDb = ParkedDatabase.getInstance(context);
         userDao = parkedDb.userDao();
     }
+
+    public static synchronized UserRepository getInstance(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = new UserRepository(context);
+        }
+
+        return INSTANCE;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        this.accessPrivilege = user.getUserType();
+    }
+
+    public Enums.UserType getAccessPrivilege() {
+        return accessPrivilege;
+    }
+
 
     public void addUser(User user) {
         new AddUserAsyncTask(userDao).execute(user);

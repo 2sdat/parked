@@ -9,19 +9,18 @@ import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Utils.BaseViewModel;
-import dev.aidaco.parked.Utils.MasterViewModel;
 
 public class ManagerHomeViewModel extends BaseViewModel {
-    public final boolean USER_VIEW = true;
-    public final boolean TICKET_VIEW = false;
-    public boolean CURRENT_VIEW = true;
+    public static final boolean USER_VIEW = true;
+    public static final boolean TICKET_VIEW = false;
+    private boolean CURRENT_VIEW = true;
     private LiveData<List<User>> users;
     private LiveData<List<ParkingTicket>> tickets;
 
-    public ManagerHomeViewModel(@NonNull Application application, MasterViewModel masterVM) {
-        super(application, masterVM);
-        users = masterVM.getAllUsers();
-        tickets = masterVM.getAllTickets();
+    public ManagerHomeViewModel(@NonNull Application application) {
+        super(application);
+        users = userRepo.getAllUsers();
+        tickets = parkedRepo.getAllTickets();
     }
 
     public LiveData<List<User>> getUsers() {

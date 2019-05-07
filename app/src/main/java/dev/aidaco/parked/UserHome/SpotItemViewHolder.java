@@ -20,7 +20,7 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
     private ClickListener<Integer> listener;
     private int spotId;
 
-    public SpotItemViewHolder(View itemView) {
+    SpotItemViewHolder(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
         textViewSpotNumber = itemView.findViewById(R.id.spotListItem_SpotNumber);
@@ -40,7 +40,7 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         return false;
     }
 
-    public void setData(SpotData spotData) {
+    void setData(SpotData spotData) {
         this.spotId = spotData.spot.getId();
         Spot spot = spotData.spot;
         ParkingTicket ticket = spotData.ticket.get(0).parkingTicket;

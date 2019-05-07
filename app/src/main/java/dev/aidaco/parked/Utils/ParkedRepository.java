@@ -27,12 +27,22 @@ public class ParkedRepository {
     private ParkingTicketDataDao ticketDataDao;
     private ParkedDatabase parkedDb;
 
-    public ParkedRepository(Context context) {
+    private static ParkedRepository INSTANCE;
+
+    private ParkedRepository(Context context) {
         parkedDb = ParkedDatabase.getInstance(context);
         spotDao = parkedDb.spotDao();
         ticketDao = parkedDb.ticketDao();
         spotDataDao = parkedDb.spotDataDao();
         ticketDataDao = parkedDb.ticketDataDao();
+    }
+
+    public static synchronized ParkedRepository getInstance(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = new ParkedRepository(context);
+        }
+
+        return INSTANCE;
     }
 
     public void parkNewVehicle(final Enums.VehicleType vehicleType, LicensePlate licensePlate, User attendant, Enums.BillingType billingType, DoubleResultListener<Long, Integer> listener) {

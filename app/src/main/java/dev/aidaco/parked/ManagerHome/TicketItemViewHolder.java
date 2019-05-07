@@ -13,14 +13,14 @@ import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
-import dev.aidaco.parked.Utils.MasterViewModel;
 import dev.aidaco.parked.Utils.SingleResultListener;
+import dev.aidaco.parked.Utils.UserRepository;
 
 class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "TicketItemViewHolder";
-    public boolean RUNNING = false;
+    private boolean RUNNING = false;
 
-    private MasterViewModel masterVM;
+    private UserRepository userRepo;
     private Activity activity;
     private TextView ticketId;
     private TextView spotNumber;
@@ -30,12 +30,11 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     private ClickListener<Long> listener;
     private long ticketIdNum;
     private long startTime;
-    private long endTime;
 
-    public TicketItemViewHolder(View itemView, MasterViewModel masterVM, Activity activity) {
+    TicketItemViewHolder(View itemView, Activity activity) {
         super(itemView);
         itemView.setOnClickListener(this);
-        this.masterVM = masterVM;
+        this.userRepo = UserRepository.getInstance(activity);
         this.activity = activity;
         ticketId = itemView.findViewById(R.id.ticketListItem_TicketId);
         spotNumber = itemView.findViewById(R.id.ticketListItem_SpotNumber);
@@ -55,10 +54,11 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         return false;
     }
 
-    public void setData(final ParkingTicket parkingTicket) {
+    @SuppressLint("SetTextI18n")
+    void setData(final ParkingTicket parkingTicket) {
         RUNNING = false;
         this.startTime = parkingTicket.getStartTime();
-        this.endTime = parkingTicket.getEndTime();
+        long endTime = parkingTicket.getEndTime();
         this.ticketIdNum = parkingTicket.getId();
         ticketId.setText(Long.toString(ticketIdNum));
         spotNumber.setText(Integer.toString(parkingTicket.getSpotId()));
@@ -69,7 +69,7 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         Thread getAttendantThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                masterVM.getUserById(parkingTicket.getAttendentId(), new SingleResultListener<User>() {
+                userRepo.getUserById(parkingTicket.getAttendentId(), new SingleResultListener<User>() {
                     @Override
                     public void onResult(User user) {
                         final String text = user.getFullName();

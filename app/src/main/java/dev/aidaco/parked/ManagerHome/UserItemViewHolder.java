@@ -11,11 +11,11 @@ import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
-import dev.aidaco.parked.Utils.MasterViewModel;
+import dev.aidaco.parked.Utils.ParkedRepository;
 import dev.aidaco.parked.Utils.SingleResultListener;
 
 class UserItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-    private MasterViewModel masterVM;
+    private ParkedRepository parkedRepo;
     private TextView fullName;
     private TextView username;
     private TextView activeTickets;
@@ -23,9 +23,9 @@ class UserItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
     private ClickListener<Integer> listener;
     private int userId;
 
-    public UserItemViewHolder(View itemView, MasterViewModel masterVM) {
+    public UserItemViewHolder(View itemView, ParkedRepository parkedRepo) {
         super(itemView);
-        this.masterVM = masterVM;
+        this.parkedRepo = parkedRepo;
         itemView.setOnClickListener(this);
         fullName = itemView.findViewById(R.id.userListItem_FullName);
         username = itemView.findViewById(R.id.userListItem_FullName);
@@ -51,7 +51,7 @@ class UserItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         activeTickets.setText("Active: --");
         totalTickets.setText("Total: --");
 
-        masterVM.getTicketsByUserId(userId, new SingleResultListener<List<ParkingTicket>>() {
+        parkedRepo.getTicketsByUserId(userId, new SingleResultListener<List<ParkingTicket>>() {
             @Override
             public void onResult(List<ParkingTicket> parkingTickets) {
                 resultCallback(parkingTickets);

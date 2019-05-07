@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Utils.BaseViewModel;
-import dev.aidaco.parked.Utils.MasterViewModel;
 
 public class SpotDetailViewModel extends BaseViewModel {
+    private static final String TAG = "SpotDetailViewModel";
+
     private LiveData<SpotData> spotData;
     private long ticketId;
     private long parkTime = 0;
 
-    public SpotDetailViewModel(@NonNull Application application, MasterViewModel masterVM) {
-        super(application, masterVM);
+    public SpotDetailViewModel(@NonNull Application application) {
+        super(application);
     }
 
     public String calculateElapsedTime() {
@@ -51,7 +52,7 @@ public class SpotDetailViewModel extends BaseViewModel {
     }
 
     public void setSpotData(int spotId) {
-        this.spotData = masterVM.getSpotDataById(spotId);
+        this.spotData = parkedRepo.getSpotDataById(spotId);
     }
 
     public long getTicketId() {

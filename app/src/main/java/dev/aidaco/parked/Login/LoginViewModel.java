@@ -8,7 +8,6 @@ import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.Utils.BaseViewModel;
 import dev.aidaco.parked.Utils.LoginAttemptListener;
-import dev.aidaco.parked.Utils.MasterViewModel;
 import dev.aidaco.parked.Utils.SingleResultListener;
 
 public class LoginViewModel extends BaseViewModel {
@@ -17,12 +16,12 @@ public class LoginViewModel extends BaseViewModel {
     private String enteredUsername;
     private String enteredPassword;
 
-    public LoginViewModel(@NonNull Application application, MasterViewModel masterVM) {
-        super(application, masterVM);
+    public LoginViewModel(@NonNull Application application) {
+        super(application);
     }
 
     public void attemptLogin(final LoginAttemptListener listener) {
-        masterVM.getUserByUsername(enteredUsername, new SingleResultListener<User>() {
+        userRepo.getUserByUsername(enteredUsername, new SingleResultListener<User>() {
             @Override
             public void onResult(User user) {
                 if (user == null) {
@@ -31,7 +30,7 @@ public class LoginViewModel extends BaseViewModel {
                 }
 
                 if (user.getPassword().equals(enteredPassword)) {
-                    masterVM.setCurrentUser(user);
+                    userRepo.setCurrentUser(user);
                     listener.onResult(LoginAttemptListener.SUCCESS);
                 } else {
                     listener.onResult(LoginAttemptListener.INC_PASSWORD);
@@ -52,13 +51,13 @@ public class LoginViewModel extends BaseViewModel {
         User testUser = new User(0, "username", "password", "Basic", "Test", Enums.UserType.BASIC, true);
         User testAdmin = new User(0, "admin", "password", "Admin", "Test", Enums.UserType.ADMIN, true);
         User testManager = new User(0, "manager", "password", "Manager", "Test", Enums.UserType.MANAGER, true);
-        masterVM.addUser(testUser);
-        masterVM.addUser(testManager);
-        masterVM.addUser(testAdmin);
+        userRepo.addUser(testUser);
+        userRepo.addUser(testManager);
+        userRepo.addUser(testAdmin);
 
         for (int i = 0; i < 100; i++) {
             Spot spot = new Spot(i, Enums.VehicleType.CAR, true, 0, false);
-            masterVM.addSpot(spot);
+            parkedRepo.addSpot(spot);
         }
     }
 }

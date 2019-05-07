@@ -8,16 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Utils.BaseViewModel;
-import dev.aidaco.parked.Utils.MasterViewModel;
 
 public class UserHomeViewModel extends BaseViewModel {
     private static final String TAG = "UserHomeViewModel";
 
     private LiveData<List<SpotData>> occupiedSpots;
 
-    public UserHomeViewModel(@NonNull Application application, MasterViewModel masterVM) {
-        super(application, masterVM);
-        occupiedSpots = masterVM.getOccupiedSpots();
+    public UserHomeViewModel(@NonNull Application application) {
+        super(application);
+        occupiedSpots = parkedRepo.getOccupiedSpots();
     }
 
     public LiveData<List<SpotData>> getOccupiedSpots() {

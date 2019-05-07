@@ -16,20 +16,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import dev.aidaco.parked.MainActivity;
 
 public abstract class BaseFragment<T extends BaseViewModel> extends Fragment {
-    protected MasterViewModel masterVM;
     protected T viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
-        masterVM = ViewModelProviders.of(getActivity()).get(MasterViewModel.class);
-        viewModel = ViewModelProviders.of(this, new BaseViewModelFactory(getActivity().getApplication(), masterVM)).get(getViewModelClass());
+        viewModel = ViewModelProviders.of(this).get(getViewModelClass());
         handleArguments(getArguments());
         initViews(view);
         handleBundle(savedInstanceState);
         createCallbacks();
-        viewModel.refreshLiveData();
         return view;
     }
 

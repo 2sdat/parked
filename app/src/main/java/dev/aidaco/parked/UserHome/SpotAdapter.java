@@ -18,7 +18,7 @@ public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
     private List<SpotData> occupiedSpots;
     private ClickListener<Integer> listener;
 
-    public void updateSpotData(List<SpotData> spotData) {
+    void updateSpotData(List<SpotData> spotData) {
         Log.d(TAG, "updateSpotData: recieved spotdata size: " + Integer.toString(spotData.size()));
         this.occupiedSpots = spotData;
     }
@@ -41,7 +41,7 @@ public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
         return occupiedSpots == null ? 0 : occupiedSpots.size();
     }
 
-    public void setClickListener(ClickListener<Integer> listener) {
+    void setClickListener(ClickListener<Integer> listener) {
         this.listener = listener;
     }
 }

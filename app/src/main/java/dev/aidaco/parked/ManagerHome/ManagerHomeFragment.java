@@ -16,6 +16,7 @@ import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.ClickListener;
+import dev.aidaco.parked.Utils.ParkedRepository;
 
 public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private static final String TAG = "ManagerHomeFragment";
@@ -66,9 +67,9 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         destroyTicketAdapter();
         viewModel.toggleCurrentView();
 
-        if (viewModel.getCurrentView() == viewModel.TICKET_VIEW) {
+        if (viewModel.getCurrentView() == ManagerHomeViewModel.TICKET_VIEW) {
             initTicketAdapter();
-        } else if (viewModel.getCurrentView() == viewModel.USER_VIEW) {
+        } else if (viewModel.getCurrentView() == ManagerHomeViewModel.USER_VIEW) {
             initUserAdapter();
         } else {
             Log.d(TAG, "toggleContent: how did this happen");
@@ -77,7 +78,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     }
 
     private void initUserAdapter() {
-        userAdapter = new UserAdapter(masterVM);
+        userAdapter = new UserAdapter(ParkedRepository.getInstance(getContext()));
 
         userObserver = new Observer<List<User>>() {
             @Override
@@ -111,7 +112,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     }
 
     private void initTicketAdapter() {
-        ticketAdapter = new TicketAdapter(masterVM, getActivity());
+        ticketAdapter = new TicketAdapter(getActivity());
 
         ticketObserver = new Observer<List<ParkingTicket>>() {
             @Override

@@ -19,17 +19,10 @@ public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
 
     @Override
     public void createCallbacks() {
-        viewModel.getUserData().observe(this, new Observer<User>() {
+        viewModel.getUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
 
-            }
-        });
-
-        imageButtonNavigateUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateUp();
             }
         });
     }

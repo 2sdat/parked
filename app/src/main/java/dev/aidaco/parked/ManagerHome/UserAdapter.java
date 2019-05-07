@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
-import dev.aidaco.parked.Utils.MasterViewModel;
+import dev.aidaco.parked.Utils.ParkedRepository;
 
 public class UserAdapter extends RecyclerView.Adapter<UserItemViewHolder> {
     private static final String TAG = "UserAdapter";
-    private MasterViewModel masterVM;
+    private ParkedRepository parkedRepo;
     private List<User> users;
     private ClickListener<Integer> listener;
 
-    public UserAdapter(MasterViewModel masterVM) {
-        this.masterVM = masterVM;
+    UserAdapter(ParkedRepository parkedRepo) {
+        this.parkedRepo = parkedRepo;
     }
 
-    public void updateUserData(List<User> users) {
+    void updateUserData(List<User> users) {
         Log.d(TAG, "updateSpotData: recieved users size: " + Integer.toString(users.size()));
         this.users = users;
     }
@@ -33,7 +33,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserItemViewHolder> {
     @Override
     public UserItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item, parent, false);
-        return new UserItemViewHolder(view, masterVM);
+        return new UserItemViewHolder(view, parkedRepo);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserItemViewHolder> {
         return users == null ? 0 : users.size();
     }
 
-    public void setClickListener(ClickListener<Integer> listener) {
+    void setClickListener(ClickListener<Integer> listener) {
         this.listener = listener;
     }
 }
