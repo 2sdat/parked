@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_managerHomeFragment_to_userDetailFragment"
             app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_managerHomeFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/userDetailFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_user_detail">
         <action
             android:id="@+id/action_userDetailFragment_to_managerHomeFragment"
+            app:destination="@id/managerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ticketDetailFragment"
+        android:name="dev.aidaco.parked.TicketDetail.TicketDetailFragment"
+        android:label="TicketDetailFragment"
+        tools:layout="@layout/fragment_ticket_detail">
+        <action
+            android:id="@+id/action_ticketDetailFragment_to_managerHomeFragment"
             app:destination="@id/managerHomeFragment" />
     </fragment>
 </navigation>

@@ -160,14 +160,16 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     }
 
     private void navigateToUserDetailView(int userId) {
+        Log.d(TAG, "navigateToUserDetailView: userhome -> userdetail");
         Bundle argsBundle = new Bundle();
         argsBundle.putInt("userId", userId);
         navigateActionWithArgs(R.id.action_managerHomeFragment_to_userDetailFragment, argsBundle);
     }
 
     private void navigateToTicketDetailView(long ticketId) {
+        Log.d(TAG, "navigateToTicketDetailView: userhome -> ticketdetail");
         Bundle argsBundle = new Bundle();
         argsBundle.putLong("ticketId", ticketId);
-        // TODO implement TicketDetailView and navigate
+        navigateActionWithArgs(R.id.action_managerHomeFragment_to_ticketDetailFragment, argsBundle);
     }
 }
