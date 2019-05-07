@@ -61,19 +61,19 @@ public class ParkedRepository {
     }
 
     public LiveData<List<SpotData>> getAllSpots() {
-        return spotDataDao.getAllSpotsWithData();
+        return spotDataDao.getAllSpotsWithData_LiveData();
     }
 
     public LiveData<List<SpotData>> getOccupiedSpots() {
-        return spotDataDao.getOccupiedSpotswithData();
+        return spotDataDao.getOccupiedSpotswithData_LiveData();
     }
 
     public LiveData<SpotData> getSpotDataById(int id) {
-        return spotDataDao.getLiveDataById(id);
+        return spotDataDao.getSpotDataById_LiveData(id);
     }
 
     public LiveData<List<ParkingTicketData>> getActiveTickets() {
-        return ticketDataDao.getAllActiveTickets();
+        return ticketDataDao.getAllActiveTickets_LiveData();
     }
 
     public List<Spot> getEmptySpots() {
@@ -89,15 +89,15 @@ public class ParkedRepository {
     }
 
     public LiveData<List<ParkingTicket>> getAllTickets() {
-        return ticketDao.getAllTickets();
+        return ticketDao.getAllTickets_LiveData();
     }
 
     public List<ParkingTicket> getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
-        return ticketDao.getTicketByID(ticketId);
+        return ticketDao.getTicketById(ticketId);
     }
 
     public LiveData<ParkingTicketData> getTicketDataByIdLive(long ticketId) {
-        return ticketDataDao.getTicketById(ticketId);
+        return ticketDataDao.getTicketById_LiveData(ticketId);
     }
 
     public void updateSpot(Spot spot) {
@@ -243,7 +243,7 @@ public class ParkedRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            ParkingTicket ticket = ticketDao.getTicketById(ticketId).get(0);
             ticket.setStartTime(System.currentTimeMillis());
             Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
             spot.setTicketId(ticketId);
@@ -274,7 +274,7 @@ public class ParkedRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            ParkingTicket ticket = ticketDao.getTicketById(ticketId).get(0);
             Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
             spot.setEmpty(true);
             spot.setReserved(false);
@@ -303,7 +303,7 @@ public class ParkedRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            ParkingTicket ticket = ticketDao.getTicketByID(ticketId).get(0);
+            ParkingTicket ticket = ticketDao.getTicketById(ticketId).get(0);
             Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
 
             ticket.setEndTime(System.currentTimeMillis());
@@ -331,7 +331,7 @@ public class ParkedRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            result = ticketDao.getByAttendentID(userId);
+            result = ticketDao.getByAttendantId(userId);
             return null;
         }
 

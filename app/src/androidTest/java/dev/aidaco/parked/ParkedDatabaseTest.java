@@ -117,7 +117,7 @@ public class ParkedDatabaseTest {
     @Test
     public void testSpotDao(){
         try {
-            List<Spot> spots = LiveDataTestUtil.getValue(mSpotDao.getAllSpots());
+            List<Spot> spots = LiveDataTestUtil.getValue(mSpotDao.getAllSpots_LiveData());
             for (Spot spot : spots) {
                 Assert.assertTrue(SpotFactory.spots.containsKey(spot.getId()));
                 Assert.assertSame(SpotFactory.spots.get(spot.getId()).getSpotType(), spot.getSpotType());
@@ -139,7 +139,7 @@ public class ParkedDatabaseTest {
 
         try {
 
-            List<Spot> fullSpots = LiveDataTestUtil.getValue(mSpotDao.getOccupiedSpots());
+            List<Spot> fullSpots = LiveDataTestUtil.getValue(mSpotDao.getOccupiedSpots_LiveData());
             for (Spot spot : fullSpots) {
                 Assert.assertFalse(spot.getIsEmpty());
                 Assert.assertNotEquals(spot.getTicketId(), Spot.NULL_TICKET_ID);
@@ -152,7 +152,7 @@ public class ParkedDatabaseTest {
         }
 
         try {
-            List<Spot> allSpots = LiveDataTestUtil.getValue(mSpotDao.getAllSpots());
+            List<Spot> allSpots = LiveDataTestUtil.getValue(mSpotDao.getAllSpots_LiveData());
             HashSet<Integer> takenIds = new HashSet();
             for (Spot s : allSpots) {
                 takenIds.add(s.getId());
@@ -180,28 +180,28 @@ public class ParkedDatabaseTest {
     @Test
     public void testTicketDao() {
         try {
-            List<ParkingTicket> allTickets = LiveDataTestUtil.getValue(mTicketDao.getAllTickets());
+            List<ParkingTicket> allTickets = LiveDataTestUtil.getValue(mTicketDao.getAllTickets_LiveData());
             for (ParkingTicket pt : allTickets) {
                 assert (UserFactory.userList.containsKey(pt.getAttendentId()));
                 assert (SpotFactory.spots.containsKey(pt.getSpotId()));
                 assert (!SpotFactory.spots.get(pt.getSpotId()).getIsEmpty());
 
                 Spot spot = LiveDataTestUtil.getValue(mSpotDao.getByID(pt.getSpotId()));
-                ParkingTicket t = LiveDataTestUtil.getValue(mTicketDao.getTicketByID(spot.getTicketId()));
+                ParkingTicket t = LiveDataTestUtil.getValue(mTicketDao.getTicketById(spot.getTicketId()));
                 assert (t.equals(pt));
 
                 t = LiveDataTestUtil.getValue(mTicketDao.getByFullPlate(pt.getLicensePlate().getLicensePlateNumber(), pt.getLicensePlate().getState()));
                 assert (t.equals(pt));
 
-                List<ParkingTicket> tlist = LiveDataTestUtil.getValue(mTicketDao.getByPlateNumber(pt.getLicensePlate().getLicensePlateNumber()));
+                List<ParkingTicket> tlist = LiveDataTestUtil.getValue(mTicketDao.getByPlateNumber_LiveData(pt.getLicensePlate().getLicensePlateNumber()));
                 assert (tlist.contains(pt));
 
-                tlist = LiveDataTestUtil.getValue(mTicketDao.getByPlateState(pt.getLicensePlate().getState()));
+                tlist = LiveDataTestUtil.getValue(mTicketDao.getByPlateState_LiveData(pt.getLicensePlate().getState()));
                 assert (tlist.contains(pt));
             }
 
             for (User user : UserFactory.userList.values()) {
-                List<ParkingTicket> parkByUser = LiveDataTestUtil.getValue(mTicketDao.getByAttendentID(user.getId()));
+                List<ParkingTicket> parkByUser = LiveDataTestUtil.getValue(mTicketDao.getByAttendantId(user.getId()));
                 for (ParkingTicket pt : parkByUser) {
                     assert (pt.getAttendentId() == user.getId());
                     assert (!SpotFactory.spots.get(pt.getSpotId()).getIsEmpty());

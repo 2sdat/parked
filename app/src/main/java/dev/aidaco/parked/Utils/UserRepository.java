@@ -29,7 +29,7 @@ public class UserRepository {
     }
 
     public LiveData<List<User>> getAllUsers() {
-        return userDao.getAllUsers();
+        return userDao.getAllUsers_LiveData();
     }
 
     public void getUserById(int id, SingleResultListener<User> listener) {

@@ -132,5 +132,4 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         argsBundle.putLong("ticketId", ticketId);
         navigateActionWithArgs(R.id.action_spotDetailFragment_to_displayTicketFragment, argsBundle);
     }
-
 }

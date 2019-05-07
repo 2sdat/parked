@@ -12,17 +12,25 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 public interface SpotDataDao {
     @Transaction
     @Query("SELECT * FROM spots WHERE NOT is_empty")
-    LiveData<List<SpotData>> getOccupiedSpotswithData();
+    LiveData<List<SpotData>> getOccupiedSpotswithData_LiveData();
+
+    @Transaction
+    @Query("SELECT * FROM spots WHERE NOT is_empty")
+    List<SpotData> getOccupiedSpotswithData();
 
     @Transaction
     @Query("SELECT * FROM spots")
-    LiveData<List<SpotData>> getAllSpotsWithData();
+    LiveData<List<SpotData>> getAllSpotsWithData_LiveData();
+
+    @Transaction
+    @Query("SELECT * FROM spots")
+    List<SpotData> getAllSpotsWithData();
 
     @Transaction
     @Query("SELECT * FROM spots WHERE id = :id")
-    LiveData<SpotData> getLiveDataById(int id);
+    LiveData<SpotData> getSpotDataById_LiveData(int id);
 
     @Transaction
     @Query("SELECT * FROM spots WHERE id = :id")
-    List<SpotData> getById(int id);
+    List<SpotData> getSpotDataById(int id);
 }
