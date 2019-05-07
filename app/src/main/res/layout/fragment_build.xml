@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageButton
+            android:id="@+id/build_ToolbarBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginEnd="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/back_button_description"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorText"
+            android:textSize="30sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Rebuild Garage"
+        android:textColor="@color/colorText"
+        android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/build_Car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:hint="Number of Car Spots"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/build_Motorcycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:hint="Number of Motorcyle Spots"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/build_Truck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:hint="Number of Truck Spots"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/build_Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="BUILD" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="WARNING: THIS ERASES EXISTING DATA"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
+
+</LinearLayout>

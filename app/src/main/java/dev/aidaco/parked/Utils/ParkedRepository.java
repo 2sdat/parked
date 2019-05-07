@@ -11,6 +11,7 @@ import dev.aidaco.parked.Database.Daos.ParkingTicketDataDao;
 import dev.aidaco.parked.Database.Daos.SpotDao;
 import dev.aidaco.parked.Database.Daos.SpotDataDao;
 import dev.aidaco.parked.Database.Daos.TicketDao;
+import dev.aidaco.parked.Database.Daos.UserDao;
 import dev.aidaco.parked.Database.ParkedDatabase;
 import dev.aidaco.parked.Model.Entities.LicensePlate;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
@@ -75,6 +76,10 @@ public class ParkedRepository {
 
     public void getTicketsByUserId(int userId, SingleResultListener<List<ParkingTicket>> listener) {
         new GetTicketsByUserIdAsyncTask(ticketDao, userId, listener).execute();
+    }
+
+    public void rebuildDatabase(int numCar, int numMotorcycle, int numTruck) {
+        new RebuildDatabaseAsyncTask(clearAllDao, spotDao, parkedDb.userDao(), numCar, numMotorcycle, numTruck).execute();
     }
 
     public void clearSpots() {
@@ -439,6 +444,50 @@ public class ParkedRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             clearAllDao.wipeUsers();
+            return null;
+        }
+    }
+
+    private static class RebuildDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ClearAllDao clearAllDao;
+        private SpotDao spotDao;
+        private UserDao userDao;
+
+        private int numCar;
+        private int numMoto;
+        private int numTruck;
+
+        public RebuildDatabaseAsyncTask(ClearAllDao clearAllDao, SpotDao spotDao, UserDao userDao, int numCar, int numMoto, int numTruck) {
+            this.clearAllDao = clearAllDao;
+            this.spotDao = spotDao;
+            this.userDao = userDao;
+            this.numCar = numCar;
+            this.numMoto = numMoto;
+            this.numTruck = numTruck;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            clearAllDao.wipeSpots();
+            clearAllDao.wipeTickets();
+            clearAllDao.wipeUsers();
+
+            for (int i = 0; i < numCar; i++) {
+                Spot spot = new Spot(0, Enums.VehicleType.CAR, true, Spot.NULL_TICKET_ID, false);
+                spotDao.addSpot(spot);
+            }
+
+            for (int i = 0; i < numMoto; i++) {
+                Spot spot = new Spot(0, Enums.VehicleType.MOTORCYCLE, true, Spot.NULL_TICKET_ID, false);
+                spotDao.addSpot(spot);
+            }
+
+            for (int i = 0; i < numTruck; i++) {
+                Spot spot = new Spot(0, Enums.VehicleType.TRUCK, true, Spot.NULL_TICKET_ID, false);
+                spotDao.addSpot(spot);
+            }
+
+            userDao.addUser(User.DEF_USER);
             return null;
         }
     }

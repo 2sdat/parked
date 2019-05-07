@@ -33,6 +33,11 @@ public class UserRepository {
         return INSTANCE;
     }
 
+    public void resetData() {
+        this.currentUser = null;
+        this.accessPrivilege = null;
+    }
+
     public User getCurrentUser() {
         return currentUser;
     }
@@ -56,6 +61,10 @@ public class UserRepository {
 
     public void addUser(User user) {
         new AddUserAsyncTask(userDao).execute(user);
+    }
+
+    public void ensureDefaultUser() {
+        new DefaultUserAsyncTask(userDao).execute();
     }
 
     public void updateUser(User user) {
@@ -257,6 +266,22 @@ public class UserRepository {
                 resultCode = CreateUserResultListener.FAIL;
                 return null;
             }
+        }
+    }
+
+    private static class DefaultUserAsyncTask extends AsyncTask<Void, Void, Void> {
+        private UserDao userDao;
+
+        public DefaultUserAsyncTask(UserDao userDao) {
+            this.userDao = userDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if (userDao.getAllUsers().size() == 0) {
+                userDao.addUser(User.DEF_USER);
+            }
+            return null;
         }
     }
 }

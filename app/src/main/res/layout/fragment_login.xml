@@ -49,10 +49,4 @@
         android:layout_marginTop="10dp"
         android:text="@string/buttonLoginText" />
 
-    <Button
-        android:id="@+id/login_Test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Create Test User" />
 </LinearLayout>

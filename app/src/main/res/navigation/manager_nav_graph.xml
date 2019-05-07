@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_managerHomeFragment_to_addNewUserFragment"
             app:destination="@id/addNewUserFragment" />
+        <action
+            android:id="@+id/action_managerHomeFragment_to_buildFragment"
+            app:destination="@id/buildFragment" />
     </fragment>
     <fragment
         android:id="@+id/userDetailFragment"
@@ -54,6 +57,15 @@
             app:destination="@id/userDetailFragment" />
         <action
             android:id="@+id/action_addNewUserFragment_to_managerHomeFragment"
+            app:destination="@id/managerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buildFragment"
+        android:name="dev.aidaco.parked.Build.BuildFragment"
+        android:label="BuildFragment"
+        tools:layout="@layout/fragment_build">
+        <action
+            android:id="@+id/action_buildFragment_to_managerHomeFragment"
             app:destination="@id/managerHomeFragment" />
     </fragment>
 </navigation>

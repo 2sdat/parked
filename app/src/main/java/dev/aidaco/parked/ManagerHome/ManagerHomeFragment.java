@@ -26,6 +26,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private TicketAdapter ticketAdapter;
     private FloatingActionButton fabAdd;
     private ImageButton toggleContent;
+    private ImageButton buttonBuild;
     private Observer<List<User>> userObserver;
     private Observer<List<ParkingTicket>> ticketObserver;
 
@@ -34,6 +35,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         recyclerView = view.findViewById(R.id.managerHome_Recycler);
         fabAdd = view.findViewById(R.id.managerHome_FAB);
         toggleContent = view.findViewById(R.id.managerHome_ToggleContent);
+        buttonBuild = view.findViewById(R.id.managerHome_Create);
 
         initUserAdapter();
         recyclerView.setAdapter(userAdapter);
@@ -47,6 +49,13 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
             @Override
             public void onClick(View v) {
                 navigateToAddNewUser();
+            }
+        });
+
+        buttonBuild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToBuild();
             }
         });
 
@@ -180,5 +189,10 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     public void navigateToAddNewUser() {
         Log.d(TAG, "navigateToAddNewUser: managerhome -> addnewuser");
         navigateAction(R.id.action_managerHomeFragment_to_addNewUserFragment);
+    }
+
+    private void navigateToBuild() {
+        Log.d(TAG, "navigateToBuild: managerhome -> build");
+        navigateAction(R.id.action_managerHomeFragment_to_buildFragment);
     }
 }

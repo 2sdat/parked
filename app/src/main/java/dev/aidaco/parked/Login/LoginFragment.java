@@ -16,21 +16,21 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     private EditText editTextPassword;
     private Button buttonLogin;
 
-    private Button buttonLoginTest;
 
     @Override
     public void initViews(View view) {
+        Log.d(TAG, "initViews: loginfragment start init views");
         editTextUsername = view.findViewById(R.id.login_Username);
         editTextPassword = view.findViewById(R.id.login_Password);
         buttonLogin = view.findViewById(R.id.login_Login);
-
-        buttonLoginTest = view.findViewById(R.id.login_Test);
 
         Log.d(TAG, "initViews: views init'd");
     }
 
     @Override
     public void createCallbacks() {
+        Log.d(TAG, "createCallbacks: login start create callbacks");
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,13 +46,7 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
             }
         });
 
-        buttonLoginTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: logintest clicked");
-                viewModel.populateDbWithTestData();
-            }
-        });
+        Log.d(TAG, "createCallbacks: login callback init'd");
     }
 
     private void onLoginAttemptReturn(int resultCode) {

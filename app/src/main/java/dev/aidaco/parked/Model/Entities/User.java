@@ -2,6 +2,7 @@ package dev.aidaco.parked.Model.Entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
@@ -12,6 +13,9 @@ import dev.aidaco.parked.Model.Enums;
                 @Index(value = {"username"}, unique = true)
         })
 public class User {
+    @Ignore
+    public static User DEF_USER = new User(0, "admin", "password", "Aidan", "Courtney", Enums.UserType.ADMIN, true);
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 

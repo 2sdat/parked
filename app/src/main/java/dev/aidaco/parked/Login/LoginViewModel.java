@@ -1,11 +1,10 @@
 package dev.aidaco.parked.Login;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.User;
-import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.Utils.BaseViewModel;
 import dev.aidaco.parked.Utils.LoginAttemptListener;
 import dev.aidaco.parked.Utils.SingleResultListener;
@@ -18,6 +17,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
+        Log.d(TAG, "LoginViewModel: loginviewmodel init'd");
     }
 
     public void attemptLogin(final LoginAttemptListener listener) {
@@ -52,17 +52,7 @@ public class LoginViewModel extends BaseViewModel {
         enteredPassword = password;
     }
 
-    public void populateDbWithTestData() {
-        User testUser = new User(0, "username", "password", "Basic", "Test", Enums.UserType.BASIC, true);
-        User testAdmin = new User(0, "admin", "password", "Admin", "Test", Enums.UserType.ADMIN, true);
-        User testManager = new User(0, "manager", "password", "Manager", "Test", Enums.UserType.MANAGER, true);
-        userRepo.addUser(testUser);
-        userRepo.addUser(testManager);
-        userRepo.addUser(testAdmin);
-
-        for (int i = 0; i < 100; i++) {
-            Spot spot = new Spot(i, Enums.VehicleType.CAR, true, 0, false);
-            parkedRepo.addSpot(spot);
-        }
+    public void ensureDefaultUser() {
+        userRepo.ensureDefaultUser();
     }
 }

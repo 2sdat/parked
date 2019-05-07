@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import dev.aidaco.parked.MainActivity;
 
 public abstract class BaseFragment<T extends BaseViewModel> extends Fragment {
+    private static final String TAG = "BaseFragment";
     protected T viewModel;
 
     @Nullable
