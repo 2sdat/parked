@@ -12,7 +12,7 @@ import dev.aidaco.parked.Model.Enums;
 public class Spot {
 
     // TODO implement non-auto spotId generation
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
 
     @NonNull

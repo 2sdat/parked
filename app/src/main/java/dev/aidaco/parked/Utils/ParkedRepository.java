@@ -473,8 +473,8 @@ public class ParkedRepository {
             clearAllDao.wipeTickets();
             clearAllDao.wipeUsers();
 
-            for (int i = 0; i < numCar; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID, false);
+            for (int i = 1; i <= numCar; i++) {
+                Spot spot = new Spot(i, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 
