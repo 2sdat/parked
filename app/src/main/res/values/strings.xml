@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Park'd</string>
+    <string name="app_name">Park\'d</string>
 
     <string name="editTextUsernameHint">Username</string>
     <string name="editTextPasswordHint">Password</string>
