@@ -16,7 +16,12 @@ import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.DoubleResultListener;
 
-// TODO: 5/14/19 javadoc
+/**
+ * Fragment defining the behavior of the UserDetail screen in the Manager work flow.
+ *
+ * @author Aidan Courtney
+ * @see UserDetailViewModel
+ */
 public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
     private static final String TAG = "UserDetailFragment";
 
@@ -49,6 +54,9 @@ public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
         Log.d(TAG, "initViews: views init'd");
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         viewModel.getUser().observe(this, new Observer<List<User>>() {
@@ -106,21 +114,43 @@ public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
         });
     }
 
+    /**
+     * Parses arguments passed in a Bundle.
+     * Requires:
+     * "spotId":Int ID of the ticket to display.
+     *
+     * @param argBundle Argument bundle.
+     */
     @Override
     public void handleArguments(Bundle argBundle) {
         viewModel.setUser(argBundle.getInt("userId"));
     }
 
+    /**
+     * Navigate to ManagerHome.
+     */
     private void navigateUp() {
         Log.d(TAG, "navigateUp: user detail -> managerhome");
         navigateActionAndPopUpTo(R.id.action_userDetailFragment_to_managerHomeFragment, R.id.userDetailFragment);
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_user_detail;
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     *
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<UserDetailViewModel> getViewModelClass() {
         return UserDetailViewModel.class;

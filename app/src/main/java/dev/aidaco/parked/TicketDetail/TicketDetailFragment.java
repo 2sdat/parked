@@ -1,5 +1,6 @@
 package dev.aidaco.parked.TicketDetail;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +14,12 @@ import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 
-// TODO: 5/14/19 javadoc
+/**
+ * Fragment defining the behavior of the TicketDetail screen in the Manager work flow.
+ *
+ * @author Aidan Courtney
+ * @see TicketDetailViewModel
+ */
 public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
     private static final String TAG = "TicketDetailFragment";
 
@@ -32,7 +38,11 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
 
     private boolean isStopped = false;
 
-
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         buttonBack = view.findViewById(R.id.ticketDetail_ToolbarBack);
@@ -49,9 +59,13 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
         buttonDone = view.findViewById(R.id.ticketDetail_Done);
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         viewModel.getTicketData().observe(this, new Observer<ParkingTicketData>() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onChanged(final ParkingTicketData parkingTicketData) {
                 viewModel.setParkTime(parkingTicketData.parkingTicket.getStartTime());
@@ -65,6 +79,7 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
                 if (parkingTicketData.parkingTicket.getEndTime() == ParkingTicket.NULL_END_TIME) {
                     endTime.setText("--");
                     Thread timeElapsedThread = new Thread(new Runnable() {
+                        @SuppressWarnings("ConstantConditions")
                         @Override
                         public void run() {
                             while (!isStopped) {
@@ -114,27 +129,54 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
         });
     }
 
+    /**
+     * Navigate to ManagerHome.
+     */
     private void navigateUp() {
+
         Log.d(TAG, "navigateUp: ticketdetail -> managerhome");
         navigateActionAndPopUpTo(R.id.action_ticketDetailFragment_to_managerHomeFragment, R.id.ticketDetailFragment);
     }
 
+    /**
+     * Parses arguments passed in a Bundle.
+     * Requires:
+     * "ticketId":Long ID of the ticket to display.
+     *
+     * @param argBundle Argument bundle.
+     */
     @Override
     public void handleArguments(Bundle argBundle) {
         viewModel.setTicketId(argBundle.getLong("ticketId"));
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     *
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<TicketDetailViewModel> getViewModelClass() {
         return TicketDetailViewModel.class;
     }
 
+
+    /**
+     * Handles cleaning up resources when the fragment is stopped.
+     */
     @Override
     public void onStop() {
         isStopped = true;
         super.onStop();
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_ticket_detail;

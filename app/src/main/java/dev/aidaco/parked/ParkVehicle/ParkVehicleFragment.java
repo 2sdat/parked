@@ -11,7 +11,12 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseFragment;
 
-// TODO: 5/14/19 javadoc
+/**
+ * Fragment defining the behavior of the Add ParkVehicle screen in the User work flow.
+ *
+ * @author Aidan Courtney
+ * @see ParkVehicleViewModel
+ */
 public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
     private static final String TAG = "ParkVehicleFragment";
 
@@ -36,6 +41,9 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         Log.d(TAG, "initViews: views init'd");
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         textViewDone.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +75,7 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         });
 
         textViewTimer.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: timer clicked");
@@ -93,6 +102,7 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
                         final String text = Integer.toString(countDown);
                         final boolean isDone = countDown == 0;
                         try {
+                            //noinspection ConstantConditions
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -126,6 +136,15 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         timerThread.start();
     }
 
+
+    /**
+     * Setup the fragment using passed arguments.
+     * Arguments needed:
+     * "ticketId":Long ID of the ticket.
+     * "spotId":Int ID of the spot
+     *
+     * @param argBundle Bundle containing the arguments
+     */
     @Override
     public void handleArguments(Bundle argBundle) {
         viewModel.setTicketId(argBundle.getLong("ticketId"));
@@ -133,16 +152,33 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         Log.d(TAG, "handleArguments: handled bundle argument: ticketId = " + Long.toString(viewModel.getTicketId()) + " spotId = " + Integer.toString(viewModel.getSpotId()));
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     *
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<ParkVehicleViewModel> getViewModelClass() {
         return ParkVehicleViewModel.class;
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_park_vehicle;
     }
 
+
+    /**
+     * Displays messages to the user depending on whether the vehicle was parked successfully.
+     * @param resultCode Result code for whether the vehicle was parked successfully.
+     */
     private void onFinished(int resultCode) {
         Log.d(TAG, "onFinished: result recieved: " + Integer.toString(resultCode));
         if (resultCode == AttemptListener.POS_SUCCESS) {
@@ -159,6 +195,10 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         navigateToUserHome();
     }
 
+
+    /**
+     * Navigate tp User Home.
+     */
     private void navigateToUserHome() {
         Log.d(TAG, "navigateToUserHome: navigate to user home");
         navigateActionAndPopUpTo(R.id.action_parkVehicleFragment_to_userHomeFragment, R.id.userHomeFragment);

@@ -16,13 +16,17 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.ClickListener;
 
-// TODO: 5/14/19 javadoc
+/**
+ * Fragment defining the behavior of the user home screen in the Manager work flow.
+ *
+ * @author Aidan Courtney
+ * @see UserHomeViewModel
+ */
 public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     private static final String TAG = "UserHomeFragment";
 
     private SpotAdapter spotAdapter;
     private FloatingActionButton fabAddVehicle;
-    private RecyclerView recyclerViewSpots;
 
     /**
      * Initializes the View objects needed to implement requisite behavior.
@@ -32,7 +36,7 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     @Override
     public void initViews(View view) {
         fabAddVehicle = view.findViewById(R.id.fabAddVehicle);
-        recyclerViewSpots = view.findViewById(R.id.recyclerViewSpots);
+        RecyclerView recyclerViewSpots = view.findViewById(R.id.recyclerViewSpots);
 
         spotAdapter = new SpotAdapter();
 
@@ -41,6 +45,9 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
         Log.d(TAG, "initViews: views initialized");
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         spotAdapter.setClickListener(new ClickListener<Integer>() {
@@ -75,16 +82,33 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
         });
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     * <p>
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<UserHomeViewModel> getViewModelClass() {
         return UserHomeViewModel.class;
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_user_home;
     }
 
+
+    /**
+     * Navigate to the detail view for the given spot.
+     * @param spotId The ID of the spot to display info for.
+     */
     private void navigateToSpotDetail(int spotId) {
         Log.d(TAG, "navigateToSpotDetail: navigating to spot detail with spotId:" + Integer.toString(spotId));
         Bundle argsBundle = new Bundle();
@@ -92,6 +116,9 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
         navigateActionWithArgs(R.id.action_userHomeFragment_to_spotDetailFragment, argsBundle);
     }
 
+    /**
+     * Navigate to the Add New Vehicle Screen.
+     */
     private void navigateToAddNewVehicle() {
         Log.d(TAG, "navigateToAddNewVehicle: navigate to addnewvehicle");
         navigateAction(R.id.action_userHomeFragment_to_addNewVehicleFragment);
