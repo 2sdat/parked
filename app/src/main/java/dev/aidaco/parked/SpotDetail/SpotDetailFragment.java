@@ -13,6 +13,7 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 
+// TODO: 5/14/19 javadoc
 public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     private static final String TAG = "SpotDetailFragment";
 
@@ -28,11 +29,11 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
 
     private boolean isStopped = false;
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_spot_detail;
-    }
-
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         imageButtonNavigateUp = view.findViewById(R.id.spotDetail_ToolbarUp);
@@ -111,6 +112,11 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     @Override
     public Class<SpotDetailViewModel> getViewModelClass() {
         return SpotDetailViewModel.class;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_spot_detail;
     }
 
     @Override

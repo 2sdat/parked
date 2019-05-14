@@ -3,6 +3,7 @@ package dev.aidaco.parked.Model.Entities;
 import androidx.room.ColumnInfo;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 public class LicensePlate {
 
     @ColumnInfo(name = "license_plate_number")

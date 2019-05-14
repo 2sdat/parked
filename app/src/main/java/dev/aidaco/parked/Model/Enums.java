@@ -2,6 +2,7 @@ package dev.aidaco.parked.Model;
 
 import androidx.room.TypeConverter;
 
+// TODO: 5/14/19 javadoc
 public class Enums {
 
     public enum UserType {

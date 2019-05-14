@@ -9,6 +9,12 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.LoginAttemptListener;
 
+/**
+ * Fragment defining the behavior of the Login screen.
+ *
+ * @author Aidan Courtney
+ * @see LoginViewModel
+ */
 public class LoginFragment extends BaseFragment<LoginViewModel> {
     private static final String TAG = "LoginFragment";
 
@@ -16,7 +22,11 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     private EditText editTextPassword;
     private Button buttonLogin;
 
-
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         Log.d(TAG, "initViews: loginfragment start init views");
@@ -29,6 +39,9 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         viewModel.ensureDefaultUser();
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         Log.d(TAG, "createCallbacks: login start create callbacks");
@@ -51,6 +64,12 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         Log.d(TAG, "createCallbacks: login callback init'd");
     }
 
+
+    /**
+     * Result handler for login attempts.
+     *
+     * @param resultCode Code for the result type.
+     */
     private void onLoginAttemptReturn(int resultCode) {
         Log.d(TAG, "onLoginAttemptReturn: ");
         switch (resultCode) {
@@ -76,6 +95,9 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         }
     }
 
+    /**
+     * Handles navigation to appropriate Home screen based on user account level.
+     */
     private void navigateToHome() {
         switch (viewModel.getAccessPrivilege()) {
             case BASIC:
@@ -93,21 +115,39 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         }
     }
 
+    /**
+     * Navigates to UserHome.
+     */
     private void navigateToUserHome() {
         Log.d(TAG, "navigateToUserHome: navigate to userhome");
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_user_nav_graph, R.id.loginFragment);
     }
 
+    /**
+     * Navigates to ManagerHome.
+     */
     private void navigateToManagerHome() {
         Log.d(TAG, "navigateToManagerHome: navigate to managerhome");
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_manager_nav_graph, R.id.loginFragment);
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_login;
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     *
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<LoginViewModel> getViewModelClass() {
         return LoginViewModel.class;

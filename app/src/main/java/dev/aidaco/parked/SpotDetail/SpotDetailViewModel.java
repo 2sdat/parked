@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
+// TODO: 5/14/19 javadoc
 public class SpotDetailViewModel extends BaseViewModel {
     private static final String TAG = "SpotDetailViewModel";
 
@@ -24,7 +25,7 @@ public class SpotDetailViewModel extends BaseViewModel {
     }
 
     public void releaseVehicle() {
-        // TODO implement finalise ticket and calculate payment total
+        // TODO implement calculate payment total
     }
 
     public LiveData<SpotData> getSpotData() {

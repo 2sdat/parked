@@ -8,6 +8,7 @@ import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
+// TODO: 5/14/19 javadoc
 public class TicketDetailViewModel extends BaseViewModel {
     private LiveData<ParkingTicketData> ticketData;
     private long ticketId;

@@ -18,6 +18,11 @@ import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 
+/**
+ * Defines the database structure and settings for Room.
+ *
+ * @author Aidan Courtney
+ */
 @Database(entities = {User.class, Spot.class, ParkingTicket.class},
         version = 1, exportSchema = false)
 @TypeConverters(Enums.class)
@@ -25,6 +30,12 @@ public abstract class ParkedDatabase extends RoomDatabase {
     private static final String TAG = "ParkedDatabase";
     private static volatile ParkedDatabase INSTANCE;
 
+    /**
+     * Returns the current instance of the database.
+     *
+     * @param context Context in which to retrieve the database.
+     * @return The database.
+     */
     public static synchronized ParkedDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             Log.d(TAG, "getInstance: create database intance");

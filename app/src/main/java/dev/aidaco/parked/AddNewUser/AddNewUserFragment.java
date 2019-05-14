@@ -13,8 +13,14 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.CreateUserResultListener;
 
+
+/**
+ * Fragment defining the behavior of the Add New User screen in the Manager work flow.
+ *
+ * @author Aidan Courtney
+ * @see AddNewUserViewModel
+ */
 public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
-    private static final String TAG = "AddNewUserFragment";
 
     private ImageButton buttonBack;
     private EditText firstName;
@@ -25,6 +31,11 @@ public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
     private Spinner userType;
     private Button buttonDone;
 
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         buttonBack = view.findViewById(R.id.addNewUser_ToolbarBack);
@@ -36,11 +47,16 @@ public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
         userType = view.findViewById(R.id.addNewUser_UserType);
         buttonDone = view.findViewById(R.id.addNewUser_Done);
 
-        ArrayAdapter<Enums.UserType> userTypeAdapter = new ArrayAdapter<Enums.UserType>(getActivity(), R.layout.spinner_item, Enums.UserType.values());
+        @SuppressWarnings("ConstantConditions")
+        ArrayAdapter<Enums.UserType> userTypeAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, Enums.UserType.values());
+
         userTypeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         userType.setAdapter(userTypeAdapter);
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -89,21 +105,43 @@ public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
         });
     }
 
+    /**
+     * Navigates to the manager home screen.
+     * <p>
+     * Called when back button pressed.
+     */
     private void navigateUp() {
         navigateActionAndPopUpTo(R.id.action_addNewUserFragment_to_managerHomeFragment, R.id.addNewUserFragment);
     }
 
+    /**
+     * Navigates to the detail view for the newly created user.
+     *
+     * @param userId The ID of the user account to navigate to.
+     */
     private void navigateToUserDetail(int userId) {
         Bundle argsBundle = new Bundle();
         argsBundle.putInt("userId", userId);
         navigateActionWithArgs(R.id.action_addNewUserFragment_to_userDetailFragment, argsBundle);
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     *
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<AddNewUserViewModel> getViewModelClass() {
         return AddNewUserViewModel.class;
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_add_new_user;

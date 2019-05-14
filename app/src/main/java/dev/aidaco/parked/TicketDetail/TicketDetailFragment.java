@@ -13,6 +13,7 @@ import dev.aidaco.parked.Model.Entities.ParkingTicketData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 
+// TODO: 5/14/19 javadoc
 public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
     private static final String TAG = "TicketDetailFragment";
 
@@ -30,6 +31,7 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
     private Button buttonDone;
 
     private boolean isStopped = false;
+
 
     @Override
     public void initViews(View view) {

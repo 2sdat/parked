@@ -11,6 +11,7 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseFragment;
 
+// TODO: 5/14/19 javadoc
 public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
     private static final String TAG = "ParkVehicleFragment";
 
@@ -18,6 +19,11 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
     private TextView textViewDone;
     private TextView textViewCancel;
 
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void initViews(View view) {
@@ -78,43 +84,43 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
         Thread timerThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                    Log.d(TAG, "run: start timerThread loop");
-                    int countDown = viewModel.getTimerLength();
-                    while (countDown >= 0 && !viewModel.isDone()) {
-                        Log.d(TAG, "run: timerThread countDown = " + Integer.toString(countDown));
-                        if (!viewModel.isPaused()) {
+                Log.d(TAG, "run: start timerThread loop");
+                int countDown = viewModel.getTimerLength();
+                while (countDown >= 0 && !viewModel.isDone()) {
+                    Log.d(TAG, "run: timerThread countDown = " + Integer.toString(countDown));
+                    if (!viewModel.isPaused()) {
 
-                            final String text = Integer.toString(countDown);
-                            final boolean isDone = countDown == 0;
-                            try {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.d(TAG, "run: updating timer on ui thread: " + text);
-                                        textViewTimer.setText(text);
-                                        if (isDone) {
-                                            Log.d(TAG, "run: timer ran out");
-                                            viewModel.onDone(new AttemptListener() {
-                                                @Override
-                                                public void onReturnCode(int statusCode) {
-                                                    Log.d(TAG, "onReturnCode: finalize park result recieved by timerThread listener");
-                                                    onFinished(statusCode);
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-                            } catch (NullPointerException e) {
-                                Log.d(TAG, "run: timerThread getActivity() threw nullpointer");
-                            }
-                            countDown--;
-                        }
+                        final String text = Integer.toString(countDown);
+                        final boolean isDone = countDown == 0;
                         try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            Log.d(TAG, "run: timerThread sleep interrupted");
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d(TAG, "run: updating timer on ui thread: " + text);
+                                    textViewTimer.setText(text);
+                                    if (isDone) {
+                                        Log.d(TAG, "run: timer ran out");
+                                        viewModel.onDone(new AttemptListener() {
+                                            @Override
+                                            public void onReturnCode(int statusCode) {
+                                                Log.d(TAG, "onReturnCode: finalize park result recieved by timerThread listener");
+                                                onFinished(statusCode);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        } catch (NullPointerException e) {
+                            Log.d(TAG, "run: timerThread getActivity() threw nullpointer");
                         }
+                        countDown--;
                     }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG, "run: timerThread sleep interrupted");
+                    }
+                }
             }
         });
         timerThread.start();

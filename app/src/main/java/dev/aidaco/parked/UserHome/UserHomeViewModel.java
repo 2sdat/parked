@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
+// TODO: 5/14/19 javadoc
 public class UserHomeViewModel extends BaseViewModel {
     private static final String TAG = "UserHomeViewModel";
 

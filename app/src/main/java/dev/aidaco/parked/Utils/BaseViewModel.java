@@ -12,6 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 public abstract class BaseViewModel extends AndroidViewModel {
     protected UserRepository userRepo;
     protected ParkedRepository parkedRepo;

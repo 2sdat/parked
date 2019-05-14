@@ -8,10 +8,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 @Entity(tableName = "spots", indices = {@Index(value = {"id"}, unique = true)})
 public class Spot {
 
-    // TODO implement non-auto spotId generation
     @PrimaryKey
     private int id;
 

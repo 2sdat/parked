@@ -16,6 +16,7 @@ import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.DoubleResultListener;
 
+// TODO: 5/14/19 javadoc
 public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
     private static final String TAG = "UserDetailFragment";
 
@@ -29,6 +30,11 @@ public class UserDetailFragment extends BaseFragment<UserDetailViewModel> {
     private TextView totalTickets;
     private Button toggleActive;
 
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         toolbarUp = view.findViewById(R.id.userDetail_ToolbarUp);

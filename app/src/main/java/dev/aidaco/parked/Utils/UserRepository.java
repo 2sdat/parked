@@ -11,8 +11,9 @@ import dev.aidaco.parked.Database.ParkedDatabase;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 public class UserRepository {
-    private static final String TAG = "UserRepository";
+
     private ParkedDatabase parkedDb;
     private UserDao userDao;
 
@@ -59,18 +60,9 @@ public class UserRepository {
         new CreateUserAsyncTask(userDao, firstName, lastName, username, password, userType, listener).execute();
     }
 
-    public void addUser(User user) {
-        new AddUserAsyncTask(userDao).execute(user);
-    }
-
     public void ensureDefaultUser() {
         new DefaultUserAsyncTask(userDao).execute();
     }
-
-    public void updateUser(User user) {
-        new UpdateUserAsyncTask(userDao).execute(user);
-    }
-
 
     public LiveData<List<User>> getAllUsers_LiveData() {
         return userDao.getAllUsers_LiveData();

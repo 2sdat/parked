@@ -18,6 +18,12 @@ import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.ClickListener;
 import dev.aidaco.parked.Utils.ParkedRepository;
 
+/**
+ * Fragment defining the behavior of the Manager home screen in the Manager work flow.
+ *
+ * @author Aidan Courtney
+ * @see ManagerHomeViewModel
+ */
 public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private static final String TAG = "ManagerHomeFragment";
 
@@ -30,6 +36,11 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private Observer<List<User>> userObserver;
     private Observer<List<ParkingTicket>> ticketObserver;
 
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         recyclerView = view.findViewById(R.id.managerHome_Recycler);
@@ -43,6 +54,9 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         Log.d(TAG, "initViews: views init'd");
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +81,11 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         });
     }
 
+    /**
+     * Toggle between displaying users or tickets.
+     */
     private void toggleContent() {
-        destoryUserAdapter();
+        destroyUserAdapter();
         destroyTicketAdapter();
         viewModel.toggleCurrentView();
 
@@ -84,6 +101,9 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         }
     }
 
+    /**
+     * Create a useradapter and apply it to the recyclerview
+     */
     private void initUserAdapter() {
         userAdapter = new UserAdapter(ParkedRepository.getInstance(getContext()));
 
@@ -114,7 +134,11 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         fabAdd.show();
     }
 
-    private void destoryUserAdapter() {
+
+    /**
+     * Handle destruction of the useradapter.
+     */
+    private void destroyUserAdapter() {
         fabAdd.hide();
 
         viewModel.getUsers().removeObserver(userObserver);
@@ -122,6 +146,9 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         this.userAdapter = null;
     }
 
+    /**
+     * Create a ticketadapter and apply it to the recyclerview
+     */
     private void initTicketAdapter() {
         fabAdd.hide();
 
@@ -152,6 +179,9 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         recyclerView.setAdapter(ticketAdapter);
     }
 
+    /**
+     * Handle destruction of the ticketadapter.
+     */
     private void destroyTicketAdapter() {
         viewModel.getTickets().removeObserver(ticketObserver);
         ticketObserver = null;
@@ -162,16 +192,32 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         this.ticketAdapter = null;
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     * <p>
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<ManagerHomeViewModel> getViewModelClass() {
         return ManagerHomeViewModel.class;
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_manager_home;
     }
 
+    /**
+     * Navigates to the detail view for the specified user.
+     * @param userId User to display
+     */
     private void navigateToUserDetailView(int userId) {
         Log.d(TAG, "navigateToUserDetailView: userhome -> userdetail");
         Bundle argsBundle = new Bundle();
@@ -179,6 +225,11 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         navigateActionWithArgs(R.id.action_managerHomeFragment_to_userDetailFragment, argsBundle);
     }
 
+
+    /**
+     * Navigates to the detail view for the specified ticket.
+     * @param ticketId Ticket to display.
+     */
     private void navigateToTicketDetailView(long ticketId) {
         Log.d(TAG, "navigateToTicketDetailView: userhome -> ticketdetail");
         Bundle argsBundle = new Bundle();
@@ -186,11 +237,17 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         navigateActionWithArgs(R.id.action_managerHomeFragment_to_ticketDetailFragment, argsBundle);
     }
 
-    public void navigateToAddNewUser() {
+    /**
+     * Navigates to the AddNewUser screen.
+     */
+    private void navigateToAddNewUser() {
         Log.d(TAG, "navigateToAddNewUser: managerhome -> addnewuser");
         navigateAction(R.id.action_managerHomeFragment_to_addNewUserFragment);
     }
 
+    /**
+     * Navigates to the Build screen.
+     */
     private void navigateToBuild() {
         Log.d(TAG, "navigateToBuild: managerhome -> build");
         navigateAction(R.id.action_managerHomeFragment_to_buildFragment);

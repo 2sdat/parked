@@ -21,8 +21,9 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 public class ParkedRepository {
-    private static final String TAG = "ParkedRepository";
+
     private SpotDao spotDao;
     private SpotDataDao spotDataDao;
     private TicketDao ticketDao;
@@ -82,22 +83,6 @@ public class ParkedRepository {
         new RebuildDatabaseAsyncTask(clearAllDao, spotDao, parkedDb.userDao(), numCar, numMotorcycle, numTruck).execute();
     }
 
-    public void clearSpots() {
-        new ClearSpotsAsyncTask(clearAllDao).execute();
-    }
-
-    public void clearTickets() {
-        new ClearTicketsAsyncTask(clearAllDao).execute();
-    }
-
-    public void clearUsers() {
-        new ClearUsersAsyncTask(clearAllDao).execute();
-    }
-
-    public LiveData<List<SpotData>> getAllSpots() {
-        return spotDataDao.getAllSpotsWithData_LiveData();
-    }
-
     public LiveData<List<SpotData>> getOccupiedSpots() {
         return spotDataDao.getOccupiedSpotswithData_LiveData();
     }
@@ -106,97 +91,12 @@ public class ParkedRepository {
         return spotDataDao.getSpotDataById_LiveData(id);
     }
 
-    public LiveData<List<ParkingTicketData>> getActiveTickets() {
-        return ticketDataDao.getAllActiveTickets_LiveData();
-    }
-
-    public List<Spot> getEmptySpots() {
-        return spotDao.getEmptySpots();
-    }
-
-    public void addSpot(Spot spot) {
-        new AddSpotAsyncTask(spotDao).execute(spot);
-    }
-
-    public void addTicket(ParkingTicket ticket) {
-        new AddTicketAsyncTask(ticketDao).execute(ticket);
-    }
-
     public LiveData<List<ParkingTicket>> getAllTickets() {
         return ticketDao.getAllTickets_LiveData();
     }
 
-    public List<ParkingTicket> getTicketById(long ticketId, SingleResultListener<ParkingTicket> listener) {
-        return ticketDao.getTicketById(ticketId);
-    }
-
     public LiveData<ParkingTicketData> getTicketDataByIdLive(long ticketId) {
         return ticketDataDao.getTicketById_LiveData(ticketId);
-    }
-
-    public void updateSpot(Spot spot) {
-        new UpdateSpotAsyncTask(spotDao).execute(spot);
-    }
-
-    public void updateTicket(ParkingTicket ticket) {
-        new UpdateTicketAsyncTask(ticketDao).execute(ticket);
-    }
-
-    private static class AddSpotAsyncTask extends AsyncTask<Spot, Void, Void> {
-        private SpotDao spotDao;
-
-        AddSpotAsyncTask(SpotDao spotDao) {
-            this.spotDao = spotDao;
-        }
-
-        @Override
-        protected Void doInBackground(Spot... spots) {
-            spotDao.addSpot(spots[0]);
-            return null;
-        }
-    }
-
-    private static class AddTicketAsyncTask extends AsyncTask<ParkingTicket, Void, Void> {
-        private TicketDao ticketDao;
-
-        AddTicketAsyncTask(TicketDao ticketDao) {
-            this.ticketDao = ticketDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(ParkingTicket... parkingTickets) {
-            ticketDao.addTicket(parkingTickets[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateSpotAsyncTask extends AsyncTask<Spot, Void, Void> {
-        private SpotDao spotDao;
-
-        UpdateSpotAsyncTask(SpotDao spotDao) {
-            this.spotDao = spotDao;
-        }
-
-        @Override
-        protected Void doInBackground(Spot... spots) {
-            spotDao.updateSpot(spots[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateTicketAsyncTask extends AsyncTask<ParkingTicket, Void, Void> {
-        private TicketDao ticketDao;
-
-        UpdateTicketAsyncTask(TicketDao ticketDao) {
-            this.ticketDao = ticketDao;
-        }
-
-        @Override
-        protected Void doInBackground(ParkingTicket... parkingTickets) {
-            ticketDao.updateTicket(parkingTickets[0]);
-            return null;
-        }
     }
 
     private static class ParkNewVehicleAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -407,48 +307,6 @@ public class ParkedRepository {
         }
     }
 
-    private static class ClearSpotsAsyncTask extends AsyncTask<Void, Void, Void> {
-        private ClearAllDao clearAllDao;
-
-        public ClearSpotsAsyncTask(ClearAllDao clearAllDao) {
-            this.clearAllDao = clearAllDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            clearAllDao.wipeSpots();
-            return null;
-        }
-    }
-
-    private static class ClearTicketsAsyncTask extends AsyncTask<Void, Void, Void> {
-        private ClearAllDao clearAllDao;
-
-        public ClearTicketsAsyncTask(ClearAllDao clearAllDao) {
-            this.clearAllDao = clearAllDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            clearAllDao.wipeTickets();
-            return null;
-        }
-    }
-
-    private static class ClearUsersAsyncTask extends AsyncTask<Void, Void, Void> {
-        private ClearAllDao clearAllDao;
-
-        public ClearUsersAsyncTask(ClearAllDao clearAllDao) {
-            this.clearAllDao = clearAllDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            clearAllDao.wipeUsers();
-            return null;
-        }
-    }
-
     private static class RebuildDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
         private ClearAllDao clearAllDao;
         private SpotDao spotDao;
@@ -473,18 +331,23 @@ public class ParkedRepository {
             clearAllDao.wipeTickets();
             clearAllDao.wipeUsers();
 
+            int offset = 0;
             for (int i = 1; i <= numCar; i++) {
-                Spot spot = new Spot(i, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID, false);
+                Spot spot = new Spot(i + offset, Enums.VehicleType.CAR, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 
-            for (int i = 0; i < numMoto; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.MOTORCYCLE, true, ParkingTicket.NULL_ID, false);
+            offset += numCar;
+
+            for (int i = 1; i <= numMoto; i++) {
+                Spot spot = new Spot(i + offset, Enums.VehicleType.MOTORCYCLE, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 
-            for (int i = 0; i < numTruck; i++) {
-                Spot spot = new Spot(0, Enums.VehicleType.TRUCK, true, ParkingTicket.NULL_ID, false);
+            offset += numMoto;
+
+            for (int i = 1; i <= numTruck; i++) {
+                Spot spot = new Spot(i + offset, Enums.VehicleType.TRUCK, true, ParkingTicket.NULL_ID, false);
                 spotDao.addSpot(spot);
             }
 

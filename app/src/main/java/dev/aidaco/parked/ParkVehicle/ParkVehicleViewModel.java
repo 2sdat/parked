@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
+// TODO: 5/14/19 javadoc
 public class ParkVehicleViewModel extends BaseViewModel {
     private static final String TAG = "ParkVehicleViewModel";
 

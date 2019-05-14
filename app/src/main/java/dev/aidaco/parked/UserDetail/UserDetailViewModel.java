@@ -11,6 +11,7 @@ import dev.aidaco.parked.Utils.AttemptListener;
 import dev.aidaco.parked.Utils.BaseViewModel;
 import dev.aidaco.parked.Utils.DoubleResultListener;
 
+// TODO: 5/14/19 javadoc
 public class UserDetailViewModel extends BaseViewModel {
     private int userId;
     private LiveData<List<User>> user;

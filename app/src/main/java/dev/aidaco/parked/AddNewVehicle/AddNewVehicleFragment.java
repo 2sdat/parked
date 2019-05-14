@@ -17,6 +17,12 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.DoubleResultListener;
 
+/**
+ * Fragment defining the behavior of the Add New Vehicle screen in the Attendant work flow.
+ *
+ * @author Aidan Courtney
+ * @see AddNewVehicleViewModel
+ */
 public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> {
     private static final String TAG = "AddNewVehicleFragment";
 
@@ -28,6 +34,11 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
     private Button buttonParkVehicle;
     private TextView textViewCancel;
 
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
 
@@ -40,7 +51,9 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         buttonParkVehicle = view.findViewById(R.id.addNewVehicle_Park);
         textViewCancel = view.findViewById(R.id.addNewVehicle_Cancel);
 
+        @SuppressWarnings("ConstantConditions")
         ArrayAdapter<Enums.State> arrayAdapterState = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, Enums.State.values());
+
         arrayAdapterState.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerLicensePlateState.setAdapter(arrayAdapterState);
 
@@ -55,6 +68,9 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         Log.d(TAG, "initViews: views init'd");
     }
 
+    /**
+     * Creates the callbacks and listeners for the Views and resources that require them.
+     */
     @Override
     public void createCallbacks() {
         imageButtonToolbarUp.setOnClickListener(new View.OnClickListener() {
@@ -104,16 +120,35 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         });
     }
 
+    /**
+     * Returns the Class object of AddNewUserViewModel
+     * <p>
+     * Called as part of the BaseFragment's viewmodel abstraction.
+     *
+     * @return The Class object of the AddNewUserViewModel
+     */
     @Override
     public Class<AddNewVehicleViewModel> getViewModelClass() {
         return AddNewVehicleViewModel.class;
     }
 
+    /**
+     * Called as part of the BaseFragment's initialization abstraction
+     *
+     * @return The resource ID of the layout resource
+     */
     @Override
     public int getLayoutId() {
         return R.layout.fragment_add_new_vehicle;
     }
 
+
+    /**
+     * Navigate to the Park Vehicle Screen.
+     *
+     * @param ticketId  The ID of the ticket being worked on.
+     * @param spotId    The ID of the assigned spot.
+     */
     private void navigateToParkVehicle(long ticketId, int spotId) {
         Bundle argsBundle = new Bundle();
         argsBundle.putLong("ticketId", ticketId);
@@ -122,6 +157,12 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         navigateActionWithArgs(R.id.action_addNewVehicleFragment_to_parkVehicleFragment, argsBundle);
     }
 
+
+    /**
+     * Navigate to UserHome.
+     *
+     * Called when the back button is pressed.
+     */
     private void navigateUp() {
         Log.d(TAG, "navigateUp: navigate to userhome");
         navigateActionAndPopUpTo(R.id.action_addNewVehicleFragment_to_userHomeFragment, R.id.addNewVehicleFragment);

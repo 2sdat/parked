@@ -16,6 +16,7 @@ import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.ClickListener;
 
+// TODO: 5/14/19 javadoc
 public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     private static final String TAG = "UserHomeFragment";
 
@@ -23,11 +24,11 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     private FloatingActionButton fabAddVehicle;
     private RecyclerView recyclerViewSpots;
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_user_home;
-    }
-
+    /**
+     * Initializes the View objects needed to implement requisite behavior.
+     *
+     * @param view Root view of the inflated layout resource
+     */
     @Override
     public void initViews(View view) {
         fabAddVehicle = view.findViewById(R.id.fabAddVehicle);
@@ -77,6 +78,11 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     @Override
     public Class<UserHomeViewModel> getViewModelClass() {
         return UserHomeViewModel.class;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_user_home;
     }
 
     private void navigateToSpotDetail(int spotId) {

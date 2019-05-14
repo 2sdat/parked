@@ -16,6 +16,12 @@ import dev.aidaco.parked.Utils.ClickListener;
 import dev.aidaco.parked.Utils.SingleResultListener;
 import dev.aidaco.parked.Utils.UserRepository;
 
+/**
+ * Implements the logic for populating the data in an item displaying ticket data.
+ *
+ * @author Aidan Courtney
+ * @see TicketAdapter
+ */
 class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "TicketItemViewHolder";
     private boolean RUNNING = false;
@@ -31,6 +37,12 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     private long ticketIdNum;
     private long startTime;
 
+    /**
+     * Instantiates a TicketItemViewHolder.
+     *
+     * @param itemView The inflated layout.
+     * @param activity The owning activity.
+     */
     TicketItemViewHolder(View itemView, Activity activity) {
         super(itemView);
         itemView.setOnClickListener(this);
@@ -43,17 +55,28 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         licensePlate = itemView.findViewById(R.id.ticketListItem_LicensePlate);
     }
 
+
     @Override
     public void onClick(View v) {
         listener.onClick(ticketIdNum);
     }
 
+    /**
+     * Called when this item is long clicked.
+     * Functionally identical to onClick.
+     * @param v Specific view that was clicked, unused.
+     * @return Unused.
+     */
     @Override
     public boolean onLongClick(View v) {
         listener.onLongClick(ticketIdNum);
         return false;
     }
 
+    /**
+     * Set the data source for this item.
+     * @param parkingTicket The data to use.
+     */
     @SuppressLint("SetTextI18n")
     void setData(final ParkingTicket parkingTicket) {
         RUNNING = false;
@@ -116,10 +139,19 @@ class TicketItemViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         }
     }
 
+    /**
+     * Set the listener to be called when this item is clicked.
+     * @param listener Click listener.
+     */
     public void setListener(ClickListener<Long> listener) {
         this.listener = listener;
     }
 
+    /**
+     * Utility function to format elapsed time.
+     * @param elapsed Time elapsed.
+     * @return Elapsed time formatted for display.
+     */
     @SuppressLint("DefaultLocale")
     private String formatElapsedTime(long elapsed) {
         long hours = TimeUnit.MILLISECONDS.toHours(elapsed);

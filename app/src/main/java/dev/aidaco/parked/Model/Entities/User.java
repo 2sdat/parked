@@ -7,6 +7,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
+// TODO: 5/14/19 javadoc
 @Entity(tableName = "users",
         indices = {
                 @Index(value = {"id"}, unique = true),

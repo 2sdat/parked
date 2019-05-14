@@ -12,6 +12,7 @@ import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
 
+// TODO: 5/14/19 javadoc
 class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private TextView textViewSpotNumber;
     private TextView textViewSpotType;

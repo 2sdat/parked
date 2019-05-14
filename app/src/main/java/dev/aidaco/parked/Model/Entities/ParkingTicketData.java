@@ -5,6 +5,7 @@ import java.util.List;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+// TODO: 5/14/19 javadoc
 public class ParkingTicketData {
     @Embedded
     public ParkingTicket parkingTicket;
