@@ -67,7 +67,7 @@ public class BuildFragment extends BaseFragment<BuildViewModel> {
                 // TODO implement input verification
 
                 viewModel.rebuild(numCar, numMoto, numTruck);
-                viewModel.resetData();
+                viewModel.onLogout();
                 navigateToLogin();
             }
         });

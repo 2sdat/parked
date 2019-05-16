@@ -1,9 +1,12 @@
 package dev.aidaco.parked.Utils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -62,11 +65,18 @@ public abstract class BaseFragment<T extends BaseViewModel> extends Fragment {
         NavHostFragment.findNavController(this).navigate(actionResId, argsBundle);
     }
 
-    public void navigateToDest(int destResId) {
-        NavHostFragment.findNavController(this).navigate(destResId);
-    }
-
     public void navigateToDestAndPopUpTo(int destResId, int targetResId) {
         NavHostFragment.findNavController(this).navigate(destResId, null, new NavOptions.Builder().setPopUpTo(targetResId, true).build());
+    }
+
+    public void hideKeyboard() {
+        Activity activity = getActivity();
+        InputMethodManager inputManager = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        View currentFocusedView = activity.getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

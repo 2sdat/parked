@@ -49,4 +49,8 @@ public abstract class BaseViewModel extends AndroidViewModel {
         return DateUtils.formatDateTime(context, time,
                 DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
     }
+
+    public void onLogout() {
+        userRepo.resetData();
+    }
 }

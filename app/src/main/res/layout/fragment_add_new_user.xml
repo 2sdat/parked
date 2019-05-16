@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:gravity="center">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -34,93 +35,107 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="?attr/actionBarSize"
+        android:background="@drawable/rounded_rectangle"
+        android:elevation="10dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:gravity="center"
-            android:text="Enter User Info:"
-            android:textColor="@color/colorText"
-            android:textSize="40sp" />
+            android:padding="10dp"
+            android:text="@string/enter_user_information"
+            android:textColor="@color/colorTextDark"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/addNewUser_FirstName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:hint="First Name"
+            android:ems="10"
+            android:hint="@string/first_name"
             android:inputType="textPersonName"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorText" />
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/addNewUser_LastName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:hint="Last Name"
+            android:ems="10"
+            android:hint="@string/last_name"
             android:inputType="textPersonName"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorText" />
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/addNewUser_UserName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:hint="User Name"
+            android:ems="10"
+            android:hint="@string/user_name"
             android:inputType="textNoSuggestions"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorText" />
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/addNewUser_Password"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:hint="Password"
+            android:ems="10"
+            android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorText" />
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/addNewUser_ConfirmPassword"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:hint="Confirm Password"
+            android:ems="10"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorText" />
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
 
         <Spinner
             android:id="@+id/addNewUser_UserType"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorText"
-            android:popupBackground="@color/colorPrimaryDark" />
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorTextDark"
+            android:popupBackground="@color/colorPrimaryDark"
+            tools:listitem="@layout/spinner_item" />
 
         <Button
             android:id="@+id/addNewUser_Done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_margin="20dp"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/done" />
 
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

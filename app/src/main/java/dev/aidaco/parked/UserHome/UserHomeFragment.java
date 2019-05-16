@@ -4,6 +4,7 @@ package dev.aidaco.parked.UserHome;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,6 +28,7 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
 
     private SpotAdapter spotAdapter;
     private FloatingActionButton fabAddVehicle;
+    private ImageButton logoutButton;
 
     /**
      * Initializes the View objects needed to implement requisite behavior.
@@ -35,6 +37,7 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
      */
     @Override
     public void initViews(View view) {
+        logoutButton = view.findViewById(R.id.userHome_Logout);
         fabAddVehicle = view.findViewById(R.id.fabAddVehicle);
         RecyclerView recyclerViewSpots = view.findViewById(R.id.recyclerViewSpots);
 
@@ -80,6 +83,14 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
                 navigateToAddNewVehicle();
             }
         });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.onLogout();
+                navigateToLogin();
+            }
+        });
     }
 
     /**
@@ -122,5 +133,13 @@ public class UserHomeFragment extends BaseFragment<UserHomeViewModel> {
     private void navigateToAddNewVehicle() {
         Log.d(TAG, "navigateToAddNewVehicle: navigate to addnewvehicle");
         navigateAction(R.id.action_userHomeFragment_to_addNewVehicleFragment);
+    }
+
+
+    /**
+     * Navigate to Login screen and clear backstack
+     */
+    private void navigateToLogin() {
+        navigateToDestAndPopUpTo(R.id.loginFragment, R.id.userHomeFragment);
     }
 }

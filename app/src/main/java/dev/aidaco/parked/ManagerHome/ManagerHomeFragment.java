@@ -31,6 +31,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private UserAdapter userAdapter;
     private TicketAdapter ticketAdapter;
     private FloatingActionButton fabAdd;
+    private ImageButton logoutButton;
     private ImageButton toggleContent;
     private ImageButton buttonBuild;
     private Observer<List<User>> userObserver;
@@ -47,6 +48,7 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         fabAdd = view.findViewById(R.id.managerHome_FAB);
         toggleContent = view.findViewById(R.id.managerHome_ToggleContent);
         buttonBuild = view.findViewById(R.id.managerHome_Create);
+        logoutButton = view.findViewById(R.id.managerHome_Logout);
 
         initUserAdapter();
         recyclerView.setAdapter(userAdapter);
@@ -77,6 +79,14 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
             @Override
             public void onClick(View v) {
                 toggleContent();
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.onLogout();
+                navigateToLogin();
             }
         });
     }
@@ -251,5 +261,12 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
     private void navigateToBuild() {
         Log.d(TAG, "navigateToBuild: managerhome -> build");
         navigateAction(R.id.action_managerHomeFragment_to_buildFragment);
+    }
+
+    /**
+     * Navigate to Login screen and clear backstack
+     */
+    private void navigateToLogin() {
+        navigateToDestAndPopUpTo(R.id.loginFragment, R.id.managerHomeFragment);
     }
 }

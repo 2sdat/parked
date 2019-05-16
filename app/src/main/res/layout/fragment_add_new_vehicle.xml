@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:gravity="center">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -19,9 +19,9 @@
             android:layout_gravity="start"
             android:layout_marginEnd="20dp"
             android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/back_button_description"
             android:scaleX="1.5"
             android:scaleY="1.5"
-            android:contentDescription="@string/back_button_description"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -35,80 +35,90 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/enter_vehicle_information"
-        android:textColor="@color/colorText"
-        android:textSize="30sp" />
-
-    <EditText
-        android:id="@+id/addNewVehicle_EditLicensePlate"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:ems="30"
-        android:gravity="center"
-        android:hint="@string/license_plate_number"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
-        tools:ignore="Autofill" />
-
-    <Spinner
-        android:id="@+id/addNewVehicle_State"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorText"
-        android:popupBackground="@color/colorPrimaryDark" />
-
-    <Spinner
-        android:id="@+id/addNewVehicle_Type"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorText"
-        android:popupBackground="@color/colorPrimaryDark" />
-
-    <Spinner
-        android:id="@+id/addNewVehicle_Billing"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorText"
-        android:popupBackground="#2196F3" />
-
-    <Button
-        android:id="@+id/addNewVehicle_Park"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/addVehicleParkButton" />
+        android:layout_margin="?actionBarSize"
+        android:background="@drawable/rounded_rectangle"
+        android:elevation="10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/addNewVehicle_Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/addVehicleCancel"
-        android:textColor="@color/colorText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/enter_vehicle_information"
+            android:textColor="@color/colorTextDark"
+            android:textSize="30sp" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/addNewVehicle_EditLicensePlate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:hint="@string/license_plate_number"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorTextDark"
+            tools:ignore="Autofill" />
+
+        <Spinner
+            android:id="@+id/addNewVehicle_State"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorTextDark"
+            android:padding="10dp"
+            android:popupBackground="@color/colorPrimaryDark"
+            tools:listitem="@layout/spinner_item" />
+
+        <Spinner
+            android:id="@+id/addNewVehicle_Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorTextDark"
+            android:padding="10dp"
+            android:popupBackground="@color/colorPrimaryDark"
+            tools:listitem="@layout/spinner_item" />
+
+        <Spinner
+            android:id="@+id/addNewVehicle_Billing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorTextDark"
+            android:padding="10dp"
+            android:popupBackground="#2196F3"
+            tools:listitem="@layout/spinner_item" />
+
+        <Button
+            android:id="@+id/addNewVehicle_Park"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/addVehicleParkButton" />
+
+        <TextView
+            android:id="@+id/addNewVehicle_Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/addVehicleCancel"
+            android:textColor="@color/colorTextAccent" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -154,6 +154,7 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
         argsBundle.putLong("ticketId", ticketId);
         argsBundle.putInt("spotId", spotId);
         Log.d(TAG, "navigateToParkVehicle: navigate to parkvehicle with ticketId: " + Long.toString(ticketId) + " spotId: " + Integer.toString(spotId));
+        hideKeyboard();
         navigateActionWithArgs(R.id.action_addNewVehicleFragment_to_parkVehicleFragment, argsBundle);
     }
 
@@ -165,6 +166,7 @@ public class AddNewVehicleFragment extends BaseFragment<AddNewVehicleViewModel> 
      */
     private void navigateUp() {
         Log.d(TAG, "navigateUp: navigate to userhome");
+        hideKeyboard();
         navigateActionAndPopUpTo(R.id.action_addNewVehicleFragment_to_userHomeFragment, R.id.addNewVehicleFragment);
     }
 }

@@ -120,6 +120,7 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
      */
     private void navigateToUserHome() {
         Log.d(TAG, "navigateToUserHome: navigate to userhome");
+        hideKeyboard();
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_user_nav_graph, R.id.loginFragment);
     }
 
@@ -128,6 +129,7 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
      */
     private void navigateToManagerHome() {
         Log.d(TAG, "navigateToManagerHome: navigate to managerhome");
+        hideKeyboard();
         navigateActionAndPopUpTo(R.id.action_loginFragment_to_manager_nav_graph, R.id.loginFragment);
     }
 

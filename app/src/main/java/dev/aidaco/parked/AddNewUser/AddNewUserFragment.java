@@ -111,6 +111,7 @@ public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
      * Called when back button pressed.
      */
     private void navigateUp() {
+        hideKeyboard();
         navigateActionAndPopUpTo(R.id.action_addNewUserFragment_to_managerHomeFragment, R.id.addNewUserFragment);
     }
 
@@ -122,6 +123,7 @@ public class AddNewUserFragment extends BaseFragment<AddNewUserViewModel> {
     private void navigateToUserDetail(int userId) {
         Bundle argsBundle = new Bundle();
         argsBundle.putInt("userId", userId);
+        hideKeyboard();
         navigateActionWithArgs(R.id.action_addNewUserFragment_to_userDetailFragment, argsBundle);
     }
 

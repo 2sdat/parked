@@ -52,15 +52,6 @@ public class BuildViewModel extends BaseViewModel {
         }
     }
 
-
-    /**
-     * Effctively logs out the current user.
-     */
-    public void resetData() {
-        userRepo.resetData();
-    }
-
-
     /**
      * Interface that can be called to launch a snackbar message.
      */
