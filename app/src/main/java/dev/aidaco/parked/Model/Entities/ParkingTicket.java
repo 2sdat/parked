@@ -123,20 +123,4 @@ public class ParkingTicket {
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
-
-    public boolean compare(ParkingTicket ticket) {
-        if (ticket == this) {
-            return true;
-        }
-
-        boolean res = this.id == ticket.getId();
-        res = res && (this.vehicleType == ticket.getVehicleType());
-        res = res && (this.spotId == ticket.getSpotId());
-        res = res && (this.licensePlate.getLicensePlateNumber().equals(ticket.getLicensePlate().getLicensePlateNumber()));
-        res = res && (this.licensePlate.getState() == ticket.getLicensePlate().getState());
-        res = res && (this.attendentId == ticket.getAttendentId());
-        res = res && (this.billingType == ticket.getBillingType());
-        res = res && (this.startTime == ticket.getStartTime());
-        return res;
-    }
 }
