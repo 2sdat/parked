@@ -33,251 +33,265 @@
             android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/displayTicket_TicketId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/colorText"
-        android:textSize="70sp"
-        tools:text="12345" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/spot"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/license_plate_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/vehicle_type_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/attendant_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/park_time_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/end_time_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/elapsed_time_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/billing_type_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-
-                android:text="@string/total_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/displayTicket_SpotNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="87" />
-
-            <TextView
-                android:id="@+id/displayTicket_LicensePlate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="NY JEN3375" />
-
-            <TextView
-                android:id="@+id/displayTicket_VehicleType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="Car" />
-
-            <TextView
-                android:id="@+id/displayTicket_Attendant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="Aidan Courtney" />
-
-            <TextView
-                android:id="@+id/displayTicket_ParkTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="3:17:03 PM" />
-
-            <TextView
-                android:id="@+id/displayTicket_EndTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="5:47:03 PM" />
-
-            <TextView
-                android:id="@+id/displayTicket_ElapsedTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="2:30:00" />
-
-            <TextView
-                android:id="@+id/displayTicket_BillingType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="HOURLY" />
-
-            <TextView
-                android:id="@+id/displayTicket_PriceTotal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="$34.20" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/displayTicket_Done"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/done" />
+        android:layout_margin="?actionBarSize"
+        android:background="@drawable/rounded_rectangle"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/displayTicket_TicketId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorTextDark"
+            android:textSize="70sp"
+            tools:text="12345" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/spot"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/license_plate_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/vehicle_type_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/attendant_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/park_time_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/end_time_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/elapsed_time_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/billing_type_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+
+                    android:text="@string/total_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/displayTicket_SpotNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="87" />
+
+                <TextView
+                    android:id="@+id/displayTicket_LicensePlate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="NY JEN3375" />
+
+                <TextView
+                    android:id="@+id/displayTicket_VehicleType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="Car" />
+
+                <TextView
+                    android:id="@+id/displayTicket_Attendant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="Aidan Courtney" />
+
+                <TextView
+                    android:id="@+id/displayTicket_ParkTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="3:17:03 PM" />
+
+                <TextView
+                    android:id="@+id/displayTicket_EndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="5:47:03 PM" />
+
+                <TextView
+                    android:id="@+id/displayTicket_ElapsedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="2:30:00" />
+
+                <TextView
+                    android:id="@+id/displayTicket_BillingType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="HOURLY" />
+
+                <TextView
+                    android:id="@+id/displayTicket_PriceTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="$34.20" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/displayTicket_Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/done" />
+
+    </LinearLayout>
 
 </LinearLayout>

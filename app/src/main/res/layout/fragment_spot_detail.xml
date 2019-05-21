@@ -19,9 +19,9 @@
             android:layout_gravity="start"
             android:layout_marginEnd="20dp"
             android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/back_button_description"
             android:scaleX="1.5"
             android:scaleY="1.5"
-            android:contentDescription="@string/back_button_description"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -35,205 +35,218 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/spotDetail_SpotNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textSize="70sp"
-        android:textColor="@color/colorText"
-        tools:text="87" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/license_plate_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/vehicle_type_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/spot_type_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/attendant_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-
-                android:text="@string/park_time_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-
-                android:text="@string/elapsed_time_descriptor"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-
-                android:text="@string/total"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/spotDetail_LicensePlate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="NY JEN3375" />
-
-            <TextView
-                android:id="@+id/spotDetail_VehicleType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="Car" />
-
-            <TextView
-                android:id="@+id/spotDetail_Spottype"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="Truck" />
-
-            <TextView
-                android:id="@+id/spotDetail_Attendant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="Aidan Courtney" />
-
-            <TextView
-                android:id="@+id/spotDetail_ParkTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="3:17:03 PM" />
-
-            <TextView
-                android:id="@+id/spotDetail_ElapsedTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="4:06:54" />
-
-            <TextView
-                android:id="@+id/spotDetail_TotalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                tools:text="$34.20" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/spotDetail_Release"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:padding="10dp"
         android:layout_gravity="center"
-        android:text="@string/release_vehicle_to_owner" />
+        android:layout_margin="?actionBarSize"
+        android:background="@drawable/rounded_rectangle"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/spotDetail_SpotNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorTextDark"
+            android:textSize="70sp"
+            tools:text="87" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/license_plate_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/vehicle_type_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/spot_type_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/attendant_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/park_time_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+
+                    android:text="@string/elapsed_time_descriptor"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+
+                    android:text="@string/total"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/spotDetail_LicensePlate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="NY JEN3375" />
+
+                <TextView
+                    android:id="@+id/spotDetail_VehicleType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="Car" />
+
+                <TextView
+                    android:id="@+id/spotDetail_Spottype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="Truck" />
+
+                <TextView
+                    android:id="@+id/spotDetail_Attendant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="Aidan Courtney" />
+
+                <TextView
+                    android:id="@+id/spotDetail_ParkTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="3:17:03 PM" />
+
+                <TextView
+                    android:id="@+id/spotDetail_ElapsedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="4:06:54" />
+
+                <TextView
+                    android:id="@+id/spotDetail_TotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="20sp"
+                    tools:text="$34.20" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/spotDetail_Release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:text="@string/release_vehicle_to_owner" />
+    </LinearLayout>
 </LinearLayout>
