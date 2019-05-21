@@ -20,8 +20,8 @@ import dev.aidaco.parked.Model.Entities.Spot;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
+import dev.aidaco.parked.Model.PaymentCalculator;
 
-// TODO: 5/14/19 javadoc
 public class ParkedRepository {
 
     private SpotDao spotDao;
@@ -242,6 +242,7 @@ public class ParkedRepository {
             Spot spot = spotDao.getSpotById(ticket.getSpotId()).get(0);
 
             ticket.setEndTime(System.currentTimeMillis());
+            ticket.setTotalPrice(PaymentCalculator.calculateTotal(ticket));
             spot.setReserved(false);
             spot.setEmpty(true);
             spot.setTicketId(ParkingTicket.NULL_ID);

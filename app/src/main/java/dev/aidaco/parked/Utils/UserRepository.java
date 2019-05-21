@@ -11,7 +11,6 @@ import dev.aidaco.parked.Database.ParkedDatabase;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 
-// TODO: 5/14/19 javadoc
 public class UserRepository {
 
     private ParkedDatabase parkedDb;

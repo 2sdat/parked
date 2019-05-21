@@ -12,7 +12,12 @@ import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Custom ViewHolder implemetation for displaying Spots in a recyclerview
+ *
+ * @author Aidan Courtney
+ */
 class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private TextView textViewSpotNumber;
     private TextView textViewSpotType;
@@ -41,6 +46,11 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         return false;
     }
 
+    /**
+     * Set the data to be displayed by the views contained by this class.
+     *
+     * @param spotData SpotData to be displayed
+     */
     void setData(SpotData spotData) {
         this.spotId = spotData.spot.getId();
         Spot spot = spotData.spot;
@@ -59,6 +69,11 @@ class SpotItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         textViewAttendent.setText(textAttendant);
     }
 
+    /**
+     * Sets the listener that will be notified when an item is clicked.
+     *
+     * @param listener Listener to be assigned.
+     */
     public void setListener(ClickListener<Integer> listener) {
         this.listener = listener;
     }

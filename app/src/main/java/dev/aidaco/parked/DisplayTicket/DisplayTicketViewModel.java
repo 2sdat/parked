@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.ParkingTicketData;
-import dev.aidaco.parked.Model.Enums;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
 /**
@@ -24,17 +23,6 @@ public class DisplayTicketViewModel extends BaseViewModel {
      */
     public DisplayTicketViewModel(@NonNull Application application) {
         super(application);
-    }
-
-
-    /**
-     * Calculates the total price based on the time and billing type.
-     * @param elapsedTime   Elapsed time.
-     * @param billingType   Billing type.
-     * @return Total price.
-     */
-    public float calculateTotal(long elapsedTime, Enums.BillingType billingType) {
-        return 10.35f;
     }
 
     /**

@@ -5,7 +5,12 @@ import java.util.List;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-// TODO: 5/14/19 javadoc
+/**
+ * This class models database calls that shoudl return the associated
+ * attendant data along with the parking ticket.
+ *
+ * @author Aidan Courtney
+ */
 public class ParkingTicketData {
     @Embedded
     public ParkingTicket parkingTicket;

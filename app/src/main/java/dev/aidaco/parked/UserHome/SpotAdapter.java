@@ -13,7 +13,13 @@ import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Custom adapter for displaying a list of SpotData objects
+ * in a recyclerview.
+ *
+ * @author Aidan COurtney
+ */
 public class SpotAdapter extends RecyclerView.Adapter<SpotItemViewHolder> {
     private static final String TAG = "SpotAdapter";
     private List<SpotData> occupiedSpots;

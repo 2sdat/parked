@@ -8,7 +8,14 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Data model for parking spots.
+ * <p>
+ * This class declares the layout for the "spots" table in the database.
+ *
+ * @author Aidan Courtney
+ */
 @Entity(tableName = "spots", indices = {@Index(value = {"id"}, unique = true)})
 public class Spot {
 

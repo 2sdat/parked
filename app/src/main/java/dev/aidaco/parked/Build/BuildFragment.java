@@ -64,7 +64,10 @@ public class BuildFragment extends BaseFragment<BuildViewModel> {
                 int numTruck = Integer.parseInt(truckSpots.getText().toString());
                 int numMoto = Integer.parseInt(motoSpots.getText().toString());
 
-                // TODO implement input verification
+                if (numCar + numTruck + numMoto == 0) {
+                    showSnackbar("Please enter values for all fields.");
+                    return;
+                }
 
                 viewModel.rebuild(numCar, numMoto, numTruck);
                 viewModel.onLogout();

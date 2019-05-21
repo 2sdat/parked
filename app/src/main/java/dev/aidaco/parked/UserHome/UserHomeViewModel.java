@@ -9,7 +9,13 @@ import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Model.Entities.SpotData;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * ViewModel implementing the logic needed to coordinate the UserHome fragment.
+ *
+ * @author Aidan Courtney
+ * @see UserHomeFragment
+ */
 public class UserHomeViewModel extends BaseViewModel {
     private static final String TAG = "UserHomeViewModel";
 
@@ -20,6 +26,11 @@ public class UserHomeViewModel extends BaseViewModel {
         occupiedSpots = parkedRepo.getOccupiedSpots();
     }
 
+    /**
+     * Returns a LiveData wrapped list of all occupied spots
+     *
+     * @return LiveData&ltList&ltSpotData&gt&gt
+     */
     public LiveData<List<SpotData>> getOccupiedSpots() {
         return occupiedSpots;
     }

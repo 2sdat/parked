@@ -2,9 +2,126 @@ package dev.aidaco.parked.Model;
 
 import androidx.room.TypeConverter;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Containing class for the various enum types needed.
+ *
+ * @author Aidan Courtney
+ */
 public class Enums {
 
+    /**
+     * Defines the conversion of integers to usertypes.
+     * <p>
+     * Allows UserTypes to be retrieved from the database.
+     *
+     * @param typeCode TypeCode to reconstitute
+     * @return UserType
+     */
+    @TypeConverter
+    public static UserType toUserType(int typeCode) {
+        return UserType.fromTypeCode(typeCode);
+    }
+
+    /**
+     * Defines the conversion of UserType to integers.
+     * <p>
+     * Allows UserTypes to be stored in the database.
+     *
+     * @param userType userType to convert
+     * @return Integer conversion
+     */
+    @TypeConverter
+    public static int fromUserType(UserType userType) {
+        return userType.getTypeCode();
+    }
+
+    /**
+     * Defines the conversion of integers to VehicleTypes.
+     * <p>
+     * Allows VehicleTypes to be retrieved from the database.
+     *
+     * @param typeCode TypeCode to reconstitute
+     * @return VehicleTypes
+     */
+    @TypeConverter
+    public static VehicleType toVehicleType(int typeCode) {
+        return VehicleType.fromTypeCode(typeCode);
+    }
+
+    /**
+     * Defines the conversion of VehicleType to integers.
+     * <p>
+     * Allows VehicleType to be stored in the database.
+     *
+     * @param vehicleType VehicleType to convert
+     * @return Integer conversion
+     */
+    @TypeConverter
+    public static int fromVehicleType(VehicleType vehicleType) {
+        return vehicleType.getTypeCode();
+    }
+
+    /**
+     * Defines the conversion of integers to BillingType.
+     * <p>
+     * Allows BillingType to be retrieved from the database.
+     *
+     * @param typeCode TypeCode to reconstitute
+     * @return BillingType
+     */
+    @TypeConverter
+    public static BillingType toBillingType(int typeCode) {
+        return BillingType.fromTypeCode(typeCode);
+    }
+
+    /**
+     * Defines the conversion of BillingType to integers.
+     * <p>
+     * Allows BillingType to be stored in the database.
+     *
+     * @param billingType BillingType to convert
+     * @return Integer conversion
+     */
+    @TypeConverter
+    public static int fromBillingType(BillingType billingType) {
+        return billingType.getTypeCode();
+    }
+
+    /**
+     * Defines the conversion of integers to State.
+     * <p>
+     * Allows State to be retrieved from the database.
+     *
+     * @param typeCode TypeCode to reconstitute
+     * @return State
+     */
+    @TypeConverter
+    public static State toState(int typeCode) {
+        return State.fromTypeCode(typeCode);
+    }
+
+    /**
+     * Defines the conversion of State to integers.
+     * <p>
+     * Allows State to be stored in the database.
+     *
+     * @param state State to convert
+     * @return Integer conversion
+     */
+    @TypeConverter
+    public static int fromState(State state) {
+        return state.getTypeCode();
+    }
+
+    /**
+     * Enum containing the three types of user accounts defined
+     * in the program.
+     * <br/>
+     * BASIC<br/>
+     * MANAGER<br/>
+     * ADMIN<br/>
+     */
     public enum UserType {
         BASIC(0),
         MANAGER(1),
@@ -16,10 +133,12 @@ public class Enums {
             this.typeCode = typeCode;
         }
 
-        public int getTypeCode() {
-            return this.typeCode;
-        }
-
+        /**
+         * Returns the UserType associated with the given typeCode
+         *
+         * @param typeCode typeCode to find UserType for
+         * @return UserType
+         */
         public static UserType fromTypeCode(int typeCode) {
             if (typeCode == BASIC.getTypeCode()) {
                 return BASIC;
@@ -31,8 +150,24 @@ public class Enums {
                 return null;
             }
         }
+
+        /**
+         * Returns the numerical representation of this UserType
+         *
+         * @return typeCode
+         */
+        public int getTypeCode() {
+            return this.typeCode;
+        }
     }
 
+    /**
+     * Enum containing the types of vehicles defined by the program.
+     * <br/>
+     * CAR<br/>
+     * TRUCK<br/>
+     * MOTORCYCLE<br/>
+     */
     public enum VehicleType {
         CAR(0, "Car"),
         TRUCK(1, "Truck"),
@@ -46,14 +181,11 @@ public class Enums {
             this.name = name;
         }
 
-        public int getTypeCode() {
-            return this.typeCode;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
+        /**
+         * Returns the VehicleType associated with the given typeCode
+         * @param typeCode typeCode to find VehicleType for
+         * @return VehicleType
+         */
         public static VehicleType fromTypeCode(int typeCode) {
             if (typeCode == CAR.getTypeCode()) {
                 return CAR;
@@ -65,8 +197,34 @@ public class Enums {
                 return null;
             }
         }
+
+        /**
+         * Returns the numerical representation of this VehicleType
+         *
+         * @return typeCode
+         */
+        public int getTypeCode() {
+            return this.typeCode;
+        }
+
+        /**
+         * Returns a human-readable string representation of the VehicleType
+         * for display purposes.
+         *
+         * @return String vehicle type
+         */
+        public String getName() {
+            return this.name;
+        }
     }
 
+    /**
+     * Enum containing the BillingTypes used by the program.
+     * <br/>
+     * HOURLY<br/>
+     * EARLY_BIRD<br/>
+     * OVERNIGHT<br/>
+     */
     public enum BillingType {
         HOURLY(0),
         EARLY_BIRD(1),
@@ -78,10 +236,11 @@ public class Enums {
             this.typeCode = typeCode;
         }
 
-        public int getTypeCode() {
-            return this.typeCode;
-        }
-
+        /**
+         * Returns the BillingType associated with the given typeCode
+         * @param typeCode typeCode to find BillingType for
+         * @return BillingType
+         */
         public static BillingType fromTypeCode(int typeCode) {
             if (typeCode == HOURLY.getTypeCode()) {
                 return HOURLY;
@@ -93,8 +252,25 @@ public class Enums {
                 return null;
             }
         }
+
+        /**
+         * Returns the numerical representation of this BillingType
+         *
+         * @return typeCode
+         */
+        public int getTypeCode() {
+            return this.typeCode;
+        }
     }
 
+    /**
+     * Enum containing the abbreviated and full state names.
+     * <br/>
+     * AL <br/>
+     * AK <br/>
+     * ...<br/>
+     * WY
+     */
     public enum State {
         AL(0, "Alabama"),
         AK(1, "Alaska"),
@@ -155,10 +331,11 @@ public class Enums {
             this.fullName = fullName;
         }
 
-        public int getTypeCode() {
-            return this.typeCode;
-        }
-
+        /**
+         * Returns the State associated with the given typeCode
+         * @param typeCode typeCode to find State for
+         * @return State
+         */
         public static State fromTypeCode(int typeCode) {
             for (State state : State.values()) {
                 if (typeCode == state.getTypeCode()) {
@@ -168,49 +345,18 @@ public class Enums {
             return null;
         }
 
+        /**
+         * Returns the numerical representation of this State
+         *
+         * @return typeCode
+         */
+        public int getTypeCode() {
+            return this.typeCode;
+        }
+
         @Override
         public String toString() {
             return this.fullName;
         }
-    }
-
-    @TypeConverter
-    public static UserType toUserType(int typeCode) {
-        return UserType.fromTypeCode(typeCode);
-    }
-
-    @TypeConverter
-    public static int fromUserType(UserType userType) {
-        return userType.getTypeCode();
-    }
-
-    @TypeConverter
-    public static VehicleType toVehicleType(int typeCode) {
-        return VehicleType.fromTypeCode(typeCode);
-    }
-
-    @TypeConverter
-    public static int fromVehicleType(VehicleType vehicleType) {
-        return vehicleType.getTypeCode();
-    }
-
-    @TypeConverter
-    public static BillingType toBillingType(int typeCode) {
-        return BillingType.fromTypeCode(typeCode);
-    }
-
-    @TypeConverter
-    public static int fromBillingType(BillingType billingType) {
-        return billingType.getTypeCode();
-    }
-
-    @TypeConverter
-    public static State toState(int typeCode) {
-        return State.fromTypeCode(typeCode);
-    }
-
-    @TypeConverter
-    public static int fromState(State state) {
-        return state.getTypeCode();
     }
 }

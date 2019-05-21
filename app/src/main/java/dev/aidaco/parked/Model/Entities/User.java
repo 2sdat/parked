@@ -7,7 +7,14 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Data model class representing users.
+ * <p>
+ * This class declares the layout for the "users" table of the database.
+ *
+ * @author Aidan Courtney
+ */
 @Entity(tableName = "users",
         indices = {
                 @Index(value = {"id"}, unique = true),

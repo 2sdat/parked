@@ -72,8 +72,7 @@ public class DisplayTicketFragment extends BaseFragment<DisplayTicketViewModel> 
                 elapsedTime.setText(viewModel.formatElapsedTime(parkingTicketData.parkingTicket.getEndTime()
                         - parkingTicketData.parkingTicket.getStartTime()));
                 billingType.setText(parkingTicketData.parkingTicket.getBillingType().toString());
-                priceTotal.setText(String.format("$%.2f", viewModel.calculateTotal(parkingTicketData.parkingTicket.getEndTime() -
-                        -parkingTicketData.parkingTicket.getStartTime(), parkingTicketData.parkingTicket.getBillingType())));
+                priceTotal.setText(String.format("$%.2f", parkingTicketData.parkingTicket.getTotalPrice()));
             }
         });
 

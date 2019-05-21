@@ -5,7 +5,13 @@ import java.util.List;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Class modelling the return type of database queries
+ * which return data associated with the spot object being queried.
+ *
+ * @author Aidan Courtney
+ */
 public class SpotData {
 
     @Embedded

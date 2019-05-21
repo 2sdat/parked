@@ -4,8 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.ParkingTicketData;
-import dev.aidaco.parked.Model.Enums;
+import dev.aidaco.parked.Model.PaymentCalculator;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
 /**
@@ -16,9 +17,7 @@ import dev.aidaco.parked.Utils.BaseViewModel;
  */
 public class TicketDetailViewModel extends BaseViewModel {
     private LiveData<ParkingTicketData> ticketData;
-    @SuppressWarnings("FieldCanBeLocal")
-    private long ticketId;
-    private long parkTime;
+    private ParkingTicket ticket;
 
     /**
      * Initializes the ViewModel.
@@ -36,16 +35,16 @@ public class TicketDetailViewModel extends BaseViewModel {
      * @param ticketId ID of the ticket to display.
      */
     public void setTicketId(long ticketId) {
-        this.ticketId = ticketId;
         this.ticketData = parkedRepo.getTicketDataByIdLive(ticketId);
     }
 
+
     /**
-     * Set the parking start time.
-     * @param parkTime  Time parking started.
+     * Set the cached copy of the current ticket
+     * @param ticket current ticket
      */
-    public void setParkTime(long parkTime) {
-        this.parkTime = parkTime;
+    public void setTicket(ParkingTicket ticket) {
+        this.ticket = ticket;
     }
 
     /**
@@ -61,18 +60,15 @@ public class TicketDetailViewModel extends BaseViewModel {
      * @return Time elapsed.
      */
     public long calculateElapsedTime() {
-        return System.currentTimeMillis() - parkTime;
+        return System.currentTimeMillis() - ticket.getStartTime();
     }
 
     /**
-     * Calculates the total price.
-     * @param elapsed   Elapsed time.
-     * @param billingType   Billing type to apply.
+     * Returns the total price.
      * @return Total price.
      */
-    public float calculateTotal(long elapsed, Enums.BillingType billingType) {
-        // TODO implement calculate pricing;
-
-        return 10.35f;
+    public float getCurrentPrice() {
+        return PaymentCalculator.calculateTotal(ticket);
     }
+
 }

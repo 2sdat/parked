@@ -4,7 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.SpotData;
+import dev.aidaco.parked.Model.PaymentCalculator;
 import dev.aidaco.parked.Utils.BaseViewModel;
 
 /**
@@ -16,8 +18,7 @@ import dev.aidaco.parked.Utils.BaseViewModel;
 public class SpotDetailViewModel extends BaseViewModel {
 
     private LiveData<SpotData> spotData;
-    private long ticketId;
-    private long parkTime = 0;
+    private ParkingTicket ticket;
 
     /**
      * Initializes the ViewModel.
@@ -35,16 +36,8 @@ public class SpotDetailViewModel extends BaseViewModel {
      * @return Elapsed time.
      */
     public String calculateElapsedTime() {
-        long elapsed = System.currentTimeMillis() - parkTime;
+        long elapsed = System.currentTimeMillis() - ticket.getStartTime();
         return formatElapsedTime(elapsed);
-    }
-
-
-    /**
-     * Finalize the ticket and release vehicle to owner.
-     */
-    public void releaseVehicle() {
-        // TODO implement calculate payment total
     }
 
     /**
@@ -68,15 +61,7 @@ public class SpotDetailViewModel extends BaseViewModel {
      * @return Current ticket ID.
      */
     public long getTicketId() {
-        return this.ticketId;
-    }
-
-    /**
-     * Set the ID of the ticket to be loaded.
-     * @param ticketId ID of ticket to display.
-     */
-    public void setTicketId(long ticketId) {
-        this.ticketId = ticketId;
+        return this.ticket.getId();
     }
 
     /**
@@ -84,14 +69,14 @@ public class SpotDetailViewModel extends BaseViewModel {
      * @return Parking start time.
      */
     public long getParkTime() {
-        return parkTime;
+        return this.ticket.getStartTime();
     }
 
-    /**
-     * Set the parking start time to store.
-     * @param parkTime  Parking start time.
-     */
-    public void setParkTime(long parkTime) {
-        this.parkTime = parkTime;
+    public float getCurrentPrice() {
+        return PaymentCalculator.calculateTotal(ticket);
+    }
+
+    public void setTicket(ParkingTicket parkingTicket) {
+        this.ticket = parkingTicket;
     }
 }

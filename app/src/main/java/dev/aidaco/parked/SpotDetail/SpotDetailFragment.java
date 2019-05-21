@@ -30,6 +30,7 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     private TextView textViewAttendant;
     private TextView textViewParkTime;
     private TextView textViewElapsedTime;
+    private TextView textViewTotalPrice;
     private Button buttonReleaseVehicle;
 
     private boolean isStopped = false;
@@ -49,6 +50,7 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         textViewAttendant = view.findViewById(R.id.spotDetail_Attendant);
         textViewParkTime = view.findViewById(R.id.spotDetail_ParkTime);
         textViewElapsedTime = view.findViewById(R.id.spotDetail_ElapsedTime);
+        textViewTotalPrice = view.findViewById(R.id.spotDetail_TotalPrice);
         buttonReleaseVehicle = view.findViewById(R.id.spotDetail_Release);
     }
 
@@ -58,17 +60,21 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
     @Override
     public void createCallbacks() {
         viewModel.getSpotData().observe(this, new Observer<SpotData>() {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onChanged(SpotData spotData) {
-                viewModel.setTicketId(spotData.ticket.get(0).parkingTicket.getId());
-                viewModel.setParkTime(spotData.ticket.get(0).parkingTicket.getStartTime());
+                viewModel.setTicket(spotData.ticket.get(0).parkingTicket);
                 textViewSpotNumber.setText(Integer.toString(spotData.spot.getId()));
                 textViewLicensePlate.setText(spotData.ticket.get(0).parkingTicket.getLicensePlate().toString());
                 textViewVehicleType.setText(spotData.ticket.get(0).parkingTicket.getVehicleType().getName());
                 textViewSpotType.setText(spotData.spot.getSpotType().getName());
                 textViewAttendant.setText(spotData.ticket.get(0).attendent.get(0).getFullName());
                 textViewParkTime.setText(viewModel.formatTime(getContext(), viewModel.getParkTime()));
+                textViewTotalPrice.setText(String.format("$%.2f", spotData.ticket.get(0).parkingTicket.getTotalPrice()));
+
+                if (viewModel.getCurrentPrice() == 0f) {
+                    textViewTotalPrice.setText("$--.--");
+                }
             }
         });
 
@@ -82,7 +88,6 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         buttonReleaseVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.releaseVehicle();
                 navigateToDisplayTicket(viewModel.getTicketId());
             }
         });
@@ -94,11 +99,13 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
                 while (!isStopped) {
                     try {
                         Thread.sleep(1000);
+                        final String newPrice = String.format("$%.2f", viewModel.getCurrentPrice());
                         final String newElapsed = viewModel.calculateElapsedTime();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 updateElapsedTime(newElapsed);
+                                updateCurrentPrice(newPrice);
                             }
                         });
                     } catch (InterruptedException e) {
@@ -167,6 +174,14 @@ public class SpotDetailFragment extends BaseFragment<SpotDetailViewModel> {
         textViewElapsedTime.setText(newElapsed);
     }
 
+    /**
+     * Outputs the updated current price to the totalPrice TextView.
+     *
+     * @param currentPrice String containing formatted current price to be displayed.
+     */
+    private void updateCurrentPrice(String currentPrice) {
+        textViewTotalPrice.setText(currentPrice);
+    }
 
     /**
      * Navigate to UserHome

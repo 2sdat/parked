@@ -1,6 +1,12 @@
 package dev.aidaco.parked.Utils;
 
-// TODO: 5/14/19 javadoc
+
+/**
+ * Defines a listener to be called with the results of attempted
+ * user creation.
+ *
+ * @author Aidan Courtney
+ */
 public interface CreateUserResultListener {
     int SUCCESS = 0;
     int INC_USERNAME = 1;

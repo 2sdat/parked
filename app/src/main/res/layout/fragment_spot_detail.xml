@@ -129,6 +129,18 @@
                 android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+
+                android:text="@string/total"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
 
@@ -201,6 +213,17 @@
                 android:textColor="@color/colorText"
                 android:textSize="20sp"
                 tools:text="4:06:54" />
+
+            <TextView
+                android:id="@+id/spotDetail_TotalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textColor="@color/colorText"
+                android:textSize="20sp"
+                tools:text="$34.20" />
 
         </LinearLayout>
     </LinearLayout>

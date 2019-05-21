@@ -50,8 +50,13 @@ public class ManagerHomeFragment extends BaseFragment<ManagerHomeViewModel> {
         buttonBuild = view.findViewById(R.id.managerHome_Create);
         logoutButton = view.findViewById(R.id.managerHome_Logout);
 
-        initUserAdapter();
-        recyclerView.setAdapter(userAdapter);
+        if (viewModel.getCurrentView() == ManagerHomeViewModel.USER_VIEW) {
+            initUserAdapter();
+            recyclerView.setAdapter(userAdapter);
+        } else {
+            initTicketAdapter();
+            recyclerView.setAdapter(ticketAdapter);
+        }
 
         Log.d(TAG, "initViews: views init'd");
     }

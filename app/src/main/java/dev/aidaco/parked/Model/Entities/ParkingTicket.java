@@ -9,8 +9,14 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import dev.aidaco.parked.Model.Enums;
 
-// TODO: 5/14/19 javadoc
 
+/**
+ * Data storage class for Parking Tickets and their associated data.
+ * <p>
+ * This class declares the model for the "tickets" table of the Room database.
+ *
+ * @author Aidan Courtney
+ */
 @Entity(tableName = "tickets", indices = {@Index(value = {"id"}, unique = true)})
 public class ParkingTicket {
     public static final long NULL_END_TIME = Long.MAX_VALUE;
@@ -44,6 +50,9 @@ public class ParkingTicket {
     @ColumnInfo(name = "end_time")
     private long endTime;
 
+    @ColumnInfo(name = "total_price")
+    private float totalPrice;
+
     public ParkingTicket(@NonNull Enums.VehicleType vehicleType, int spotId, @NonNull LicensePlate licensePlate, int attendentId, @NonNull Enums.BillingType billingType, long startTime) {
         this.id = 0;
         this.vehicleType = vehicleType;
@@ -53,6 +62,7 @@ public class ParkingTicket {
         this.billingType = billingType;
         this.startTime = startTime;
         this.endTime = NULL_END_TIME;
+        this.totalPrice = 0f;
     }
 
     public void setId(long id) {
@@ -104,6 +114,14 @@ public class ParkingTicket {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public boolean compare(ParkingTicket ticket) {

@@ -1,0 +1,17 @@
+dev.aidaco.parked
+dev.aidaco.parked.AddNewUser
+dev.aidaco.parked.AddNewVehicle
+dev.aidaco.parked.Build
+dev.aidaco.parked.Database
+dev.aidaco.parked.Database.Daos
+dev.aidaco.parked.DisplayTicket
+dev.aidaco.parked.Login
+dev.aidaco.parked.ManagerHome
+dev.aidaco.parked.Model
+dev.aidaco.parked.Model.Entities
+dev.aidaco.parked.ParkVehicle
+dev.aidaco.parked.SpotDetail
+dev.aidaco.parked.TicketDetail
+dev.aidaco.parked.UserDetail
+dev.aidaco.parked.UserHome
+dev.aidaco.parked.Utils

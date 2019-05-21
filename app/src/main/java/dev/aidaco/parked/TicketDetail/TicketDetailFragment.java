@@ -68,7 +68,7 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onChanged(final ParkingTicketData parkingTicketData) {
-                viewModel.setParkTime(parkingTicketData.parkingTicket.getStartTime());
+                viewModel.setTicket(parkingTicketData.parkingTicket);
                 ticketId.setText(Long.toString(parkingTicketData.parkingTicket.getId()));
                 spotNumber.setText(Integer.toString(parkingTicketData.parkingTicket.getSpotId()));
                 licensePlate.setText(parkingTicketData.parkingTicket.getLicensePlate().toString());
@@ -85,13 +85,13 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
                             while (!isStopped) {
                                 try {
                                     Thread.sleep(1000);
+                                    final String newPrice = String.format("$%.2f", viewModel.getCurrentPrice());
                                     final String newElapsed = viewModel.formatElapsedTime(viewModel.calculateElapsedTime());
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            elapsedTime.setText(newElapsed);
-                                            priceTotal.setText(String.format("$%.2f", viewModel.calculateTotal(viewModel.calculateElapsedTime(), parkingTicketData.parkingTicket.getBillingType())));
-
+                                            updateElapsedTime(newElapsed);
+                                            updateCurrentPrice(newPrice);
                                         }
                                     });
                                 } catch (InterruptedException e) {
@@ -108,8 +108,7 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
                     endTime.setText(viewModel.formatTime(getContext(), parkingTicketData.parkingTicket.getEndTime()));
                     elapsedTime.setText(viewModel.formatElapsedTime(parkingTicketData.parkingTicket.getEndTime()
                             - parkingTicketData.parkingTicket.getStartTime()));
-                    priceTotal.setText(String.format("$%.2f", viewModel.calculateTotal(parkingTicketData.parkingTicket.getEndTime() -
-                            parkingTicketData.parkingTicket.getStartTime(), parkingTicketData.parkingTicket.getBillingType())));
+                    priceTotal.setText(String.format("$%.2f", parkingTicketData.parkingTicket.getTotalPrice()));
                 }
                 billingType.setText(parkingTicketData.parkingTicket.getBillingType().toString());
             }
@@ -171,6 +170,25 @@ public class TicketDetailFragment extends BaseFragment<TicketDetailViewModel> {
         isStopped = true;
         super.onStop();
     }
+
+    /**
+     * Outputs the updated current price to the totalPrice TextView.
+     *
+     * @param currentPrice String containing formatted current price to be displayed.
+     */
+    private void updateCurrentPrice(String currentPrice) {
+        priceTotal.setText(currentPrice);
+    }
+
+    /**
+     * Outputs the updated elapsed time to the elapsedTime TextView.
+     *
+     * @param newElapsed String containing formatted elapsed time to be displayed.
+     */
+    private void updateElapsedTime(String newElapsed) {
+        elapsedTime.setText(newElapsed);
+    }
+
 
     /**
      * Called as part of the BaseFragment's initialization abstraction
