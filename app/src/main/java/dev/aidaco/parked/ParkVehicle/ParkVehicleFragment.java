@@ -82,10 +82,10 @@ public class ParkVehicleFragment extends BaseFragment<ParkVehicleViewModel> {
                 viewModel.onPause();
                 if (viewModel.isPaused()) {
                     Log.d(TAG, "onClick: timer is paused");
-                    textViewTimer.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    textViewTimer.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextAccent));
                 } else {
                     Log.d(TAG, "onClick: timer is not paused");
-                    textViewTimer.setTextColor(ContextCompat.getColor(getContext(), R.color.colorText));
+                    textViewTimer.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDark));
                 }
             }
         });
