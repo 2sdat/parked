@@ -9,12 +9,12 @@ import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 import androidx.recyclerview.widget.RecyclerView;
+import dev.aidaco.parked.Database.UserRepository;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
 import dev.aidaco.parked.Utils.SingleResultListener;
-import dev.aidaco.parked.Utils.UserRepository;
 
 /**
  * Implements the logic for populating the data in an item displaying ticket data.

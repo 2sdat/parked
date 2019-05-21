@@ -1,4 +1,4 @@
-package dev.aidaco.parked.Utils;
+package dev.aidaco.parked.Database;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,9 +7,11 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import dev.aidaco.parked.Database.Daos.UserDao;
-import dev.aidaco.parked.Database.ParkedDatabase;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
+import dev.aidaco.parked.Utils.AttemptListener;
+import dev.aidaco.parked.Utils.CreateUserResultListener;
+import dev.aidaco.parked.Utils.SingleResultListener;
 
 public class UserRepository {
 

@@ -11,12 +11,12 @@ import java.util.List;
 
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
+import dev.aidaco.parked.Database.ParkedRepository;
 import dev.aidaco.parked.Model.Entities.ParkingTicket;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.BaseFragment;
 import dev.aidaco.parked.Utils.ClickListener;
-import dev.aidaco.parked.Utils.ParkedRepository;
 
 /**
  * Fragment defining the behavior of the Manager home screen in the Manager work flow.

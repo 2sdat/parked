@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import dev.aidaco.parked.Database.ParkedRepository;
+import dev.aidaco.parked.Database.UserRepository;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.Model.Enums;
 

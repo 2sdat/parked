@@ -9,10 +9,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import dev.aidaco.parked.Database.ParkedRepository;
 import dev.aidaco.parked.Model.Entities.User;
 import dev.aidaco.parked.R;
 import dev.aidaco.parked.Utils.ClickListener;
-import dev.aidaco.parked.Utils.ParkedRepository;
 
 /**
  * Stores the data for and handles the binding of user views for the recyclerview in the ManagerHome Fragment.
